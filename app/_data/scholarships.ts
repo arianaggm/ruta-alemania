@@ -2,12 +2,16 @@ export type Scholarship = {
   title: string;
   organization: string;
   degreeLevel: string;
-  field: string;
+  fields: string;
   language: string;
-  funding: string;
+  fundingType: string;
+  eligibleForMexicans: boolean;
+  germanUsuallyRequired: boolean;
+  admissionRequired: boolean;
   deadline: string;
-  eligibility: string;
-  officialLink: string;
+  officialUrl: string;
+  notes: string;
+  lastChecked: string;
 };
 
 export const scholarships: Scholarship[] = [
@@ -15,66 +19,99 @@ export const scholarships: Scholarship[] = [
     title: "DAAD EPOS Scholarship",
     organization: "DAAD",
     degreeLevel: "Maestría",
-    field: "Áreas relacionadas con desarrollo",
+    fields: "Áreas relacionadas con desarrollo",
     language: "Inglés",
-    funding: "Financiamiento completo",
+    fundingType: "Financiamiento completo",
+    eligibleForMexicans: true,
+    germanUsuallyRequired: false,
+    admissionRequired: true,
     deadline: "Varía por programa",
-    eligibility: "Estudiantes internacionales, incluyendo postulantes de México",
-    officialLink: "#",
+    officialUrl:
+      "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/",
+    notes:
+      "Conviene revisar cada maestría EPOS por separado porque requisitos, fechas y documentos cambian según el programa.",
+    lastChecked: "2026-06-17",
   },
   {
     title: "DAAD Study Scholarships",
     organization: "DAAD",
     degreeLevel: "Maestría",
-    field: "Todas las áreas",
+    fields: "Todas las áreas",
     language: "Inglés / Alemán",
-    funding: "Apoyo mensual",
+    fundingType: "Apoyo mensual",
+    eligibleForMexicans: true,
+    germanUsuallyRequired: false,
+    admissionRequired: true,
     deadline: "Convocatoria anual",
-    eligibility: "Personas graduadas de México y otros países",
-    officialLink: "#",
+    officialUrl: "https://www.daad.de/en/studying-in-germany/scholarships/daad-scholarships/",
+    notes:
+      "La elegibilidad exacta depende de la convocatoria vigente y del tipo de programa al que quieras aplicar.",
+    lastChecked: "2026-06-17",
   },
   {
-    title: "Heinrich Boll Foundation Scholarship",
+    title: "Heinrich Böll Foundation Scholarship",
     organization: "Heinrich Böll Stiftung",
     degreeLevel: "Maestría / Doctorado",
-    field: "Todas las áreas",
-    language: "Normalmente se requiere Alemán",
-    funding: "Apoyo de beca",
+    fields: "Todas las áreas",
+    language: "Alemán",
+    fundingType: "Apoyo de beca",
+    eligibleForMexicans: true,
+    germanUsuallyRequired: true,
+    admissionRequired: true,
     deadline: "Marzo / septiembre",
-    eligibility: "Estudiantes internacionales",
-    officialLink: "#",
+    officialUrl: "https://www.boell.de/en/scholarships",
+    notes:
+      "Suele valorar compromiso social y, en muchas convocatorias, es importante revisar el nivel de alemán solicitado.",
+    lastChecked: "2026-06-17",
   },
   {
     title: "Deutschlandstipendium",
     organization: "Universidades alemanas",
     degreeLevel: "Licenciatura / Maestría",
-    field: "Todas las áreas",
+    fields: "Todas las áreas",
     language: "Depende del programa",
-    funding: "Apoyo parcial",
+    fundingType: "Apoyo parcial",
+    eligibleForMexicans: true,
+    germanUsuallyRequired: false,
+    admissionRequired: true,
     deadline: "Depende de la universidad",
-    eligibility: "Estudiantes inscritos en Alemania",
-    officialLink: "#",
+    officialUrl:
+      "https://www.deutschlandstipendium.de/deutschlandstipendium/de/services/english/english.html",
+    notes:
+      "Normalmente se solicita cuando ya estás inscrita o inscrito, o en proceso de inscripción, en una universidad participante en Alemania.",
+    lastChecked: "2026-06-17",
   },
   {
     title: "Friedrich Ebert Stiftung Scholarship",
-    organization: "Friedrich Ebert Stiftung",
+    organization: "Friedrich-Ebert-Stiftung",
     degreeLevel: "Licenciatura / Maestría / Doctorado",
-    field: "Todas las áreas",
-    language: "Normalmente se requiere Alemán",
-    funding: "Apoyo de beca",
+    fields: "Todas las áreas",
+    language: "Alemán",
+    fundingType: "Apoyo de beca",
+    eligibleForMexicans: true,
+    germanUsuallyRequired: true,
+    admissionRequired: true,
     deadline: "Varía",
-    eligibility: "Estudiantes internacionales con compromiso social",
-    officialLink: "#",
+    officialUrl: "https://www.fes.de/studienfoerderung",
+    notes:
+      "Además del perfil académico, suele importar el compromiso social y la afinidad con los valores de la fundación.",
+    lastChecked: "2026-06-17",
   },
   {
     title: "Erasmus+ Mobility",
     organization: "Unión Europea",
     degreeLevel: "Licenciatura / Maestría",
-    field: "Depende del convenio universitario",
+    fields: "Depende del convenio universitario",
     language: "Depende del programa",
-    funding: "Apoyo de movilidad",
+    fundingType: "Apoyo de movilidad",
+    eligibleForMexicans: false,
+    germanUsuallyRequired: false,
+    admissionRequired: true,
     deadline: "Depende de la universidad de origen",
-    eligibility: "Estudiantes inscritos en universidades asociadas",
-    officialLink: "#",
+    officialUrl:
+      "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/studying-abroad",
+    notes:
+      "Suele depender de estar ya inscrita o inscrito en una universidad con convenio Erasmus+ activo.",
+    lastChecked: "2026-06-17",
   },
 ];

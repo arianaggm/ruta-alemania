@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import type { Scholarship } from "../../_data/scholarships";
 import { ScholarshipCard } from "../../_components/scholarship-card";
+import type { Scholarship } from "../../_data/scholarships";
 
 type ScholarshipsBrowserProps = {
   scholarships: Scholarship[];
@@ -10,26 +10,26 @@ type ScholarshipsBrowserProps = {
 
 type FilterState = {
   degreeLevel: string;
-  field: string;
+  fields: string;
   language: string;
-  funding: string;
+  fundingType: string;
 };
 
 const initialFilters: FilterState = {
   degreeLevel: "Todos",
-  field: "Todas",
+  fields: "Todas",
   language: "Todos",
-  funding: "Todos",
+  fundingType: "Todos",
 };
 
 const filterGroups = [
   {
     id: "degreeLevel",
     label: "Nivel",
-    options: ["Todos", "Licenciatura", "Maestria", "Doctorado"],
+    options: ["Todos", "Licenciatura", "Maestría", "Doctorado"],
   },
   {
-    id: "field",
+    id: "fields",
     label: "Área",
     options: ["Todas", "STEM", "Todas las áreas", "Áreas relacionadas con desarrollo"],
   },
@@ -39,7 +39,7 @@ const filterGroups = [
     options: ["Todos", "Inglés", "Alemán", "Inglés / Alemán"],
   },
   {
-    id: "funding",
+    id: "fundingType",
     label: "Financiamiento",
     options: [
       "Todos",
@@ -51,13 +51,14 @@ const filterGroups = [
   },
 ] as const;
 
+function normalizeFilterValue(value: string) {
+  return value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+}
+
 function includesFilterValue(source: string, filter: string) {
   if (filter === "Todos" || filter === "Todas") return true;
 
-  const normalizedSource = source.toLowerCase();
-  const normalizedFilter = filter.toLowerCase();
-
-  return normalizedSource.includes(normalizedFilter);
+  return normalizeFilterValue(source).includes(normalizeFilterValue(filter));
 }
 
 export function ScholarshipsBrowser({
@@ -69,9 +70,9 @@ export function ScholarshipsBrowser({
     return scholarships.filter((scholarship) => {
       return (
         includesFilterValue(scholarship.degreeLevel, filters.degreeLevel) &&
-        includesFilterValue(scholarship.field, filters.field) &&
+        includesFilterValue(scholarship.fields, filters.fields) &&
         includesFilterValue(scholarship.language, filters.language) &&
-        includesFilterValue(scholarship.funding, filters.funding)
+        includesFilterValue(scholarship.fundingType, filters.fundingType)
       );
     });
   }, [filters, scholarships]);

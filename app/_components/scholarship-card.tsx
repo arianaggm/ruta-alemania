@@ -9,23 +9,44 @@ export function ScholarshipCard({
   scholarship,
   variant = "full",
 }: ScholarshipCardProps) {
-  const hasOfficialLink = scholarship.officialLink !== "#";
+  const hasOfficialLink =
+    Boolean(scholarship.officialUrl) && scholarship.officialUrl !== "#";
+
+  const formattedLastChecked = new Intl.DateTimeFormat("es-MX", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  }).format(new Date(`${scholarship.lastChecked}T00:00:00`));
+
   const detailRows =
     variant === "preview"
       ? [
           { label: "Organización", value: scholarship.organization },
           { label: "Nivel", value: scholarship.degreeLevel },
           { label: "Cierre", value: scholarship.deadline },
-          { label: "Cobertura", value: scholarship.funding },
+          { label: "Financiamiento", value: scholarship.fundingType },
         ]
       : [
           { label: "Organización", value: scholarship.organization },
           { label: "Nivel", value: scholarship.degreeLevel },
-          { label: "Área", value: scholarship.field },
+          { label: "Área", value: scholarship.fields },
           { label: "Idioma", value: scholarship.language },
-          { label: "Financiamiento", value: scholarship.funding },
+          { label: "Financiamiento", value: scholarship.fundingType },
           { label: "Cierre", value: scholarship.deadline },
-          { label: "Elegibilidad", value: scholarship.eligibility },
+          {
+            label: "¿Elegible para mexicanas y mexicanos?",
+            value: scholarship.eligibleForMexicans ? "Sí" : "No siempre",
+          },
+          {
+            label: "¿Suele pedir alemán?",
+            value: scholarship.germanUsuallyRequired ? "Sí" : "No necesariamente",
+          },
+          {
+            label: "¿Suele pedir admisión previa?",
+            value: scholarship.admissionRequired ? "Sí" : "Depende",
+          },
+          { label: "Notas", value: scholarship.notes },
+          { label: "Última revisión", value: formattedLastChecked },
         ];
 
   return (
@@ -53,7 +74,7 @@ export function ScholarshipCard({
       </div>
       {hasOfficialLink ? (
         <a
-          href={scholarship.officialLink}
+          href={scholarship.officialUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 inline-flex items-center justify-center rounded-full border border-rosa-mexicano/18 bg-peach-fuzz/65 px-5 py-3 text-sm font-semibold text-dark-text hover:-translate-y-0.5 hover:border-rosa-mexicano hover:bg-peach-fuzz"

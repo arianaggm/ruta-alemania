@@ -42,6 +42,66 @@ const checklistItems = [
   "Preparar visa y mudanza",
 ];
 
+const gettingStartedSteps = [
+  {
+    title: "Entiende tus opciones",
+    description:
+      "Aprende la diferencia entre Ausbildung, Duales Studium, Hochschule, Universität y TU antes de elegir una ruta.",
+    href: "/guias/ausbildung-duales-studium-hochschule-universitat-tu-diferencias",
+    cta: "Leer guía",
+  },
+  {
+    title: "Busca programas",
+    description:
+      "Usa buscadores confiables como DAAD, Hochschulkompass y portales oficiales para encontrar programas que se ajusten a tus metas.",
+    href: "/buscadores",
+    cta: "Ver buscadores",
+  },
+  {
+    title: "Revisa requisitos",
+    description:
+      "Compara idioma, documentos, fechas límite, costos, ciudad y tipo de aplicación.",
+    href: "/checklist",
+    cta: "Ver checklist",
+  },
+  {
+    title: "Explora becas",
+    description:
+      "Busca opciones de financiamiento y revisa si aplican para estudiantes mexicanos.",
+    href: "/becas",
+    cta: "Ver becas",
+  },
+  {
+    title: "Prepara documentos",
+    description:
+      "Organiza tu pasaporte, certificados, traducciones, CV, cartas y requisitos específicos del programa.",
+    href: "/guias",
+    cta: "Ver guías",
+  },
+  {
+    title: "Planea visa y llegada",
+    description:
+      "Revisa información oficial, financiamiento, seguro médico, alojamiento y primeros trámites en Alemania.",
+    href: "/checklist",
+    cta: "Ver checklist",
+  },
+] as const;
+
+const creatorLinks = [
+  {
+    label: "GitHub",
+    href: "https://github.com/arianaggm",
+  },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/arianagutierrezmay/",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/arianaggm_/",
+  },
+] as const;
+
 export default function Home() {
   const navLinks = [
     { label: "Inicio", href: "#inicio", active: true },
@@ -49,7 +109,8 @@ export default function Home() {
     { label: "Guías", href: "/guias" },
     { label: "Checklist", href: "/checklist" },
     { label: "Buscadores", href: "/buscadores" },
-    { label: "Sobre el proyecto", href: "#sobre-el-proyecto" },
+    { label: "Por dónde empiezo", href: "#por-donde-empiezo" },
+    { label: "Sobre mí", href: "#sobre-mi" },
   ];
 
   return (
@@ -130,6 +191,48 @@ export default function Home() {
           </div>
         </section>
 
+        <section id="por-donde-empiezo" className="px-4 py-18 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <SectionHeading
+              eyebrow="¿Por dónde empiezo?"
+              title="Un camino simple para pasar de la idea a la acción"
+              description="Si apenas estás comenzando, esta ruta te ayuda a ubicar qué revisar primero y qué recursos usar en cada etapa."
+            />
+
+            <div className="mt-10 grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
+              {gettingStartedSteps.map((step, index) => (
+                <article
+                  key={step.title}
+                  className="relative rounded-[2rem] border border-dark-text/8 bg-white/82 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)]"
+                >
+                  <div className="flex items-start gap-4">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-rosa-mexicano text-base font-semibold text-white shadow-[0_16px_30px_rgba(212,68,122,0.22)]">
+                      {index + 1}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-rosa-mexicano">
+                        Paso {index + 1}
+                      </p>
+                      <h3 className="mt-3 font-display text-2xl font-semibold text-dark-text">
+                        {step.title}
+                      </h3>
+                      <p className="mt-3 leading-7 text-dark-text/74">
+                        {step.description}
+                      </p>
+                      <Link
+                        href={step.href}
+                        className="mt-5 inline-flex items-center rounded-full bg-peach-fuzz px-4 py-2 text-sm font-semibold text-dark-text transition hover:-translate-y-0.5 hover:bg-[#ffcfae]"
+                      >
+                        {step.cta}
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section id="becas" className="px-4 py-18 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
@@ -194,13 +297,58 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="sobre-el-proyecto" className="px-4 py-18 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-4xl rounded-[2rem] border border-dark-text/8 bg-butter/45 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10">
-            <SectionHeading
-              eyebrow="Sobre el proyecto"
-              title="Ruta Alemania nace para hacer el proceso más accesible"
-              description="Ruta Alemania nace para reunir información clara, práctica y en español para estudiantes mexicanos que quieren estudiar en Alemania. El proyecto combina experiencia personal, investigación de recursos oficiales y herramientas digitales para hacer el proceso más accesible."
-            />
+        <section id="sobre-mi" className="px-4 py-18 sm:px-6 lg:px-8">
+          <div className="mx-auto grid max-w-6xl gap-8 rounded-[2rem] border border-dark-text/8 bg-butter/45 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10 lg:grid-cols-[0.95fr_1.05fr]">
+            <div>
+              <SectionHeading
+                eyebrow="Quién está detrás de Ruta Alemania"
+                title="Un proyecto personal, educativo y hecho con intención"
+                description="Ruta Alemania combina experiencia directa con herramientas digitales para acompañar a más estudiantes mexicanos en un proceso que a veces se siente demasiado disperso."
+              />
+            </div>
+
+            <div className="space-y-6">
+              <div className="rounded-[1.75rem] border border-white/60 bg-white/78 p-6 shadow-[0_14px_40px_rgba(43,30,36,0.08)]">
+                <p className="text-base leading-8 text-dark-text/78">
+                  Hola, soy Ariana Gutierrez May. Soy ingeniera biomédica
+                  mexicana y actualmente estudio la maestría en Computational
+                  Modeling and Simulation en TU Dresden, Alemania.
+                </p>
+                <p className="mt-4 text-base leading-8 text-dark-text/78">
+                  Creé Ruta Alemania porque sé lo confuso que puede ser empezar
+                  este proceso desde México: buscar programas, entender
+                  requisitos, preparar documentos, encontrar becas y organizar
+                  la llegada. Mi objetivo es reunir recursos claros, guías
+                  prácticas y links confiables para que más estudiantes
+                  mexicanos puedan orientarse paso a paso.
+                </p>
+                <p className="mt-4 text-base leading-8 text-dark-text/78">
+                  Este proyecto también forma parte de mi portafolio como
+                  desarrolladora, combinando mi experiencia en tecnología,
+                  educación, visualización de información y herramientas
+                  digitales.
+                </p>
+              </div>
+
+              <div className="rounded-[1.75rem] border border-rosa-mexicano/12 bg-peach-fuzz/60 p-6 shadow-[0_14px_40px_rgba(43,30,36,0.08)]">
+                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
+                  Encuéntrame también aquí
+                </p>
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {creatorLinks.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center rounded-full border border-rosa-mexicano/18 bg-white/82 px-4 py-2 text-sm font-semibold text-dark-text transition hover:-translate-y-0.5 hover:border-rosa-mexicano hover:text-rosa-mexicano"
+                    >
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </section>
       </main>
