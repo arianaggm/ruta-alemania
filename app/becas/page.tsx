@@ -11,6 +11,7 @@ export default function ScholarshipsPage() {
     { label: "Becas", href: "/becas", active: true },
     { label: "Guías", href: "/guias" },
     { label: "Checklist", href: "/checklist" },
+    { label: "Buscadores", href: "/buscadores" },
   ];
 
   return (

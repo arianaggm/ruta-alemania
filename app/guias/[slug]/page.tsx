@@ -44,6 +44,7 @@ export default async function GuideDetailPage(
     { label: "Becas", href: "/becas" },
     { label: "Guías", href: "/guias", active: true },
     { label: "Checklist", href: "/checklist" },
+    { label: "Buscadores", href: "/buscadores" },
   ];
 
   return (

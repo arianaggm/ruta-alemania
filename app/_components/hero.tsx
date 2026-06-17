@@ -9,7 +9,7 @@ export function Hero() {
             Plataforma en español para estudiantes mexicanos
           </div>
           <h1 className="mt-6 font-display text-5xl font-semibold tracking-tight text-dark-text sm:text-6xl lg:text-7xl">
-            Estudia en Alemania siendo mexicana o mexicano
+            Estudia en Alemania siendo de México, sin complicaciones ni sorpresas.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-dark-text/78 sm:text-xl">
             Guías, becas y recursos claros para ayudarte a planear tu camino

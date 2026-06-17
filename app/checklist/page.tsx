@@ -11,6 +11,7 @@ export default function ChecklistPage() {
     { label: "Becas", href: "/becas" },
     { label: "Guías", href: "/guias" },
     { label: "Checklist", href: "/checklist", active: true },
+    { label: "Buscadores", href: "/buscadores" },
   ];
 
   return (

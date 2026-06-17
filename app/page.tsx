@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { FeatureCard } from "./_components/feature-card";
 import { Footer } from "./_components/footer";
 import { GuideCard } from "./_components/guide-card";
@@ -24,6 +26,11 @@ const features = [
     description:
       "Organiza tu proceso con listas accionables y materiales listos para ayudarte a no olvidar pasos importantes.",
   },
+  {
+    title: "Buscadores oficiales",
+    description:
+      "Consulta portales confiables para buscar programas, becas, aplicaciones y orientación oficial.",
+  },
 ];
 
 const checklistItems = [
@@ -41,6 +48,7 @@ export default function Home() {
     { label: "Becas", href: "/becas" },
     { label: "Guías", href: "/guias" },
     { label: "Checklist", href: "/checklist" },
+    { label: "Buscadores", href: "/buscadores" },
     { label: "Sobre el proyecto", href: "#sobre-el-proyecto" },
   ];
 
@@ -95,10 +103,29 @@ export default function Home() {
               title="Una base clara para empezar tu plan"
               description="Cada sección está pensada para ayudarte a entender el proceso, priorizar tareas y encontrar oportunidades reales."
             />
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
               {features.map((feature) => (
                 <FeatureCard key={feature.title} {...feature} />
               ))}
+            </div>
+            <div className="mt-8 rounded-[2rem] border border-dark-text/8 bg-white/82 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:p-8">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div className="max-w-2xl">
+                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
+                    Buscadores
+                  </p>
+                  <p className="mt-3 text-base leading-7 text-dark-text/76">
+                    Revisa una selección de portales oficiales para buscar programas,
+                    becas, aplicaciones y orientación consular.
+                  </p>
+                </div>
+                <Link
+                  href="/buscadores"
+                  className="inline-flex items-center justify-center rounded-full bg-rosa-mexicano px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_35px_rgba(212,68,122,0.24)] hover:-translate-y-0.5 hover:bg-[#be386a]"
+                >
+                  Explorar buscadores
+                </Link>
+              </div>
             </div>
           </div>
         </section>
