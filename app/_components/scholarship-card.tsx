@@ -13,15 +13,15 @@ export function ScholarshipCard({
   const detailRows =
     variant === "preview"
       ? [
-          { label: "Organizacion", value: scholarship.organization },
+          { label: "Organización", value: scholarship.organization },
           { label: "Nivel", value: scholarship.degreeLevel },
           { label: "Cierre", value: scholarship.deadline },
           { label: "Cobertura", value: scholarship.funding },
         ]
       : [
-          { label: "Organizacion", value: scholarship.organization },
+          { label: "Organización", value: scholarship.organization },
           { label: "Nivel", value: scholarship.degreeLevel },
-          { label: "Area", value: scholarship.field },
+          { label: "Área", value: scholarship.field },
           { label: "Idioma", value: scholarship.language },
           { label: "Financiamiento", value: scholarship.funding },
           { label: "Cierre", value: scholarship.deadline },

@@ -13,10 +13,10 @@ export function Footer() {
             Ruta Alemania
           </p>
           <p className="mt-2 text-sm text-dark-text/68">
-            Becas, guias y recursos para estudiar en Alemania desde Mexico.
+            Becas, guías y recursos para estudiar en Alemania desde México.
           </p>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center justify-start gap-3 sm:justify-end">
           {footerLinks.map((link) => (
             <a
               key={link.label}

@@ -30,13 +30,13 @@ const filterGroups = [
   },
   {
     id: "field",
-    label: "Area",
-    options: ["Todas", "STEM", "Todas las areas", "Areas relacionadas con desarrollo"],
+    label: "Área",
+    options: ["Todas", "STEM", "Todas las áreas", "Áreas relacionadas con desarrollo"],
   },
   {
     id: "language",
     label: "Idioma",
-    options: ["Todos", "Ingles", "Aleman", "Ingles / Aleman"],
+    options: ["Todos", "Inglés", "Alemán", "Inglés / Alemán"],
   },
   {
     id: "funding",
@@ -85,7 +85,7 @@ export function ScholarshipsBrowser({
               Filtros
             </p>
             <p className="mt-2 text-base leading-7 text-dark-text/74">
-              Ajusta la vista para explorar oportunidades segun tu perfil.
+              Ajusta la vista para explorar oportunidades según tu perfil.
             </p>
           </div>
           <button
@@ -131,7 +131,7 @@ export function ScholarshipsBrowser({
           {filteredScholarships.length === 1 ? "" : "s"}.
         </p>
         <p className="rounded-full bg-butter/70 px-4 py-2 text-sm font-medium text-dark-text">
-          Siempre verifica requisitos, fechas y elegibilidad en la pagina
+          Siempre verifica requisitos, fechas y elegibilidad en la página
           oficial de cada beca.
         </p>
       </div>
@@ -152,7 +152,7 @@ export function ScholarshipsBrowser({
             No hay resultados con esos filtros
           </h3>
           <p className="mt-3 text-dark-text/72">
-            Prueba con una combinacion mas amplia o limpia los filtros para ver
+            Prueba con una combinación más amplia o limpia los filtros para ver
             todas las becas disponibles.
           </p>
         </div>

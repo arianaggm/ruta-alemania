@@ -19,7 +19,7 @@ export async function generateMetadata(
 
   if (!guide) {
     return {
-      title: "Guia no encontrada | Ruta Alemania",
+      title: "Guía no encontrada | Ruta Alemania",
     };
   }
 
@@ -42,7 +42,7 @@ export default async function GuideDetailPage(
   const navLinks = [
     { label: "Inicio", href: "/" },
     { label: "Becas", href: "/becas" },
-    { label: "Guias", href: "/guias", active: true },
+    { label: "Guías", href: "/guias", active: true },
     { label: "Checklist", href: "/checklist" },
   ];
 
@@ -56,7 +56,7 @@ export default async function GuideDetailPage(
             href="/guias"
             className="inline-flex items-center rounded-full border border-rosa-mexicano/18 bg-white/78 px-4 py-2 text-sm font-semibold text-dark-text shadow-[0_12px_35px_rgba(43,30,36,0.06)] hover:-translate-y-0.5 hover:border-rosa-mexicano"
           >
-            Volver a guias
+            Volver a guías
           </Link>
 
           <article className="mt-6 space-y-8">

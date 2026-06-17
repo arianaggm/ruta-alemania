@@ -30,7 +30,7 @@ export function Navbar({ links, homeHref = "/" }: NavbarProps) {
                 Ruta Alemania
               </p>
               <p className="truncate text-sm text-dark-text/70">
-                De Mexico a la universidad alemana
+                De México a la universidad alemana
               </p>
             </div>
           </Link>

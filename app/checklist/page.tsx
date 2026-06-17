@@ -9,7 +9,7 @@ export default function ChecklistPage() {
   const navLinks = [
     { label: "Inicio", href: "/" },
     { label: "Becas", href: "/becas" },
-    { label: "Guias", href: "/guias" },
+    { label: "Guías", href: "/guias" },
     { label: "Checklist", href: "/checklist", active: true },
   ];
 
@@ -30,7 +30,7 @@ export default function ChecklistPage() {
             <SectionHeading
               eyebrow="Ruta organizada"
               title="Checklist para estudiar en Alemania"
-              description="Una guia paso a paso para organizar tu aplicacion, documentos, becas, visa y llegada desde Mexico."
+              description="Una guía paso a paso para organizar tu aplicación, documentos, becas, visa y llegada desde México."
             />
           </section>
 

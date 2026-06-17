@@ -15,9 +15,9 @@ const features = [
       "Encuentra oportunidades relevantes con datos claros sobre requisitos, financiamiento y fechas clave.",
   },
   {
-    title: "Guias paso a paso",
+    title: "Guías paso a paso",
     description:
-      "Sigue rutas practicas para entender admisiones, documentos, costos y procesos desde Mexico.",
+      "Sigue rutas prácticas para entender admisiones, documentos, costos y procesos desde México.",
   },
   {
     title: "Checklists y plantillas",
@@ -39,7 +39,7 @@ export default function Home() {
   const navLinks = [
     { label: "Inicio", href: "#inicio", active: true },
     { label: "Becas", href: "/becas" },
-    { label: "Guias", href: "/guias" },
+    { label: "Guías", href: "/guias" },
     { label: "Checklist", href: "/checklist" },
     { label: "Sobre el proyecto", href: "#sobre-el-proyecto" },
   ];
@@ -55,32 +55,32 @@ export default function Home() {
             <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
               <div className="rounded-[2rem] border border-rosa-mexicano/12 bg-peach-fuzz/70 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10">
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-                  Por que existe Ruta Alemania
+                  Por qué existe Ruta Alemania
                 </p>
                 <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-dark-text sm:text-4xl">
-                  Encontrar informacion confiable no deberia sentirse como un laberinto.
+                  Encontrar información confiable no debería sentirse como un laberinto.
                 </h2>
                 <p className="mt-5 max-w-2xl text-lg leading-8 text-dark-text/78">
-                  Estudiar en Alemania desde Mexico suele implicar revisar muchas fuentes,
-                  comparar requisitos y entender procesos que no siempre estan explicados
-                  de forma clara. Ruta Alemania busca reunir esa informacion en un solo
-                  lugar, en espanol y con pasos utiles para avanzar con confianza.
+                  Estudiar en Alemania desde México suele implicar revisar muchas fuentes,
+                  comparar requisitos y entender procesos que no siempre están explicados
+                  de forma clara. Ruta Alemania busca reunir esa información en un solo
+                  lugar, en español y con pasos útiles para avanzar con confianza.
                 </p>
               </div>
 
               <div className="rounded-[2rem] border border-dark-text/8 bg-white/85 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10">
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-                  Lo que encontraras aqui
+                  Lo que encontrarás aquí
                 </p>
                 <div className="mt-6 space-y-4">
                   <div className="rounded-3xl bg-butter/60 p-5">
                     Becas explicadas sin rodeos, con enfoque en estudiantes mexicanos.
                   </div>
                   <div className="rounded-3xl bg-antique-white p-5">
-                    Guias practicas para planear estudios, documentos y tiempos.
+                    Guías prácticas para planear estudios, documentos y tiempos.
                   </div>
                   <div className="rounded-3xl bg-peach-fuzz/70 p-5">
-                    Recursos accionables para pasar de la investigacion a la aplicacion.
+                    Recursos accionables para pasar de la investigación a la aplicación.
                   </div>
                 </div>
               </div>
@@ -93,7 +93,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="Recursos principales"
               title="Una base clara para empezar tu plan"
-              description="Cada seccion esta pensada para ayudarte a entender el proceso, priorizar tareas y encontrar oportunidades reales."
+              description="Cada sección está pensada para ayudarte a entender el proceso, priorizar tareas y encontrar oportunidades reales."
             />
             <div className="mt-10 grid gap-6 md:grid-cols-3">
               {features.map((feature) => (
@@ -108,7 +108,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="Becas"
               title="Primer vistazo a oportunidades de financiamiento"
-              description="Aqui iran fichas resumidas para comparar becas, entender su cobertura y revisar si encajan con tu perfil academico."
+              description="Aquí irán fichas resumidas para comparar becas, entender su cobertura y revisar si encajan con tu perfil académico."
             />
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
               {scholarships.slice(0, 3).map((scholarship) => (
@@ -125,9 +125,9 @@ export default function Home() {
         <section id="guias" className="px-4 py-18 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-6xl">
             <SectionHeading
-              eyebrow="Guias"
-              title="Contenido que te acompana paso a paso"
-              description="Las guias estan pensadas para responder dudas frecuentes con lenguaje claro, contexto local y una estructura accionable."
+              eyebrow="Guías"
+              title="Contenido que te acompaña paso a paso"
+              description="Las guías están pensadas para responder dudas frecuentes con lenguaje claro, contexto local y una estructura accionable."
             />
             <div className="mt-10 grid gap-6 md:grid-cols-3">
               {guides.slice(0, 3).map((guide) => (
@@ -146,7 +146,7 @@ export default function Home() {
           <div className="mx-auto grid max-w-6xl gap-8 rounded-[2rem] border border-rosa-mexicano/12 bg-white/80 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10 lg:grid-cols-[0.95fr_1.05fr]">
             <div>
               <SectionHeading
-                eyebrow="Empieza aqui"
+                eyebrow="Empieza aquí"
                 title="Una checklist corta para orientar tus primeros pasos"
                 description="Ideal para convertir una idea general en un proceso concreto y ordenado."
               />
@@ -171,8 +171,8 @@ export default function Home() {
           <div className="mx-auto max-w-4xl rounded-[2rem] border border-dark-text/8 bg-butter/45 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10">
             <SectionHeading
               eyebrow="Sobre el proyecto"
-              title="Ruta Alemania nace para hacer el proceso mas accesible"
-              description="Ruta Alemania nace para reunir informacion clara, practica y en espanol para estudiantes mexicanos que quieren estudiar en Alemania. El proyecto combina experiencia personal, investigacion de recursos oficiales y herramientas digitales para hacer el proceso mas accesible."
+              title="Ruta Alemania nace para hacer el proceso más accesible"
+              description="Ruta Alemania nace para reunir información clara, práctica y en español para estudiantes mexicanos que quieren estudiar en Alemania. El proyecto combina experiencia personal, investigación de recursos oficiales y herramientas digitales para hacer el proceso más accesible."
             />
           </div>
         </section>

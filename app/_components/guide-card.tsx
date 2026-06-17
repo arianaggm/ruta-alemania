@@ -49,7 +49,7 @@ export function GuideCard({
         href={href}
         className="mt-6 inline-flex items-center font-semibold text-rosa-mexicano hover:text-[#b83867]"
       >
-        Leer guia
+        Leer guía
       </Link>
     </article>
   );

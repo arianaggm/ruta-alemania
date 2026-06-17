@@ -14,18 +14,18 @@ export const checklistSections: ChecklistSection[] = [
     id: "elegir-programa",
     title: "Elegir programa",
     items: [
-      { id: "definir-area", label: "Definir area de estudio" },
+      { id: "definir-area", label: "Definir área de estudio" },
       {
         id: "buscar-programas",
-        label: "Buscar programas en ingles o aleman",
+        label: "Buscar programas en Inglés o Alemán",
       },
       {
         id: "revisar-requisitos-academicos",
-        label: "Revisar requisitos academicos",
+        label: "Revisar requisitos académicos",
       },
       {
         id: "revisar-ciudad-costos-fechas",
-        label: "Revisar ciudad, costos y fechas limite",
+        label: "Revisar ciudad, costos y fechas límite",
       },
     ],
   },
@@ -35,16 +35,16 @@ export const checklistSections: ChecklistSection[] = [
     items: [
       { id: "pasaporte-vigente", label: "Pasaporte vigente" },
       { id: "certificado-estudios", label: "Certificado de estudios" },
-      { id: "kardex-transcript", label: "Kardex o historial academico" },
+      { id: "kardex-transcript", label: "Kardex o historial académico" },
       {
         id: "titulo-constancia",
-        label: "Titulo o constancia de terminacion",
+        label: "Título o constancia de terminación",
       },
       { id: "cv-actualizado", label: "CV actualizado" },
-      { id: "carta-motivacion", label: "Carta de motivacion" },
+      { id: "carta-motivacion", label: "Carta de motivación" },
       {
         id: "cartas-recomendacion",
-        label: "Cartas de recomendacion",
+        label: "Cartas de recomendación",
       },
       {
         id: "traducciones-oficiales",
@@ -68,11 +68,11 @@ export const checklistSections: ChecklistSection[] = [
       },
       {
         id: "anotar-deadlines",
-        label: "Anotar fechas limite en calendario",
+        label: "Anotar fechas límite en calendario",
       },
       {
         id: "preparar-documentos-beca",
-        label: "Preparar documentos especificos para beca",
+        label: "Preparar documentos específicos para beca",
       },
     ],
   },
@@ -82,7 +82,7 @@ export const checklistSections: ChecklistSection[] = [
     items: [
       {
         id: "crear-cuenta-portal",
-        label: "Crear cuenta en portal de aplicacion",
+        label: "Crear cuenta en portal de aplicación",
       },
       {
         id: "revisar-uni-assist",
@@ -103,13 +103,13 @@ export const checklistSections: ChecklistSection[] = [
     items: [
       {
         id: "requisitos-consulado",
-        label: "Revisar requisitos del consulado aleman en Mexico",
+        label: "Revisar requisitos del consulado alemán en México",
       },
       {
         id: "prueba-financiamiento",
         label: "Preparar prueba de financiamiento",
       },
-      { id: "seguro-medico", label: "Contratar seguro medico" },
+      { id: "seguro-medico", label: "Contratar seguro médico" },
       { id: "buscar-alojamiento", label: "Buscar alojamiento" },
       {
         id: "presupuesto-llegada",
@@ -128,7 +128,7 @@ export const checklistSections: ChecklistSection[] = [
       { id: "anmeldung", label: "Hacer Anmeldung" },
       {
         id: "activar-seguro",
-        label: "Activar seguro medico",
+        label: "Activar seguro médico",
       },
       {
         id: "cuenta-bancaria",
@@ -136,7 +136,7 @@ export const checklistSections: ChecklistSection[] = [
       },
       {
         id: "sim-plan-movil",
-        label: "Comprar SIM o plan movil",
+        label: "Comprar SIM o plan móvil",
       },
       {
         id: "registro-universidad",

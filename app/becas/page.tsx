@@ -9,7 +9,7 @@ export default function ScholarshipsPage() {
   const navLinks = [
     { label: "Inicio", href: "/" },
     { label: "Becas", href: "/becas", active: true },
-    { label: "Guias", href: "/guias" },
+    { label: "Guías", href: "/guias" },
     { label: "Checklist", href: "/checklist" },
   ];
 
@@ -30,7 +30,7 @@ export default function ScholarshipsPage() {
             <SectionHeading
               eyebrow="Base de becas"
               title="Becas para estudiar en Alemania"
-              description="Explora oportunidades de financiamiento para estudiantes mexicanos. Filtra por nivel, area, idioma y tipo de apoyo."
+              description="Explora oportunidades de financiamiento para estudiantes mexicanos. Filtra por nivel, área, idioma y tipo de apoyo."
             />
           </section>
 

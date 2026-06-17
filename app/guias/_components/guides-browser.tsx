@@ -38,8 +38,8 @@ export function GuidesBrowser({ guides }: GuidesBrowserProps) {
               Filtros
             </p>
             <p className="mt-2 text-base leading-7 text-dark-text/74">
-              Explora las guias por tema y enfocate en la parte del proceso que
-              mas necesitas resolver ahora.
+              Explora las guías por tema y enfócate en la parte del proceso que
+              más necesitas resolver ahora.
             </p>
           </div>
           <button
@@ -53,7 +53,7 @@ export function GuidesBrowser({ guides }: GuidesBrowserProps) {
 
         <div className="mt-6">
           <label className="space-y-2">
-            <span className="text-sm font-semibold text-dark-text">Categoria</span>
+            <span className="text-sm font-semibold text-dark-text">Categoría</span>
             <select
               value={category}
               onChange={(event) =>
@@ -73,12 +73,12 @@ export function GuidesBrowser({ guides }: GuidesBrowserProps) {
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm font-medium text-dark-text/72">
-          {filteredGuides.length} guia
+          {filteredGuides.length} guía
           {filteredGuides.length === 1 ? "" : "s"} mostrada
           {filteredGuides.length === 1 ? "" : "s"}.
         </p>
         <p className="rounded-full bg-butter/70 px-4 py-2 text-sm font-medium text-dark-text">
-          Usa estas guias como punto de partida y confirma detalles clave con
+          Usa estas guías como punto de partida y confirma detalles clave con
           fuentes oficiales.
         </p>
       </div>
@@ -97,7 +97,7 @@ export function GuidesBrowser({ guides }: GuidesBrowserProps) {
       {filteredGuides.length === 0 ? (
         <div className="rounded-[2rem] border border-dark-text/8 bg-white/82 p-8 text-center shadow-[0_18px_50px_rgba(43,30,36,0.08)]">
           <h3 className="font-display text-2xl font-semibold text-dark-text">
-            No hay guias en esta categoria
+            No hay guías en esta categoría
           </h3>
           <p className="mt-3 text-dark-text/72">
             Cambia el filtro o vuelve a &quot;Todas&quot; para explorar el resto del

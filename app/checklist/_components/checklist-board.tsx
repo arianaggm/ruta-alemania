@@ -115,8 +115,8 @@ export function ChecklistBoard({ sections }: ChecklistBoardProps) {
       </section>
 
       <div className="rounded-[2rem] border border-dark-text/8 bg-butter/45 px-5 py-4 text-sm font-medium text-dark-text shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:px-6">
-        Esta checklist es una guia general. Verifica siempre los requisitos
-        oficiales segun tu caso.
+        Esta checklist es una guía general. Verifica siempre los requisitos
+        oficiales según tu caso.
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">

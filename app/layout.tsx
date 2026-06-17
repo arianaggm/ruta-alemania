@@ -13,9 +13,9 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Ruta Alemania | De Mexico a la universidad alemana, paso a paso",
+  title: "Ruta Alemania | De México a la universidad alemana, paso a paso",
   description:
-    "Plataforma en espanol para estudiantes mexicanos que buscan becas, guias y recursos para estudiar en Alemania.",
+    "Plataforma en español para estudiantes mexicanos que buscan becas, guías y recursos para estudiar en Alemania.",
 };
 
 export default function RootLayout({
