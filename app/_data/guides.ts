@@ -23,28 +23,32 @@ export type Guide = {
 
 export const guides: Guide[] = [
   {
-    slug: "ausbildung-hochschule-universitat-tu-diferencias",
-    title: "Ausbildung, Hochschule, Universität y TU: ¿cuál es la diferencia?",
+    slug: "ausbildung-duales-studium-hochschule-universitat-tu-diferencias",
+    title:
+      "Ausbildung, Duales Studium, Hochschule, Universität y TU: ¿cuál es la diferencia?",
     category: "Sistema educativo",
     readingTime: "8 min",
     excerpt:
-      "Entiende las diferencias entre formación técnica, universidades aplicadas, universidades tradicionales y universidades técnicas en Alemania.",
+      "Entiende las diferencias entre formación técnica, Duales Studium, universidades aplicadas, universidades tradicionales y universidades técnicas en Alemania.",
     tags: [
       "sistema educativo",
       "universidad",
       "Ausbildung",
+      "Duales Studium",
       "Hochschule",
       "TU",
     ],
     intro:
-      "En Alemania no existe un solo camino educativo. Elegir entre una formación técnica, una Hochschule, una Universität o una Technische Universität depende de tus metas: inserción laboral práctica, estudios aplicados, investigación académica, ingeniería o especialización profesional.",
+      "En Alemania no existe un solo camino educativo. Elegir entre una formación técnica, un Duales Studium, una Hochschule, una Universität o una Technische Universität depende de tus metas: inserción laboral práctica, estudios aplicados, investigación académica, ingeniería o especialización profesional.",
     keyTakeaways: [
       "Ausbildung no es una carrera universitaria, sino una formación vocacional con enfoque práctico.",
+      "Duales Studium combina estudios universitarios con experiencia en empresa y suele llevar a un título oficial.",
       "Hochschule suele referirse a instituciones de educación superior con orientación aplicada y cercana a la industria.",
       "Universität y TU son rutas más académicas y de investigación, especialmente si piensas en un doctorado o en áreas técnicas avanzadas.",
     ],
     checklistItems: [
       "Definir si buscas formación práctica o un título universitario",
+      "Distinguir entre formación dual, estudios aplicados y ruta universitaria clásica",
       "Revisar idioma de enseñanza y requisitos de admisión",
       "Comparar enfoque aplicado, teórico o de investigación",
       "Confirmar reconocimiento oficial y salidas profesionales",
@@ -54,7 +58,7 @@ export const guides: Guide[] = [
         title: "Introducción",
         paragraphs: [
           "Alemania tiene varios tipos de instituciones y trayectorias educativas, y eso puede confundir al principio. La mejor opción no depende de cuál suena más prestigiosa, sino de qué tipo de aprendizaje quieres, cuánto peso le das a la práctica o a la investigación, y qué tipo de carrera imaginas después.",
-          "Antes de aplicar, conviene entender si tu objetivo es una formación técnica con inserción laboral rápida, estudios superiores aplicados, una carrera universitaria tradicional o una ruta técnica con mucha base científica.",
+          "Antes de aplicar, conviene entender si tu objetivo es una formación técnica con inserción laboral rápida, un modelo dual entre universidad y empresa, estudios superiores aplicados, una carrera universitaria tradicional o una ruta técnica con mucha base científica.",
         ],
       },
       {
@@ -69,6 +73,23 @@ export const guides: Guide[] = [
           "A menudo incluye pago o apoyo económico",
           "Suele requerir alemán",
           "Funciona bien para perfiles que buscan una salida laboral práctica",
+        ],
+      },
+      {
+        title: "Duales Studium",
+        paragraphs: [
+          "Un Duales Studium combina estudios universitarios con experiencia práctica en una empresa. A diferencia de una Ausbildung, normalmente sí conduce a un título oficial de educación superior, por ejemplo una licenciatura.",
+          "Tiene un enfoque muy práctico porque alterna fases académicas con trabajo o formación dentro de una empresa. En muchos casos, el estudiantado recibe apoyo financiero o incluso salario, pero también suele ser un modelo competitivo y con requisitos claros tanto de admisión como de idioma.",
+          "Es frecuente en áreas como ingeniería, informática, negocios y otros campos aplicados. Además, el alemán suele ser importante porque la parte empresarial y buena parte de la comunicación profesional se desarrollan en ese idioma.",
+        ],
+        bullets: [
+          "Combina universidad y experiencia en empresa",
+          "Suele llevar a un título oficial",
+          "Tiene orientación altamente práctica",
+          "A menudo ofrece apoyo financiero o salario",
+          "Suele ser competitivo",
+          "Con frecuencia requiere alemán",
+          "Es común en ingeniería, informática, negocios y áreas aplicadas",
         ],
       },
       {
@@ -116,6 +137,14 @@ export const guides: Guide[] = [
               "Inserción laboral práctica y oficios/profesiones técnicas",
             ],
             [
+              "Duales Studium",
+              "Estudios superiores duales",
+              "Sí, normalmente",
+              "Muy práctico",
+              "Sí, con frecuencia",
+              "Quienes buscan título universitario con experiencia laboral integrada",
+            ],
+            [
               "Hochschule",
               "Educación superior aplicada",
               "Sí, licenciatura y maestría",
@@ -146,6 +175,7 @@ export const guides: Guide[] = [
         title: "¿Cuál debería elegir?",
         paragraphs: [
           "Elige Ausbildung si quieres formación vocacional práctica y estás lista o listo para estudiar y trabajar principalmente en alemán.",
+          "Elige Duales Studium si quieres un título universitario con experiencia práctica integrada y te atrae un modelo muy conectado con empresa.",
           "Elige Hochschule si buscas estudios aplicados, cercanía con la práctica profesional y preparación concreta para el mercado laboral.",
           "Elige Universität si te interesa más profundidad académica, teoría, investigación o una posible ruta hacia doctorado.",
           "Elige TU si quieres una universidad con orientación técnica o científica fuerte, especialmente en ingeniería o áreas intensivas en investigación.",
@@ -156,6 +186,7 @@ export const guides: Guide[] = [
         paragraphs: [
           "Hochschule no significa high school. En Alemania, se refiere a educación superior, no a preparatoria.",
           "Ausbildung tampoco es lo mismo que universidad. Aunque puede ser una excelente opción, responde a una lógica distinta de formación.",
+          "Duales Studium no es lo mismo que Ausbildung. Aunque ambos tienen componentes prácticos, el Duales Studium normalmente pertenece al nivel universitario y conduce a un título oficial de educación superior.",
           "Una TU como TU Dresden es una Technische Universität, no simplemente una escuela técnica. También otorga títulos universitarios completos y tiene peso académico.",
           "Un título de Hochschule puede ser plenamente oficial y valioso. Lo importante es que la institución esté reconocida y que el programa sí encaje con tus metas personales y profesionales.",
         ],
