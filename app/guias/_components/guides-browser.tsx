@@ -10,12 +10,13 @@ type GuidesBrowserProps = {
 
 const categories = [
   "Todas",
-  "Aplicacion",
+  "Aplicación",
   "Documentos",
   "Finanzas",
   "Visa",
   "Becas",
   "Llegada",
+  "Sistema educativo",
 ] as const;
 
 export function GuidesBrowser({ guides }: GuidesBrowserProps) {

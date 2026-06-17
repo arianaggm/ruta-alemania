@@ -17,7 +17,7 @@ const starterGuides = [
     description: "Para ordenar desde temprano certificados, traducciones y apostillas.",
   },
   {
-    title: "Becas para mexicanos: por donde empezar",
+    title: "Becas para mexicanos: por dónde empezar",
     href: "/guias/becas-para-mexicanos-por-donde-empezar",
     description: "Para ubicar apoyos posibles y no perder de vista fechas clave.",
   },

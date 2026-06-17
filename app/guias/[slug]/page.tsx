@@ -144,6 +144,39 @@ export default async function GuideDetailPage(
                     ))}
                   </div>
 
+                  {section.table ? (
+                    <div className="mt-6 overflow-x-auto rounded-3xl border border-dark-text/8 bg-antique-white/70">
+                      <table className="min-w-full border-collapse text-left text-sm text-dark-text/82">
+                        <thead className="bg-peach-fuzz/75">
+                          <tr>
+                            {section.table.columns.map((column) => (
+                              <th
+                                key={column}
+                                className="px-4 py-3 font-semibold text-dark-text"
+                              >
+                                {column}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {section.table.rows.map((row) => (
+                            <tr
+                              key={row.join("-")}
+                              className="border-t border-dark-text/8 align-top"
+                            >
+                              {row.map((cell) => (
+                                <td key={cell} className="px-4 py-3 leading-6">
+                                  {cell}
+                                </td>
+                              ))}
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  ) : null}
+
                   {section.bullets?.length ? (
                     <div className="mt-6 grid gap-3">
                       {section.bullets.map((bullet) => (
