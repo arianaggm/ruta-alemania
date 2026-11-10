@@ -9,6 +9,10 @@ permissions:
   contents: read
   actions: read
 
+concurrency:
+  group: scholarship-monitor-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   monitor:
     runs-on: ubuntu-latest
@@ -18,31 +22,24 @@ jobs:
         with:
           node-version: "24"
           cache: npm
-      - run: npm ci
-      - name: Recuperar último snapshot exitoso, si existe
+      - name: Restaurar último snapshot válido de una ejecución exitosa
         env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          artifact_id=$(gh api "/repos/${GITHUB_REPOSITORY}/actions/artifacts?name=scholarship-monitor-snapshot&per_page=100" --jq '[.artifacts[] | select(.expired == false)] | sort_by(.created_at) | reverse | .[0].id // empty')
-          if [ -n "$artifact_id" ]; then
-            mkdir -p reports/scholarship-monitor
-            gh api "/repos/${GITHUB_REPOSITORY}/actions/artifacts/${artifact_id}/zip" > /tmp/scholarship-snapshot.zip
-            unzip -j /tmp/scholarship-snapshot.zip snapshots.json -d reports/scholarship-monitor
-          fi
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/scholarship-monitor/restore.mjs
+      - run: npm ci
       - name: Consultar fuentes oficiales y generar reporte
         run: npm run monitor:becas
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: scholarship-monitor-report-${{ github.run_id }}
+          name: scholarship-monitor-report-${{ github.run_id }}-${{ github.run_attempt }}
           path: reports/scholarship-monitor/latest.md
-          if-no-files-found: ignore
+          if-no-files-found: error
           retention-days: 30
       - uses: actions/upload-artifact@v4
         if: success()
         with:
-          name: scholarship-monitor-snapshot
+          name: scholarship-monitor-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
           path: reports/scholarship-monitor/snapshots.json
+          if-no-files-found: error
           retention-days: 90

@@ -2,6 +2,7 @@ import { readFile, mkdir, writeFile, rename } from "node:fs/promises";
 import { join } from "node:path";
 import { registry } from "./registry.mjs";
 import { compareSnapshots, extractSnapshot, parseRobots, renderReport, validateSnapshotStore } from "./core.mjs";
+import { describeComparison } from "./restore-core.mjs";
 
 const userAgent = "RutaAlemaniaScholarshipMonitor/1.0 (+manual editorial review)";
 const outputDir = process.env.SCHOLARSHIP_MONITOR_DIR || join(process.cwd(), "reports", "scholarship-monitor");
@@ -46,15 +47,25 @@ async function request(url, { allowMissingRobots = false } = {}) {
 
 async function loadStore() {
   try {
-    return validateSnapshotStore(JSON.parse(await readFile(snapshotPath, "utf8")), registry);
+    return { store: validateSnapshotStore(JSON.parse(await readFile(snapshotPath, "utf8")), registry), missing: false };
   } catch (error) {
-    if (error?.code === "ENOENT") return { version: 1, entries: {} };
+    if (error?.code === "ENOENT") return { store: { version: 1, entries: {} }, missing: true };
     throw error;
   }
 }
 
+async function comparisonContext(missing) {
+  if (process.env.GITHUB_ACTIONS !== "true") {
+    return missing ? "No había snapshots locales; se establece una línea de base nueva." : "Comparación con el snapshot local anterior.";
+  }
+  const status = JSON.parse(await readFile(join(outputDir, "restore-status.json"), "utf8"));
+  return describeComparison(status, missing);
+}
+
 async function main() {
-  const store = await loadStore();
+  const { store, missing } = await loadStore();
+  const baselineContext = await comparisonContext(missing);
+  console.log(baselineContext);
   const rows = [];
   const robotsCache = new Map();
   const lastRequest = new Map();
@@ -95,7 +106,7 @@ async function main() {
   }
   await mkdir(outputDir, { recursive: true });
   const generatedAt = new Date().toISOString();
-  await writeFile(reportPath, renderReport(rows, generatedAt), "utf8");
+  await writeFile(reportPath, renderReport(rows, generatedAt, baselineContext), "utf8");
   const temporary = `${snapshotPath}.${process.pid}.tmp`;
   await writeFile(temporary, `${JSON.stringify(store, null, 2)}\n`, "utf8");
   await rename(temporary, snapshotPath);

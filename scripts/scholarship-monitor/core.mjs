@@ -136,8 +136,10 @@ export function validateSnapshotStore(value, registry) {
   return value;
 }
 
-export function renderReport(rows, generatedAt) {
-  const lines = ["# Monitoreo editorial de becas", "", `Generado: ${generatedAt}`, "", "Una detección automática no verifica elegibilidad, fechas ni importes. Confirma cada cambio en la convocatoria oficial antes de actualizar el catálogo público.", ""];
+export function renderReport(rows, generatedAt, baselineContext = null) {
+  const lines = ["# Monitoreo editorial de becas", "", `Generado: ${generatedAt}`, ""];
+  if (baselineContext) lines.push(`Comparación: ${baselineContext}`, "");
+  lines.push("Una detección automática no verifica elegibilidad, fechas ni importes. Confirma cada cambio en la convocatoria oficial antes de actualizar el catálogo público.", "");
   for (const row of rows) {
     lines.push(`## ${row.title}`, "", `Fuente oficial: ${row.sourceUrl}`, `Estado: ${row.status}`, `Verificación del catálogo público: ${row.catalogVerificationStatus}`, `Última revisión editorial registrada: ${row.catalogLastChecked ?? "ninguna"}`, `Última consulta exitosa: ${row.checkedAt ?? "ninguna"}`, `Revisión manual: ${row.reviewNeeded ? "sí" : "no"}`, `Alcance: ${row.scope}`, "");
     if (row.fields && Object.keys(row.fields).length) lines.push(`Campos localizados en el texto oficial (sin verificar aplicabilidad individual): ${Object.keys(row.fields).join(", ")}`, "");
