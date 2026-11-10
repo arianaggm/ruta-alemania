@@ -1,58 +1,39 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { ChecklistSection } from "../../_data/checklist";
+import { CHECKLIST_STORAGE_KEY, parseChecklist } from "../_lib/storage";
 
 type ChecklistBoardProps = {
   sections: ChecklistSection[];
 };
 
-const CHECKLIST_STORAGE_KEY = "ruta-alemania-checklist";
-
 export function ChecklistBoard({ sections }: ChecklistBoardProps) {
   const [checkedItems, setCheckedItems] = useState<string[]>([]);
   const [hasLoadedStorage, setHasLoadedStorage] = useState(false);
-
-  const validItemIds = useMemo(
-    () => new Set(sections.flatMap((section) => section.items.map((item) => item.id))),
-    [sections]
-  );
+  const [storageError, setStorageError] = useState("");
 
   useEffect(() => {
-    const storedValue = window.localStorage.getItem(CHECKLIST_STORAGE_KEY);
     let restoredCheckedItems: string[] = [];
-
-    if (storedValue) {
-      try {
-        const parsedValue = JSON.parse(storedValue);
-
-        if (Array.isArray(parsedValue)) {
-          restoredCheckedItems = parsedValue.filter(
-            (itemId): itemId is string =>
-              typeof itemId === "string" && validItemIds.has(itemId)
-          );
-        }
-      } catch {
-        window.localStorage.removeItem(CHECKLIST_STORAGE_KEY);
+    let error = "";
+    try {
+      const storedValue = window.localStorage.getItem(CHECKLIST_STORAGE_KEY);
+      if (storedValue !== null) {
+        const parsed = parseChecklist(storedValue);
+        if (parsed === null) error = "No pudimos leer tu checklist guardada. No hemos modificado ni borrado esos datos.";
+        else restoredCheckedItems = parsed;
       }
+    } catch {
+      error = "El almacenamiento de este navegador no está disponible. No pudimos cargar tu checklist.";
     }
 
     queueMicrotask(() => {
       setCheckedItems(restoredCheckedItems);
-      setHasLoadedStorage(true);
+      setStorageError(error);
+      setHasLoadedStorage(!error);
     });
-  }, [validItemIds]);
-
-  useEffect(() => {
-    if (!hasLoadedStorage) {
-      return;
-    }
-
-    window.localStorage.setItem(
-      CHECKLIST_STORAGE_KEY,
-      JSON.stringify(checkedItems)
-    );
-  }, [checkedItems, hasLoadedStorage]);
+  }, []);
 
   const totalItems = useMemo(
     () => sections.reduce((total, section) => total + section.items.length, 0),
@@ -62,20 +43,34 @@ export function ChecklistBoard({ sections }: ChecklistBoardProps) {
   const progress = totalItems === 0 ? 0 : Math.round((checkedCount / totalItems) * 100);
 
   function toggleItem(itemId: string) {
-    setCheckedItems((current) =>
-      current.includes(itemId)
-        ? current.filter((id) => id !== itemId)
-        : [...current, itemId]
-    );
+    if (!hasLoadedStorage) return;
+    const next = checkedItems.includes(itemId)
+      ? checkedItems.filter((id) => id !== itemId)
+      : [...checkedItems, itemId];
+    try {
+      window.localStorage.setItem(CHECKLIST_STORAGE_KEY, JSON.stringify(next));
+      setCheckedItems(next);
+      setStorageError("");
+    } catch {
+      setStorageError("No se pudo guardar tu avance en este navegador.");
+    }
   }
 
   function clearChecklist() {
-    setCheckedItems([]);
-    window.localStorage.removeItem(CHECKLIST_STORAGE_KEY);
+    if (storageError && !window.confirm("No pudimos leer la checklist guardada. ¿Quieres borrar esos datos de forma permanente?")) return;
+    try {
+      window.localStorage.removeItem(CHECKLIST_STORAGE_KEY);
+      setCheckedItems([]);
+      setStorageError("");
+      setHasLoadedStorage(true);
+    } catch {
+      setStorageError("No se pudo limpiar la checklist en este navegador.");
+    }
   }
 
   return (
     <div className="mt-10 space-y-8">
+      {storageError && <p role="alert" className="rounded-2xl bg-butter/70 p-4 text-sm font-medium">{storageError}</p>}
       <section className="rounded-[2rem] border border-rosa-mexicano/12 bg-white/82 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:p-8">
         <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div className="max-w-2xl">
@@ -116,7 +111,8 @@ export function ChecklistBoard({ sections }: ChecklistBoardProps) {
 
       <div className="rounded-[2rem] border border-dark-text/8 bg-butter/45 px-5 py-4 text-sm font-medium text-dark-text shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:px-6">
         Esta checklist es una guía general. Verifica siempre los requisitos
-        oficiales según tu caso.
+        oficiales según tu caso. Su avance se guarda por separado y no se comparte
+        con las tareas personalizadas de <Link href="/mi-ruta" className="font-semibold text-rosa-mexicano underline underline-offset-2">Mi Ruta</Link>.
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
@@ -163,6 +159,7 @@ export function ChecklistBoard({ sections }: ChecklistBoardProps) {
                       <input
                         type="checkbox"
                         checked={checked}
+                        disabled={!hasLoadedStorage}
                         onChange={() => toggleItem(item.id)}
                         className="mt-1 h-5 w-5 rounded border-dark-text/20 accent-[#D4447A]"
                       />

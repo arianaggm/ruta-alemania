@@ -2,10 +2,10 @@
 
 import { useMemo, useState } from "react";
 import { GuideCard } from "../../_components/guide-card";
-import type { Guide } from "../../_data/guides";
+import type { GuideSummary } from "../../_content/guides/types";
 
 type GuidesBrowserProps = {
-  guides: Guide[];
+  guides: GuideSummary[];
 };
 
 const categories = [

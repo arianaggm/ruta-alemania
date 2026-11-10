@@ -6,17 +6,9 @@ import { scholarships } from "../_data/scholarships";
 import { ScholarshipsBrowser } from "./_components/scholarships-browser";
 
 export default function ScholarshipsPage() {
-  const navLinks = [
-    { label: "Inicio", href: "/" },
-    { label: "Becas", href: "/becas", active: true },
-    { label: "Guías", href: "/guias" },
-    { label: "Checklist", href: "/checklist" },
-    { label: "Buscadores", href: "/buscadores" },
-  ];
-
   return (
     <div className="bg-background text-foreground">
-      <Navbar links={navLinks} homeHref="/" />
+      <Navbar />
 
       <main className="px-4 pb-18 pt-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
@@ -31,7 +23,7 @@ export default function ScholarshipsPage() {
             <SectionHeading
               eyebrow="Base de becas"
               title="Becas para estudiar en Alemania"
-              description="Explora oportunidades de financiamiento para estudiantes mexicanos. Filtra por nivel, área, idioma y tipo de apoyo."
+              description="Explora opciones de financiamiento para estudiar en Alemania desde México. Filtra por nivel, área, idioma y tipo de apoyo; confirma tu elegibilidad en cada convocatoria."
             />
           </section>
 

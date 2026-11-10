@@ -4,6 +4,7 @@
   --background: #fff0e0;
   --foreground: #2b1e24;
   --rosa-mexicano: #d4447a;
+  --rosa-contraste: #a52b56;
   --peach-fuzz: #ffd8be;
   --antique-white: #fff0e0;
   --butter: #fbe9a0;
@@ -13,7 +14,9 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-rosa-mexicano: var(--rosa-mexicano);
+  /* Keep the brand pink for atmosphere; use its darker companion for readable controls. */
+  --color-rosa-mexicano: var(--rosa-contraste);
+  --color-rosa-decorativo: var(--rosa-mexicano);
   --color-peach-fuzz: var(--peach-fuzz);
   --color-antique-white: var(--antique-white);
   --color-butter: var(--butter);
@@ -47,4 +50,20 @@ button {
     border-color 180ms ease,
     transform 180ms ease,
     box-shadow 180ms ease;
+}
+
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid var(--rosa-contraste);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  a,
+  button {
+    transition-duration: 0.01ms;
+  }
 }

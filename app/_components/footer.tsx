@@ -1,7 +1,14 @@
+import Link from "next/link";
+
+const sectionLinks = [
+  { label: "Por dónde empiezo", href: "/#por-donde-empiezo" },
+  { label: "Sobre mí", href: "/#sobre-mi" },
+];
+
 const footerLinks = [
-  { label: "Instagram", href: "#" },
-  { label: "GitHub", href: "#" },
-  { label: "Contacto", href: "#" },
+  { label: "Instagram", href: "https://www.instagram.com/arianaggm_/" },
+  { label: "GitHub", href: "https://github.com/arianaggm" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/arianagutierrezmay/" },
 ];
 
 export function Footer() {
@@ -16,16 +23,23 @@ export function Footer() {
             Becas, guías y recursos para estudiar en Alemania desde México.
           </p>
         </div>
-        <div className="flex flex-wrap items-center justify-start gap-3 sm:justify-end">
-          {footerLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className="rounded-full border border-rosa-mexicano/16 bg-peach-fuzz/55 px-4 py-2 text-sm font-medium text-dark-text hover:border-rosa-mexicano hover:bg-peach-fuzz"
-            >
-              {link.label}
-            </a>
-          ))}
+        <div className="space-y-3">
+          <nav aria-label="Secciones de la página principal" className="flex flex-wrap gap-3 sm:justify-end">
+            {sectionLinks.map((link) => <Link key={link.href} href={link.href} className="rounded-full px-3 py-2 text-sm font-semibold text-rosa-mexicano hover:bg-peach-fuzz">{link.label}</Link>)}
+          </nav>
+          <div className="flex flex-wrap items-center justify-start gap-3 sm:justify-end">
+            {footerLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-rosa-mexicano/16 bg-peach-fuzz/55 px-4 py-2 text-sm font-medium text-dark-text hover:border-rosa-mexicano hover:bg-peach-fuzz"
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

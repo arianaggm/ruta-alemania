@@ -1,6 +1,6 @@
 export type Resource = {
   title: string;
-  category: "Programas" | "Aplicaciones" | "Becas" | "Informacion oficial";
+  category: "Programas" | "Aplicaciones" | "Becas" | "Información oficial";
   description: string;
   whenToUseIt: string;
   url: string;
@@ -11,9 +11,9 @@ export const resources: Resource[] = [
     title: "DAAD International Programmes",
     category: "Programas",
     description:
-      "Buscador de programas internacionales en Alemania, especialmente util para maestrias y opciones impartidas en ingles.",
+      "Buscador de programas internacionales en Alemania, especialmente útil para maestrías y opciones impartidas en inglés.",
     whenToUseIt:
-      "Usalo cuando quieras comparar programas segun area, idioma y nivel de estudios.",
+      "Úsalo cuando quieras comparar programas según área, idioma y nivel de estudios.",
     url: "https://www2.daad.de/deutschland/studienangebote/international-programmes/en/",
   },
   {
@@ -22,7 +22,7 @@ export const resources: Resource[] = [
     description:
       "Directorio oficial de programas universitarios en Alemania con filtros por tipo de carrera, grado y universidad.",
     whenToUseIt:
-      "Usalo cuando quieras revisar una base amplia de licenciaturas, maestrias y doctorados.",
+      "Úsalo cuando quieras revisar una base amplia de programas universitarios por nivel e institución.",
     url: "https://www.hochschulkompass.de/en/degree-programmes.html",
   },
   {
@@ -31,70 +31,70 @@ export const resources: Resource[] = [
     description:
       "Base de datos del DAAD para explorar carreras y programas ofrecidos por universidades alemanas.",
     whenToUseIt:
-      "Usalo cuando quieras una segunda referencia oficial para confirmar opciones academicas.",
+      "Úsalo cuando quieras una segunda referencia oficial para confirmar opciones académicas.",
     url: "https://www.daad.de/en/studying-in-germany/universities/all-degree-programmes/",
   },
   {
     title: "Study in Germany",
     category: "Programas",
     description:
-      "Portal general para conocer el sistema universitario aleman, requisitos basicos y panorama de estudios.",
+      "Portal general para conocer el sistema universitario alemán, requisitos básicos y opciones de estudio.",
     whenToUseIt:
-      "Usalo cuando todavia estes entendiendo como funciona estudiar en Alemania y por donde empezar.",
+      "Úsalo cuando todavía estés entendiendo cómo funciona estudiar en Alemania y por dónde empezar.",
     url: "https://www.study-in-germany.com/en/",
   },
   {
     title: "Uni-Assist",
     category: "Aplicaciones",
     description:
-      "Servicio que procesa aplicaciones para muchas universidades alemanas y verifica documentos academicos.",
+      "Servicio que gestiona solicitudes de admisión para muchas universidades alemanas y revisa documentos académicos.",
     whenToUseIt:
-      "Usalo cuando una universidad indique que debes aplicar a traves de Uni-Assist.",
+      "Úsalo cuando una universidad indique que debes presentar tu solicitud a través de Uni-Assist.",
     url: "https://www.uni-assist.de/en/",
   },
   {
     title: "My Assist",
     category: "Aplicaciones",
     description:
-      "Portal de acceso para crear cuenta, subir documentos y dar seguimiento a aplicaciones en Uni-Assist.",
+      "Portal para crear una cuenta, subir documentos y dar seguimiento a solicitudes en Uni-Assist.",
     whenToUseIt:
-      "Usalo cuando ya estes lista o listo para iniciar o revisar una aplicacion en Uni-Assist.",
+      "Úsalo cuando ya estés lista o listo para iniciar o revisar una solicitud en Uni-Assist.",
     url: "https://my.uni-assist.de/",
   },
   {
     title: "DAAD Scholarship Database",
     category: "Becas",
     description:
-      "Buscador oficial del DAAD para explorar becas segun perfil, area, nivel y pais de origen.",
+      "Buscador oficial del DAAD para explorar becas según perfil, área, nivel y país de origen.",
     whenToUseIt:
-      "Usalo cuando quieras detectar becas activas y revisar elegibilidad de manera centralizada.",
+      "Úsalo cuando quieras encontrar convocatorias y revisar sus requisitos en la fuente oficial.",
     url: "https://www.daad.de/stipdb-redirect/",
   },
   {
     title: "Embajada de Alemania en México",
-    category: "Informacion oficial",
+    category: "Información oficial",
     description:
-      "Sitio oficial con informacion consular, visas, citas y avisos relevantes para personas en Mexico.",
+      "Sitio oficial con información consular, visas, citas y avisos relevantes para personas en México.",
     whenToUseIt:
-      "Usalo cuando necesites confirmar requisitos de visa, procesos consulares o tramites oficiales.",
+      "Úsalo cuando necesites confirmar requisitos de visa, procesos consulares o trámites oficiales.",
     url: "https://mexiko.diplo.de/mx-es",
   },
   {
     title: "Federal Foreign Office",
-    category: "Informacion oficial",
+    category: "Información oficial",
     description:
-      "Fuente oficial del gobierno aleman para politica exterior, visas y lineamientos generales.",
+      "Fuente oficial del gobierno alemán para política exterior, visas y lineamientos generales.",
     whenToUseIt:
-      "Usalo cuando quieras contrastar informacion oficial sobre entrada, residencia o tramites internacionales.",
+      "Úsalo cuando quieras contrastar información oficial sobre entrada, residencia o trámites internacionales.",
     url: "https://www.auswaertiges-amt.de/en",
   },
   {
     title: "Make it in Germany",
-    category: "Informacion oficial",
+    category: "Información oficial",
     description:
-      "Portal oficial con orientacion sobre vida en Alemania, trabajo, mudanza, visas y adaptacion inicial.",
+      "Portal oficial con orientación sobre vida en Alemania, trabajo, mudanza, visas y adaptación inicial.",
     whenToUseIt:
-      "Usalo cuando estes planeando tu llegada y quieras entender mejor la instalacion en Alemania.",
+      "Úsalo cuando estés planeando tu llegada y quieras entender mejor cómo instalarte en Alemania.",
     url: "https://www.make-it-in-germany.com/en/",
   },
 ];

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { ScholarshipCard } from "../../_components/scholarship-card";
 import type { Scholarship } from "../../_data/scholarships";
 
@@ -22,35 +22,6 @@ const initialFilters: FilterState = {
   fundingType: "Todos",
 };
 
-const filterGroups = [
-  {
-    id: "degreeLevel",
-    label: "Nivel",
-    options: ["Todos", "Licenciatura", "Maestría", "Doctorado"],
-  },
-  {
-    id: "fields",
-    label: "Área",
-    options: ["Todas", "STEM", "Todas las áreas", "Áreas relacionadas con desarrollo"],
-  },
-  {
-    id: "language",
-    label: "Idioma",
-    options: ["Todos", "Inglés", "Alemán", "Inglés / Alemán"],
-  },
-  {
-    id: "fundingType",
-    label: "Financiamiento",
-    options: [
-      "Todos",
-      "Financiamiento completo",
-      "Apoyo mensual",
-      "Apoyo parcial",
-      "Apoyo de movilidad",
-    ],
-  },
-] as const;
-
 function normalizeFilterValue(value: string) {
   return value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
 }
@@ -66,16 +37,37 @@ export function ScholarshipsBrowser({
 }: ScholarshipsBrowserProps) {
   const [filters, setFilters] = useState(initialFilters);
 
-  const filteredScholarships = useMemo(() => {
-    return scholarships.filter((scholarship) => {
-      return (
-        includesFilterValue(scholarship.degreeLevel, filters.degreeLevel) &&
-        includesFilterValue(scholarship.fields, filters.fields) &&
-        includesFilterValue(scholarship.language, filters.language) &&
-        includesFilterValue(scholarship.fundingType, filters.fundingType)
-      );
-    });
-  }, [filters, scholarships]);
+  const filterGroups = [
+    {
+      id: "degreeLevel",
+      label: "Nivel",
+      options: ["Todos", "Licenciatura", "Maestría", "Doctorado"],
+    },
+    {
+      id: "fields",
+      label: "Área",
+      options: ["Todas", ...new Set(scholarships.map((item) => item.fields))],
+    },
+    {
+      id: "language",
+      label: "Idioma",
+      options: ["Todos", "Inglés", "Alemán", "Inglés / Alemán", "Depende del programa"],
+    },
+    {
+      id: "fundingType",
+      label: "Financiamiento",
+      options: ["Todos", ...new Set(scholarships.map((item) => item.fundingType))],
+    },
+  ] as const;
+
+  const filteredScholarships = scholarships.filter((scholarship) => {
+    return (
+      includesFilterValue(scholarship.degreeLevel, filters.degreeLevel) &&
+      includesFilterValue(scholarship.fields, filters.fields) &&
+      includesFilterValue(scholarship.language, filters.language) &&
+      includesFilterValue(scholarship.fundingType, filters.fundingType)
+    );
+  });
 
   return (
     <div className="mt-10 space-y-8">
@@ -132,8 +124,8 @@ export function ScholarshipsBrowser({
           {filteredScholarships.length === 1 ? "" : "s"}.
         </p>
         <p className="rounded-full bg-butter/70 px-4 py-2 text-sm font-medium text-dark-text">
-          Siempre verifica requisitos, fechas y elegibilidad en la página
-          oficial de cada beca.
+          Estas fichas están pendientes de verificación. Confirma requisitos,
+          fechas y elegibilidad en la fuente oficial.
         </p>
       </div>
 

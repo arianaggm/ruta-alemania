@@ -1,3 +1,7 @@
+type Verification =
+  | { verificationStatus: "pending"; lastChecked: null }
+  | { verificationStatus: "verified"; lastChecked: string };
+
 export type Scholarship = {
   title: string;
   organization: string;
@@ -5,14 +9,14 @@ export type Scholarship = {
   fields: string;
   language: string;
   fundingType: string;
-  eligibleForMexicans: boolean;
-  germanUsuallyRequired: boolean;
-  admissionRequired: boolean;
+  eligibleForMexicans: boolean | null;
+  germanUsuallyRequired: boolean | null;
+  admissionRequired: boolean | null;
   deadline: string;
   officialUrl: string;
+  sourceUrl: string;
   notes: string;
-  lastChecked: string;
-};
+} & Verification;
 
 export const scholarships: Scholarship[] = [
   {
@@ -21,32 +25,39 @@ export const scholarships: Scholarship[] = [
     degreeLevel: "Maestría",
     fields: "Áreas relacionadas con desarrollo",
     language: "Inglés",
-    fundingType: "Financiamiento completo",
-    eligibleForMexicans: true,
-    germanUsuallyRequired: false,
-    admissionRequired: true,
+    fundingType: "Apoyo económico (ver convocatoria)",
+    eligibleForMexicans: null,
+    germanUsuallyRequired: null,
+    admissionRequired: null,
     deadline: "Varía por programa",
     officialUrl:
-      "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/",
+      "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/?detail=50076777",
+    sourceUrl:
+      "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/?detail=50076777",
+    verificationStatus: "pending",
     notes:
       "Conviene revisar cada maestría EPOS por separado porque requisitos, fechas y documentos cambian según el programa.",
-    lastChecked: "2026-06-17",
+    lastChecked: null,
   },
   {
     title: "DAAD Study Scholarships",
     organization: "DAAD",
     degreeLevel: "Maestría",
-    fields: "Todas las áreas",
+    fields: "Varias áreas (según convocatoria)",
     language: "Inglés / Alemán",
     fundingType: "Apoyo mensual",
-    eligibleForMexicans: true,
-    germanUsuallyRequired: false,
-    admissionRequired: true,
-    deadline: "Convocatoria anual",
-    officialUrl: "https://www.daad.de/en/studying-in-germany/scholarships/daad-scholarships/",
+    eligibleForMexicans: null,
+    germanUsuallyRequired: null,
+    admissionRequired: null,
+    deadline: "Consulta la convocatoria vigente",
+    officialUrl:
+      "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/?detail=50026200",
+    sourceUrl:
+      "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/?detail=50026200",
+    verificationStatus: "pending",
     notes:
       "La elegibilidad exacta depende de la convocatoria vigente y del tipo de programa al que quieras aplicar.",
-    lastChecked: "2026-06-17",
+    lastChecked: null,
   },
   {
     title: "Heinrich Böll Foundation Scholarship",
@@ -55,14 +66,16 @@ export const scholarships: Scholarship[] = [
     fields: "Todas las áreas",
     language: "Alemán",
     fundingType: "Apoyo de beca",
-    eligibleForMexicans: true,
-    germanUsuallyRequired: true,
-    admissionRequired: true,
-    deadline: "Marzo / septiembre",
-    officialUrl: "https://www.boell.de/en/scholarships",
+    eligibleForMexicans: null,
+    germanUsuallyRequired: null,
+    admissionRequired: null,
+    deadline: "Consulta la convocatoria vigente",
+    officialUrl: "https://www.boell.de/en/applying-scholarship",
+    sourceUrl: "https://www.boell.de/en/applying-scholarship",
+    verificationStatus: "pending",
     notes:
-      "Suele valorar compromiso social y, en muchas convocatorias, es importante revisar el nivel de alemán solicitado.",
-    lastChecked: "2026-06-17",
+      "Revisa la convocatoria vigente: la fundación anuncia cambios en los requisitos para maestrías a partir de 2027.",
+    lastChecked: null,
   },
   {
     title: "Deutschlandstipendium",
@@ -71,15 +84,18 @@ export const scholarships: Scholarship[] = [
     fields: "Todas las áreas",
     language: "Depende del programa",
     fundingType: "Apoyo parcial",
-    eligibleForMexicans: true,
-    germanUsuallyRequired: false,
-    admissionRequired: true,
+    eligibleForMexicans: null,
+    germanUsuallyRequired: null,
+    admissionRequired: null,
     deadline: "Depende de la universidad",
     officialUrl:
-      "https://www.deutschlandstipendium.de/deutschlandstipendium/de/services/english/english.html",
+      "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/?detail=10000207",
+    sourceUrl:
+      "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/?detail=10000207",
+    verificationStatus: "pending",
     notes:
       "Normalmente se solicita cuando ya estás inscrita o inscrito, o en proceso de inscripción, en una universidad participante en Alemania.",
-    lastChecked: "2026-06-17",
+    lastChecked: null,
   },
   {
     title: "Friedrich Ebert Stiftung Scholarship",
@@ -88,14 +104,16 @@ export const scholarships: Scholarship[] = [
     fields: "Todas las áreas",
     language: "Alemán",
     fundingType: "Apoyo de beca",
-    eligibleForMexicans: true,
-    germanUsuallyRequired: true,
-    admissionRequired: true,
+    eligibleForMexicans: null,
+    germanUsuallyRequired: null,
+    admissionRequired: null,
     deadline: "Varía",
-    officialUrl: "https://www.fes.de/studienfoerderung",
+    officialUrl: "https://www.fes.de/studienfoerderung/information-in-english",
+    sourceUrl: "https://www.fes.de/studienfoerderung/information-in-english",
+    verificationStatus: "pending",
     notes:
-      "Además del perfil académico, suele importar el compromiso social y la afinidad con los valores de la fundación.",
-    lastChecked: "2026-06-17",
+      "Consulta las condiciones de residencia, inscripción y alemán antes de preparar la solicitud.",
+    lastChecked: null,
   },
   {
     title: "Erasmus+ Mobility",
@@ -104,14 +122,17 @@ export const scholarships: Scholarship[] = [
     fields: "Depende del convenio universitario",
     language: "Depende del programa",
     fundingType: "Apoyo de movilidad",
-    eligibleForMexicans: false,
-    germanUsuallyRequired: false,
-    admissionRequired: true,
+    eligibleForMexicans: null,
+    germanUsuallyRequired: null,
+    admissionRequired: null,
     deadline: "Depende de la universidad de origen",
     officialUrl:
       "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/studying-abroad",
+    sourceUrl:
+      "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/studying-abroad",
+    verificationStatus: "pending",
     notes:
       "Suele depender de estar ya inscrita o inscrito en una universidad con convenio Erasmus+ activo.",
-    lastChecked: "2026-06-17",
+    lastChecked: null,
   },
 ];

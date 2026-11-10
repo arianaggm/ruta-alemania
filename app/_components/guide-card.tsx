@@ -1,8 +1,8 @@
 import Link from "next/link";
-import type { Guide } from "../_data/guides";
+import type { GuideSummary } from "../_content/guides/types";
 
 type GuideCardProps = {
-  guide: Guide;
+  guide: GuideSummary;
   href: string;
   variant?: "preview" | "full";
 };
@@ -23,7 +23,7 @@ export function GuideCard({
         <span className="inline-flex rounded-full bg-white/75 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-rosa-mexicano">
           {guide.category}
         </span>
-        <span className="text-sm font-medium text-dark-text/62">
+        <span className="text-sm font-medium text-dark-text/70">
           {guide.readingTime} de lectura
         </span>
       </div>
@@ -32,7 +32,7 @@ export function GuideCard({
         {guide.title}
       </h3>
 
-      <p className="mt-4 leading-7 text-dark-text/74">{guide.excerpt}</p>
+      <p className="mt-4 leading-7 text-dark-text/74">{guide.summary}</p>
 
       <div className="mt-5 flex flex-wrap gap-2">
         {previewTags.map((tag) => (
@@ -47,7 +47,7 @@ export function GuideCard({
 
       <Link
         href={href}
-        className="mt-6 inline-flex items-center font-semibold text-rosa-mexicano hover:text-[#b83867]"
+        className="mt-6 inline-flex items-center font-semibold text-rosa-mexicano hover:text-[#8d2048]"
       >
         Leer guía
       </Link>

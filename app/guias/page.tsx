@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Footer } from "../_components/footer";
 import { Navbar } from "../_components/navbar";
 import { SectionHeading } from "../_components/section-heading";
-import { guides } from "../_data/guides";
+import { guides } from "../_content/guides/catalog";
 import { GuidesBrowser } from "./_components/guides-browser";
 
 const starterGuides = [
@@ -24,17 +24,9 @@ const starterGuides = [
 ];
 
 export default function GuidesPage() {
-  const navLinks = [
-    { label: "Inicio", href: "/" },
-    { label: "Becas", href: "/becas" },
-    { label: "Guías", href: "/guias", active: true },
-    { label: "Checklist", href: "/checklist" },
-    { label: "Buscadores", href: "/buscadores" },
-  ];
-
   return (
     <div className="bg-background text-foreground">
-      <Navbar links={navLinks} homeHref="/" />
+      <Navbar />
 
       <main className="px-4 pb-18 pt-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">

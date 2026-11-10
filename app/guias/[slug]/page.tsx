@@ -3,7 +3,24 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "../../_components/footer";
 import { Navbar } from "../../_components/navbar";
-import { getGuideBySlug, guides } from "../../_data/guides";
+import { getGuideBySlug, guides } from "../../_content/guides/catalog";
+import { loadPublishedGuide } from "../../_content/guides/load-guide.server";
+import type { GuideText } from "../../_content/guides/types";
+
+function renderGuideText(text: GuideText) {
+  if (typeof text === "string") return text;
+  if ("parts" in text) {
+    return text.parts.map((part, index) => {
+      if (typeof part === "string") return part;
+      if ("strong" in part) return <strong key={index} className="font-semibold text-dark-text">{part.strong}</strong>;
+      return <em key={index}>{part.em}</em>;
+    });
+  }
+
+  return <>{text.before}<strong className="font-semibold text-dark-text">{text.strong}</strong>{text.after}</>;
+}
+
+export const dynamicParams = false;
 
 export async function generateStaticParams() {
   return guides.map((guide) => ({
@@ -25,7 +42,7 @@ export async function generateMetadata(
 
   return {
     title: `${guide.title} | Ruta Alemania`,
-    description: guide.excerpt,
+    description: guide.summary,
   };
 }
 
@@ -33,23 +50,19 @@ export default async function GuideDetailPage(
   props: PageProps<"/guias/[slug]">
 ) {
   const { slug } = await props.params;
-  const guide = getGuideBySlug(slug);
+  const guide = await loadPublishedGuide(slug);
 
   if (!guide) {
     notFound();
   }
 
-  const navLinks = [
-    { label: "Inicio", href: "/" },
-    { label: "Becas", href: "/becas" },
-    { label: "Guías", href: "/guias", active: true },
-    { label: "Checklist", href: "/checklist" },
-    { label: "Buscadores", href: "/buscadores" },
-  ];
+  const BudgetCalculator = slug === "cuanto-cuesta-estudiar-en-alemania"
+    ? (await import("./_components/budget-calculator")).BudgetCalculator
+    : null;
 
   return (
     <div className="bg-background text-foreground">
-      <Navbar links={navLinks} homeHref="/" />
+      <Navbar />
 
       <main className="px-4 pb-18 pt-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-4xl">
@@ -114,17 +127,17 @@ export default async function GuideDetailPage(
                 <h2 className="font-display text-3xl font-semibold text-dark-text">
                   Mini lista
                 </h2>
-                <div className="mt-6 grid gap-4">
+                <ul className="mt-6 grid gap-4">
                   {guide.checklistItems.map((item) => (
-                    <div
+                    <li
                       key={item}
                       className="flex items-start gap-3 rounded-3xl bg-white/78 p-4 shadow-[0_10px_30px_rgba(43,30,36,0.05)]"
                     >
-                      <span className="mt-1 h-3 w-3 rounded-full bg-rosa-mexicano" />
+                      <span aria-hidden="true" className="mt-2 h-3 w-3 shrink-0 rounded-full bg-rosa-mexicano" />
                       <p className="leading-7 text-dark-text/82">{item}</p>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </section>
             ) : null}
 
@@ -139,8 +152,8 @@ export default async function GuideDetailPage(
                   </h2>
 
                   <div className="mt-5 space-y-4 text-base leading-8 text-dark-text/78">
-                    {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
+                    {section.paragraphs.map((paragraph, index) => (
+                      <p key={index}>{renderGuideText(paragraph)}</p>
                     ))}
                   </div>
 
@@ -160,14 +173,14 @@ export default async function GuideDetailPage(
                           </tr>
                         </thead>
                         <tbody>
-                          {section.table.rows.map((row) => (
+                          {section.table.rows.map((row, rowIndex) => (
                             <tr
-                              key={row.join("-")}
+                              key={rowIndex}
                               className="border-t border-dark-text/8 align-top"
                             >
-                              {row.map((cell) => (
-                                <td key={cell} className="px-4 py-3 leading-6">
-                                  {cell}
+                              {row.map((cell, cellIndex) => (
+                                <td key={cellIndex} className="px-4 py-3 leading-6">
+                                  {renderGuideText(cell)}
                                 </td>
                               ))}
                             </tr>
@@ -178,21 +191,51 @@ export default async function GuideDetailPage(
                   ) : null}
 
                   {section.bullets?.length ? (
-                    <div className="mt-6 grid gap-3">
+                    <ul className="mt-6 space-y-3">
                       {section.bullets.map((bullet) => (
-                        <div
+                        <li
                           key={bullet}
-                          className="flex items-start gap-3 rounded-3xl bg-peach-fuzz/55 p-4"
+                          className="flex items-start gap-3"
                         >
-                          <span className="mt-1 h-3 w-3 rounded-full bg-rosa-mexicano" />
-                          <p className="leading-7 text-dark-text/82">{bullet}</p>
-                        </div>
+                          <span aria-hidden="true" className="mt-2 h-3 w-3 shrink-0 rounded-full bg-rosa-mexicano" />
+                          <span className="leading-7 text-dark-text/82">{bullet}</span>
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   ) : null}
                 </section>
               ))}
             </div>
+            {BudgetCalculator ? <BudgetCalculator /> : null}
+            {guide.relatedLinks?.length ? (
+              <nav aria-label="Guías y herramientas relacionadas" className="rounded-[2rem] border border-dark-text/8 bg-peach-fuzz/55 p-8">
+                <h2 className="font-display text-3xl font-semibold text-dark-text">Sigue explorando</h2>
+                <ul className="mt-5 grid gap-3 sm:grid-cols-2">
+                  {guide.relatedLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href} className="block rounded-2xl bg-white/80 p-4 font-semibold text-rosa-mexicano hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rosa-mexicano">
+                        {link.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ) : null}
+            {guide.sources.length ? (
+              <section className="rounded-[2rem] border border-dark-text/8 bg-white/82 p-8">
+                <h2 className="font-display text-3xl font-semibold text-dark-text">Fuentes oficiales</h2>
+                <p className="mt-3 leading-7 text-dark-text/78">Estas fuentes orientan la guía; confirma siempre la versión vigente y los requisitos de tu programa.</p>
+                <ul className="mt-5 space-y-3">
+                  {guide.sources.map((source) => (
+                    <li key={source.url}>
+                      <a href={source.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-rosa-mexicano underline underline-offset-2 hover:text-dark-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rosa-mexicano">
+                        {source.title} <span aria-hidden="true">↗</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ) : null}
           </article>
         </div>
       </main>

@@ -7,31 +7,50 @@ import { Hero } from "./_components/hero";
 import { Navbar } from "./_components/navbar";
 import { ScholarshipCard } from "./_components/scholarship-card";
 import { SectionHeading } from "./_components/section-heading";
-import { guides } from "./_data/guides";
+import { guides } from "./_content/guides/catalog";
 import { scholarships } from "./_data/scholarships";
 
 const features = [
   {
     title: "Becas para mexicanos",
     description:
-      "Encuentra oportunidades relevantes con datos claros sobre requisitos, financiamiento y fechas clave.",
+      "Explora opciones de financiamiento y confirma requisitos, cobertura y fechas en sus fuentes oficiales.",
+    href: "/becas",
   },
   {
     title: "Guías paso a paso",
     description:
       "Sigue rutas prácticas para entender admisiones, documentos, costos y procesos desde México.",
+    href: "/guias",
   },
   {
-    title: "Checklists y plantillas",
+    title: "Checklist para planear",
     description:
-      "Organiza tu proceso con listas accionables y materiales listos para ayudarte a no olvidar pasos importantes.",
+      "Revisa las etapas generales del proceso y marca tus avances en una lista práctica.",
+    href: "/checklist",
   },
   {
-    title: "Buscadores oficiales",
+    title: "Recursos oficiales",
     description:
       "Consulta portales confiables para buscar programas, becas, aplicaciones y orientación oficial.",
+    href: "/buscadores",
   },
 ];
+
+const miRutaSteps = [
+  {
+    title: "Define tus metas",
+    description: "Cuéntanos tu nivel de estudios, idioma, etapa y prioridad.",
+  },
+  {
+    title: "Recibe una ruta personal",
+    description: "Consulta tareas y guías recomendadas según tus respuestas.",
+  },
+  {
+    title: "Organiza tu avance",
+    description: "Marca tareas y lleva el seguimiento de tus solicitudes a universidades.",
+  },
+] as const;
 
 const checklistItems = [
   "Elegir programa",
@@ -103,55 +122,67 @@ const creatorLinks = [
 ] as const;
 
 export default function Home() {
-  const navLinks = [
-    { label: "Inicio", href: "#inicio", active: true },
-    { label: "Becas", href: "/becas" },
-    { label: "Guías", href: "/guias" },
-    { label: "Checklist", href: "/checklist" },
-    { label: "Buscadores", href: "/buscadores" },
-    { label: "Por dónde empiezo", href: "#por-donde-empiezo" },
-    { label: "Sobre mí", href: "#sobre-mi" },
-  ];
-
   return (
     <div className="bg-background text-foreground">
-      <Navbar links={navLinks} homeHref="/" />
+      <Navbar />
       <main id="inicio" className="overflow-hidden">
         <Hero />
 
-        <section className="px-4 py-18 sm:px-6 lg:px-8">
+        <section id="como-funciona" className="px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           <div className="mx-auto max-w-6xl">
-            <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-              <div className="rounded-[2rem] border border-rosa-mexicano/12 bg-peach-fuzz/70 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10">
+            <SectionHeading
+              eyebrow="Cómo funciona Mi Ruta"
+              title="De tus metas a un plan que puedes seguir"
+              description="Empieza con unas preguntas sencillas y usa tu espacio personal para organizar lo que sigue. Las guías y recursos públicos siguen disponibles para explorar libremente."
+            />
+            <ol className="mt-8 grid gap-5 md:grid-cols-3">
+              {miRutaSteps.map((step, index) => (
+                <li
+                  key={step.title}
+                  className="rounded-[2rem] border border-dark-text/8 bg-white/85 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)]"
+                >
+                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-rosa-mexicano font-semibold text-white">
+                    {index + 1}
+                  </span>
+                  <h3 className="mt-5 font-display text-xl font-semibold text-dark-text">
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 leading-7 text-dark-text/75">{step.description}</p>
+                </li>
+              ))}
+            </ol>
+            <Link
+              href="/mi-ruta/empezar"
+              className="mt-7 inline-flex items-center font-semibold text-rosa-mexicano hover:text-[#8d2048]"
+            >
+              Crear Mi Ruta <span aria-hidden="true" className="ml-2">→</span>
+            </Link>
+          </div>
+        </section>
+
+        <section className="px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <div className="mx-auto max-w-6xl">
+            <div className="grid gap-6 rounded-[2rem] border border-rosa-mexicano/12 bg-peach-fuzz/70 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
+              <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
                   Por qué existe Ruta Alemania
                 </p>
                 <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-dark-text sm:text-4xl">
                   Encontrar información confiable no debería sentirse como un laberinto.
                 </h2>
-                <p className="mt-5 max-w-2xl text-lg leading-8 text-dark-text/78">
+              </div>
+              <div className="space-y-4 text-lg leading-8 text-dark-text/78">
+                <p>
                   Estudiar en Alemania desde México suele implicar revisar muchas fuentes,
                   comparar requisitos y entender procesos que no siempre están explicados
-                  de forma clara. Ruta Alemania busca reunir esa información en un solo
-                  lugar, en español y con pasos útiles para avanzar con confianza.
+                  con claridad.
                 </p>
-              </div>
-
-              <div className="rounded-[2rem] border border-dark-text/8 bg-white/85 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10">
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-                  Lo que encontrarás aquí
+                <p>
+                  Aquí puedes explorar guías y becas, crear una ruta de estudio
+                  personalizada, seguir tus solicitudes a universidades y guardar tu
+                  avance. Si quieres conservar una copia de tus datos, puedes
+                  descargar un respaldo desde Mi Ruta.
                 </p>
-                <div className="mt-6 space-y-4">
-                  <div className="rounded-3xl bg-butter/60 p-5">
-                    Becas explicadas sin rodeos, con enfoque en estudiantes mexicanos.
-                  </div>
-                  <div className="rounded-3xl bg-antique-white p-5">
-                    Guías prácticas para planear estudios, documentos y tiempos.
-                  </div>
-                  <div className="rounded-3xl bg-peach-fuzz/70 p-5">
-                    Recursos accionables para pasar de la investigación a la aplicación.
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -168,25 +199,6 @@ export default function Home() {
               {features.map((feature) => (
                 <FeatureCard key={feature.title} {...feature} />
               ))}
-            </div>
-            <div className="mt-8 rounded-[2rem] border border-dark-text/8 bg-white/82 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:p-8">
-              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                <div className="max-w-2xl">
-                  <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-                    Buscadores
-                  </p>
-                  <p className="mt-3 text-base leading-7 text-dark-text/76">
-                    Revisa una selección de portales oficiales para buscar programas,
-                    becas, aplicaciones y orientación consular.
-                  </p>
-                </div>
-                <Link
-                  href="/buscadores"
-                  className="inline-flex items-center justify-center rounded-full bg-rosa-mexicano px-5 py-3 text-sm font-semibold text-white shadow-[0_18px_35px_rgba(212,68,122,0.24)] hover:-translate-y-0.5 hover:bg-[#be386a]"
-                >
-                  Explorar buscadores
-                </Link>
-              </div>
             </div>
           </div>
         </section>
@@ -238,7 +250,7 @@ export default function Home() {
             <SectionHeading
               eyebrow="Becas"
               title="Primer vistazo a oportunidades de financiamiento"
-              description="Aquí irán fichas resumidas para comparar becas, entender su cobertura y revisar si encajan con tu perfil académico."
+              description="Compara estas oportunidades como punto de partida y confirma requisitos, cobertura y fechas en sus fuentes oficiales."
             />
             <div className="mt-10 grid gap-6 lg:grid-cols-3">
               {scholarships.slice(0, 3).map((scholarship) => (
@@ -280,6 +292,12 @@ export default function Home() {
                 title="Una checklist corta para orientar tus primeros pasos"
                 description="Ideal para convertir una idea general en un proceso concreto y ordenado."
               />
+              <Link
+                href="/checklist"
+                className="mt-6 inline-flex items-center font-semibold text-rosa-mexicano hover:text-[#8d2048]"
+              >
+                Abrir checklist <span aria-hidden="true" className="ml-2">→</span>
+              </Link>
             </div>
             <div className="grid gap-4 sm:grid-cols-2" id="guia-inicial">
               {checklistItems.map((item, index) => (
@@ -319,7 +337,7 @@ export default function Home() {
                   este proceso desde México: buscar programas, entender
                   requisitos, preparar documentos, encontrar becas y organizar
                   la llegada. Mi objetivo es reunir recursos claros, guías
-                  prácticas y links confiables para que más estudiantes
+                  prácticas y enlaces confiables para que más estudiantes
                   mexicanos puedan orientarse paso a paso.
                 </p>
                 <p className="mt-4 text-base leading-8 text-dark-text/78">

@@ -8,21 +8,13 @@ const categoryStyles = {
   Programas: "bg-butter/75 text-dark-text",
   Aplicaciones: "bg-peach-fuzz/80 text-dark-text",
   Becas: "bg-rosa-mexicano text-white",
-  "Informacion oficial": "bg-antique-white text-dark-text",
+  "Información oficial": "bg-antique-white text-dark-text",
 } as const;
 
 export default function SearchToolsPage() {
-  const navLinks = [
-    { label: "Inicio", href: "/" },
-    { label: "Becas", href: "/becas" },
-    { label: "Guías", href: "/guias" },
-    { label: "Checklist", href: "/checklist" },
-    { label: "Buscadores", href: "/buscadores", active: true },
-  ];
-
   return (
     <div className="bg-background text-foreground">
-      <Navbar links={navLinks} homeHref="/" />
+      <Navbar />
 
       <main className="px-4 pb-18 pt-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
@@ -37,7 +29,7 @@ export default function SearchToolsPage() {
             <SectionHeading
               eyebrow="Recursos oficiales"
               title="Buscadores para estudiar en Alemania"
-              description="Encuentra recursos oficiales para buscar programas, becas, aplicaciones y orientacion consular si quieres estudiar en Alemania desde México."
+              description="Encuentra recursos oficiales para buscar programas, becas, solicitudes de admisión y orientación consular si quieres estudiar en Alemania desde México."
             />
           </section>
 
@@ -82,7 +74,7 @@ export default function SearchToolsPage() {
                 </p>
 
                 <div className="mt-5 rounded-3xl bg-antique-white p-4">
-                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-dark-text/58">
+                  <p className="text-sm font-semibold uppercase tracking-[0.18em] text-dark-text/70">
                     Cuándo usarlo
                   </p>
                   <p className="mt-2 text-sm leading-7 text-dark-text/78">

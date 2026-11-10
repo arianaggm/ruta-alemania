@@ -6,17 +6,9 @@ import { checklistSections } from "../_data/checklist";
 import { ChecklistBoard } from "./_components/checklist-board";
 
 export default function ChecklistPage() {
-  const navLinks = [
-    { label: "Inicio", href: "/" },
-    { label: "Becas", href: "/becas" },
-    { label: "Guías", href: "/guias" },
-    { label: "Checklist", href: "/checklist", active: true },
-    { label: "Buscadores", href: "/buscadores" },
-  ];
-
   return (
     <div className="bg-background text-foreground">
-      <Navbar links={navLinks} homeHref="/" />
+      <Navbar />
 
       <main className="px-4 pb-18 pt-6 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-6xl">
