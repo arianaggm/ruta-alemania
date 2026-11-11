@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { test } from "node:test";
+import { scholarships } from "../app/_data/scholarships.ts";
 import { registry } from "../scripts/scholarship-monitor/registry.mjs";
 import { compareSnapshots, extractSnapshot, parseRobots, renderReport, validateSnapshotStore } from "../scripts/scholarship-monitor/core.mjs";
 import { describeComparison, findRestorableSnapshot, snapshotCandidates } from "../scripts/scholarship-monitor/restore-core.mjs";
@@ -9,15 +10,49 @@ const before = readFileSync(new URL("./fixtures/scholarship-source-before.html",
 const after = readFileSync(new URL("./fixtures/scholarship-source-after.html", import.meta.url), "utf8");
 const url = "https://official.example/scholarship";
 
-test("registry matches all six existing catalog records and pending verification", () => {
-  const catalog = readFileSync(new URL("../app/_data/scholarships.ts", import.meta.url), "utf8");
-  assert.equal(registry.length, 6);
-  assert.equal(new Set(registry.map((item) => item.id)).size, 6);
-  for (const item of registry) {
-    assert.match(catalog, new RegExp(`title: "${item.title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}"`));
-    assert.ok(catalog.includes(item.sourceUrl));
+test("registry matches twelve catalog records while preserving the original six IDs and editorial status", () => {
+  assert.equal(registry.length, 12);
+  assert.equal(scholarships.length, 12);
+  assert.equal(new Set(registry.map((item) => item.id)).size, 12);
+  assert.equal(new Set(registry.map((item) => item.sourceUrl)).size, 12);
+  assert.deepEqual(registry.slice(0, 6).map((item) => item.id), [
+    "daad-epos", "daad-study-scholarships", "heinrich-boell", "deutschlandstipendium", "friedrich-ebert", "erasmus-mobility",
+  ]);
+  assert.deepEqual(registry.map((item) => item.title), scholarships.map((item) => item.title));
+  for (const [index, item] of registry.entries()) {
+    assert.equal(item.sourceUrl, scholarships[index].sourceUrl);
+    assert.equal(item.sourceUrl, scholarships[index].officialUrl);
+    assert.equal(item.catalogVerificationStatus, scholarships[index].verificationStatus);
+    assert.equal(item.catalogLastChecked, scholarships[index].lastChecked);
+    assert.equal(scholarships[index].verificationStatus, "pending");
+    assert.equal(scholarships[index].lastChecked, null);
   }
-  assert.equal((catalog.match(/verificationStatus: "pending",/g) ?? []).length, 6);
+  assert.notEqual(registry[5].id, registry[6].id);
+  assert.notEqual(registry[5].sourceUrl, registry[6].sourceUrl);
+});
+
+test("a restored six-source artifact keeps old history and gives new sources independent baselines", async () => {
+  const entries = Object.fromEntries(registry.slice(0, 6).map((item) => [
+    item.id, extractSnapshot(before, item.sourceUrl, "Study Scholarships", "2026-11-01T00:00:00Z"),
+  ]));
+  const restored = await findRestorableSnapshot({
+    artifacts: [artifact(11, 1)], currentRunId: "2", branch: "main", registry,
+    getRun: async (id) => successfulRun(id),
+    downloadSnapshot: async () => JSON.stringify({ version: 1, entries }),
+  });
+  assert.equal(restored.kind, "restored");
+  const store = restored.store;
+  const original = structuredClone(store.entries);
+  const statuses = registry.map((item) => {
+    const current = extractSnapshot(before, item.sourceUrl, "Study Scholarships", "2026-11-11T00:00:00Z");
+    const comparison = compareSnapshots(store.entries[item.id], current);
+    store.entries[item.id] = current;
+    return comparison.status;
+  });
+  assert.deepEqual(statuses.slice(0, 6), Array(6).fill("unchanged"));
+  assert.deepEqual(statuses.slice(6), Array(6).fill("baseline"));
+  assert.deepEqual(Object.keys(store.entries).slice(0, 6), Object.keys(original));
+  for (const id of Object.keys(original)) assert.equal(store.entries[id].hash, original[id].hash);
 });
 
 test("HTML fixture extracts only explicit section text and detects old/new changes", () => {

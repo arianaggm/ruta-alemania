@@ -125,7 +125,8 @@ export function ScholarshipsBrowser({
         </p>
         <p className="rounded-full bg-butter/70 px-4 py-2 text-sm font-medium text-dark-text">
           Estas fichas están pendientes de verificación. Confirma requisitos,
-          fechas y elegibilidad en la fuente oficial.
+          fechas y elegibilidad en la fuente oficial. Aparecer aquí no significa
+          que la convocatoria esté abierta.
         </p>
       </div>
 

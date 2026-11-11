@@ -21,6 +21,24 @@ test("baseline and unchanged sources produce no change email", async () => {
   assert.deepEqual(planAlerts(results(), outcome.state, registry).alerts, []);
 });
 
+test("six new baselines do not alert while an existing source changes", () => {
+  const oldId = registry[0].id;
+  const mixed = results({
+    [oldId]: { status: "content-changed", hash, changes: [] },
+    ...Object.fromEntries(registry.slice(6).map((item) => [item.id, { status: "baseline" }])),
+  });
+  const priorState = { version: 1, sources: {
+    [registry[1].id]: { outageAlerted: true, lastAlertedHash: null, pendingChange: null },
+  } };
+  const planned = planAlerts(mixed, priorState, registry);
+  assert.deepEqual(planned.alerts.map((alert) => alert.id), [oldId]);
+  assert.equal(planned.alerts[0].kind, "content-change");
+  assert.deepEqual(planned.state.sources[registry[1].id], {
+    outageAlerted: false, lastAlertedHash: null, pendingChange: null,
+  });
+  for (const item of registry.slice(6)) assert.equal(planned.state.sources[item.id].pendingChange, null);
+});
+
 test("content changes include official links, old/new values, run link and an editorial warning", async () => {
   const id = registry[0].id;
   const planned = planAlerts(results({ [id]: {
