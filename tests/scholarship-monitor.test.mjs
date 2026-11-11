@@ -98,7 +98,25 @@ test("second workflow run restores the legacy first-run artifact and compares un
   });
   assert.equal(result.kind, "restored");
   assert.equal(result.runId, 1);
+  assert.deepEqual(result.notificationState, { version: 1, sources: {} });
   assert.equal(compareSnapshots(result.store.entries[registry[0].id], saved.entries[registry[0].id]).status, "unchanged");
+});
+
+test("restoration validates and preserves notification state bundled with snapshots", async () => {
+  const notificationState = { version: 1, sources: {
+    [registry[0].id]: { outageAlerted: true, lastAlertedHash: null, pendingChange: null },
+  } };
+  const options = {
+    artifacts: [artifact(11, 1)], currentRunId: "2", branch: "main", registry,
+    getRun: async (id) => successfulRun(id),
+    downloadSnapshot: async () => ({ snapshotText: JSON.stringify(saved), notificationStateText: JSON.stringify(notificationState) }),
+  };
+  const restored = await findRestorableSnapshot(options);
+  assert.deepEqual(restored.notificationState, notificationState);
+  await assert.rejects(findRestorableSnapshot({
+    ...options,
+    downloadSnapshot: async () => ({ snapshotText: JSON.stringify(saved), notificationStateText: '{"version":2}' }),
+  }), /No se pudo restaurar ningún snapshot válido/);
 });
 
 test("an invalid newer snapshot is reported and an older valid successful run is restored", async () => {

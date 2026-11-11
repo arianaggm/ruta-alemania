@@ -1,4 +1,5 @@
 import { validateSnapshotStore } from "./core.mjs";
+import { emptyNotificationState, validateNotificationState } from "./notifications-core.mjs";
 
 const workflowPath = ".github/workflows/scholarship-monitor.yml";
 const isSnapshotName = (name) =>
@@ -44,13 +45,17 @@ export async function findRestorableSnapshot({
 
     priorSuccessfulRuns += 1;
     try {
+      const downloaded = await downloadSnapshot(artifact);
       const store = validateSnapshotStore(
-        JSON.parse(await downloadSnapshot(artifact)),
-        registry,
+        JSON.parse(typeof downloaded === "string" ? downloaded : downloaded.snapshotText), registry,
       );
+      const notificationState = downloaded.notificationStateText
+        ? validateNotificationState(JSON.parse(downloaded.notificationStateText), registry)
+        : emptyNotificationState();
       return {
         kind: "restored",
         store,
+        notificationState,
         artifactId: artifact.id,
         runId: run.id,
         warnings,

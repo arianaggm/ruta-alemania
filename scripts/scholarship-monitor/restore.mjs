@@ -73,13 +73,25 @@ async function downloadSnapshot(artifact, token, repository) {
   try {
     const zipPath = join(directory, "snapshot.zip");
     await writeFile(zipPath, archive);
-    const { stdout } = await execFileAsync("unzip", ["-p", zipPath, "snapshots.json"], {
+    const { stdout: listing } = await execFileAsync("unzip", ["-Z1", zipPath], {
+      encoding: "utf8", maxBuffer: 20_000, timeout: 10_000,
+    });
+    const names = new Set(listing.trim().split(/\r?\n/));
+    if (!names.has("snapshots.json")) throw new Error("El artefacto no contiene snapshots.json.");
+    const { stdout: snapshotText } = await execFileAsync("unzip", ["-p", zipPath, "snapshots.json"], {
       encoding: "utf8",
       maxBuffer: maxSnapshotBytes,
       timeout: 10_000,
     });
-    if (Buffer.byteLength(stdout, "utf8") > maxSnapshotBytes) throw new Error("El snapshot supera el tamaño permitido.");
-    return stdout;
+    if (Buffer.byteLength(snapshotText, "utf8") > maxSnapshotBytes) throw new Error("El snapshot supera el tamaño permitido.");
+    let notificationStateText = null;
+    if (names.has("notification-state.json")) {
+      const extracted = await execFileAsync("unzip", ["-p", zipPath, "notification-state.json"], {
+        encoding: "utf8", maxBuffer: 100_000, timeout: 10_000,
+      });
+      notificationStateText = extracted.stdout;
+    }
+    return { snapshotText, notificationStateText };
   } finally {
     await rm(directory, { recursive: true, force: true });
   }
@@ -120,6 +132,10 @@ async function main() {
     const temporary = `${path}.${process.pid}.tmp`;
     await writeFile(temporary, `${JSON.stringify(result.store, null, 2)}\n`, "utf8");
     await rename(temporary, path);
+    const statePath = join(outputDir, "notification-state.json");
+    const stateTemporary = `${statePath}.${process.pid}.tmp`;
+    await writeFile(stateTemporary, `${JSON.stringify(result.notificationState, null, 2)}\n`, "utf8");
+    await rename(stateTemporary, statePath);
   }
   const status = result.kind === "restored"
     ? { kind: result.kind, artifactId: result.artifactId, runId: result.runId, warnings: result.warnings }

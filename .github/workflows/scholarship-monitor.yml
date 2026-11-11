@@ -2,6 +2,11 @@ name: Monitoreo editorial de becas
 
 on:
   workflow_dispatch:
+    inputs:
+      notification_test:
+        description: "Enviar solo un correo de PRUEBA (no confirmar alertas reales)"
+        type: boolean
+        default: false
   schedule:
     - cron: "17 8 * * 1"
 
@@ -28,18 +33,31 @@ jobs:
         run: node scripts/scholarship-monitor/restore.mjs
       - run: npm ci
       - name: Consultar fuentes oficiales y generar reporte
+        id: monitor
         run: npm run monitor:becas
+      - name: Evaluar alertas y notificar por Brevo
+        id: notify
+        env:
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          BREVO_SENDER_EMAIL: ${{ secrets.BREVO_SENDER_EMAIL }}
+          SCHOLARSHIP_ALERT_EMAIL: ${{ secrets.SCHOLARSHIP_ALERT_EMAIL }}
+          SCHOLARSHIP_NOTIFICATION_TEST: ${{ inputs.notification_test }}
+        run: node scripts/scholarship-monitor/notify.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: scholarship-monitor-report-${{ github.run_id }}-${{ github.run_attempt }}
-          path: reports/scholarship-monitor/latest.md
+          path: |
+            reports/scholarship-monitor/latest.md
+            reports/scholarship-monitor/notification-status.json
           if-no-files-found: error
           retention-days: 30
       - uses: actions/upload-artifact@v4
-        if: success()
+        if: ${{ steps.monitor.outcome == 'success' && steps.notify.outcome == 'success' }}
         with:
           name: scholarship-monitor-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
-          path: reports/scholarship-monitor/snapshots.json
+          path: |
+            reports/scholarship-monitor/snapshots.json
+            reports/scholarship-monitor/notification-state.json
           if-no-files-found: error
           retention-days: 90

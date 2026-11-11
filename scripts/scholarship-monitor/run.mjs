@@ -8,6 +8,7 @@ const userAgent = "RutaAlemaniaScholarshipMonitor/1.0 (+manual editorial review)
 const outputDir = process.env.SCHOLARSHIP_MONITOR_DIR || join(process.cwd(), "reports", "scholarship-monitor");
 const snapshotPath = join(outputDir, "snapshots.json");
 const reportPath = join(outputDir, "latest.md");
+const resultsPath = join(outputDir, "monitor-results.json");
 const maxBytes = 2_000_000;
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -110,6 +111,17 @@ async function main() {
   const temporary = `${snapshotPath}.${process.pid}.tmp`;
   await writeFile(temporary, `${JSON.stringify(store, null, 2)}\n`, "utf8");
   await rename(temporary, snapshotPath);
+  await writeFile(resultsPath, `${JSON.stringify({
+    version: 1,
+    generatedAt,
+    rows: rows.map((row) => ({
+      id: row.id,
+      status: row.status,
+      hash: store.entries[row.id]?.hash ?? null,
+      changes: row.changes ?? [],
+      error: row.error ?? null,
+    })),
+  }, null, 2)}\n`, "utf8");
   console.log(`Reporte: ${reportPath}`);
   console.log(`Snapshots: ${snapshotPath}`);
   for (const row of rows) console.log(`${row.title}: ${row.status}${row.reviewNeeded ? " (revisión manual)" : ""}`);
