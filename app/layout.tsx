@@ -13,9 +13,9 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "Ruta Alemania | De México a la universidad alemana, paso a paso",
+  title: "bej | Tu camino para estudiar en el extranjero",
   description:
-    "Plataforma en español para estudiantes mexicanos que buscan becas, guías y recursos para estudiar en Alemania.",
+    "Guías gratuitas y herramientas para organizar tu camino hacia los estudios en el extranjero. Empezamos con Alemania.",
 };
 
 export default function RootLayout({
@@ -26,7 +26,8 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`${manrope.variable} ${sora.variable} h-full scroll-smooth antialiased`}
+      data-scroll-behavior="smooth"
+      className={`${manrope.variable} ${sora.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

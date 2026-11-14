@@ -115,14 +115,18 @@ test("DAAD search experience preserves the reported filters, counts and practica
   ]);
 });
 
-test("guide renderer uses semantic lists and fixed-size markers for enumerations", () => {
+test("guide renderer keeps semantic text, lists and accessible scrollable tables", () => {
   const page = readFileSync(new URL("../app/guias/[slug]/page.tsx", import.meta.url), "utf8");
+  const styles = readFileSync(new URL("../app/guias/guides.module.css", import.meta.url), "utf8");
   assert.match(page, /section\.paragraphs\.map[\s\S]*<p key=\{index\}>\{renderGuideText\(paragraph\)\}<\/p>/);
   assert.match(page, /<strong className="font-semibold text-dark-text">\{text\.strong\}<\/strong>/);
   assert.match(page, /<em key=\{index\}>\{part\.em\}<\/em>/);
-  assert.match(page, /<ul className="mt-6 space-y-3">[\s\S]*section\.bullets\.map[\s\S]*<li/);
-  assert.match(page, /shrink-0 rounded-full bg-rosa-mexicano/);
-  assert.doesNotMatch(page, /className="flex items-start gap-3 rounded-3xl bg-peach-fuzz\/55 p-4"/);
+  assert.match(page, /<ul className=\{styles\.articleBullets\}>[\s\S]*section\.bullets\.map[\s\S]*<li/);
+  assert.match(styles, /\.articleBullets \{[\s\S]*?list-style: disc/);
+  assert.match(page, /className=\{styles\.tableScroll\} role="region" aria-label=\{`Tabla: \$\{section\.title\}`\} tabIndex=\{0\}/);
+  assert.match(styles, /\.tableScroll \{[\s\S]*?overflow-x: auto/);
+  assert.match(page, /className=\{styles\.keyIdeas\}/);
+  assert.match(page, /className=\{styles\.sources\}/);
 });
 
 test("Dresden budget remains a personal example with reported amounts and no double counting", async () => {

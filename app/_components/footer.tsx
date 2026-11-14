@@ -3,6 +3,8 @@ import Link from "next/link";
 const sectionLinks = [
   { label: "Por dónde empiezo", href: "/#por-donde-empiezo" },
   { label: "Sobre mí", href: "/#sobre-mi" },
+  { label: "¿Qué es bej?", href: "/que-es-bej" },
+  { label: "Novedades", href: "/novedades" },
 ];
 
 const footerLinks = [
@@ -17,10 +19,10 @@ export function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col gap-6 rounded-[2rem] border border-dark-text/8 bg-white/82 px-6 py-8 shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="font-display text-2xl font-semibold text-dark-text">
-            Ruta Alemania
+            bej
           </p>
           <p className="mt-2 text-sm text-dark-text/68">
-            Becas, guías y recursos para estudiar en Alemania desde México.
+            Un camino para estudiar más allá de casa. Empezamos con Alemania.
           </p>
         </div>
         <div className="space-y-3">

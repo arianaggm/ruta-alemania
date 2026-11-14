@@ -3,37 +3,41 @@ import { existsSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 
 const home = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
-const hero = readFileSync(new URL("../app/_components/hero.tsx", import.meta.url), "utf8");
-const featureCard = readFileSync(new URL("../app/_components/feature-card.tsx", import.meta.url), "utf8");
-const guides = readFileSync(new URL("../app/_content/guides/catalog.ts", import.meta.url), "utf8");
+const nav = readFileSync(new URL("../app/_components/bej-home-nav.tsx", import.meta.url), "utf8");
 
-test("hero offers Mi Ruta first and public guides second", () => {
-  assert.match(hero, /href="\/mi-ruta\/empezar"[\s\S]*?>\s*Crear Mi Ruta\s*<\/Link>/);
-  assert.match(hero, /href="\/guias"[\s\S]*?>\s*Explorar guías\s*<\/Link>/);
-  assert.ok(hero.indexOf('href="/mi-ruta/empezar"') < hero.indexOf('href="/guias"'));
+test("bej hero puts the personal path first without hiding free guides", () => {
+  assert.match(home, /Cada camino comienza/);
+  assert.match(home, /href="\/mi-ruta\/empezar">Crear mi bej/);
+  assert.match(home, /href="\/guias">Explorar guías/);
+  assert.ok(home.indexOf("Crear mi bej") < home.indexOf("Explorar guías"));
+  assert.match(home, /Espacio reservado para la ilustración oficial de <BrandName \/>/);
 });
 
-test("homepage feature cards are complete links to existing resources", () => {
-  assert.match(featureCard, /<Link\s+href=\{href\}[\s\S]*?<h3/);
-  for (const destination of ["/becas", "/guias", "/checklist", "/buscadores"]) {
-    assert.ok(home.includes(`href: "${destination}"`), `Feature destination missing: ${destination}`);
-  }
-});
-
-test("homepage literal internal destinations have routes", () => {
-  const destinations = new Set(
-    [...home.matchAll(/\bhref(?:=|:)\s*"(\/[^"#]*)"/g), ...hero.matchAll(/\bhref="(\/[^"#]*)"/g)]
-      .map((match) => match[1]),
-  );
-  for (const destination of destinations) {
-    if (destination.startsWith("/guias/")) {
-      assert.ok(existsSync(new URL("../app/guias/[slug]/page.tsx", import.meta.url)));
-      assert.ok(guides.includes(`"slug": "${destination.slice("/guias/".length)}"`), `Guide missing: ${destination}`);
-      continue;
-    }
-    const page = new URL(`../app${destination}/page.tsx`, import.meta.url);
-    assert.ok(existsSync(page), `Route missing: ${destination}`);
+test("bej homepage keeps real public and personal tool routes", () => {
+  for (const destination of ["/guias", "/becas", "/buscadores", "/checklist", "/mi-ruta", "/mi-ruta/aplicaciones", "/mi-ruta/mis-datos"]) {
+    assert.ok(home.includes(`href="${destination}"`), `Destination missing: ${destination}`);
   }
   assert.match(home, /href=\{`\/guias\/\$\{guide\.slug\}`\}/);
+  assert.match(home, /_content\/guides\/catalog/);
+  for (const anchor of ["inicio", "por-donde-empiezo", "sobre-mi", "que-es-bej"]) {
+    assert.ok(home.includes(`id="${anchor}"`), `Anchor missing: ${anchor}`);
+  }
+});
+
+test("bej navigation has working destinations and closes its mobile menu", () => {
+  assert.match(nav, /label: "Inicio", href: "#inicio"/);
+  assert.match(nav, /label: "¿Qué es bej\?", href: "\/que-es-bej"/);
+  assert.match(nav, /label: "Mi bej", href: "\/mi-ruta"/);
+  assert.match(nav, /href="\/mi-ruta\/empezar"/);
+  assert.match(nav, /onClick=\{closeMenu\}/);
+  assert.match(nav, /menuRef\.current\.open = false/);
+});
+
+test("homepage literal internal destinations resolve to routes", () => {
+  const destinations = new Set([...home.matchAll(/\bhref="(\/[^"#]*)"/g), ...nav.matchAll(/\bhref: "(\/[^"#]*)"/g)]
+    .map((match) => match[1]));
+  for (const destination of destinations) {
+    assert.ok(existsSync(new URL(`../app${destination}/page.tsx`, import.meta.url)), `Route missing: ${destination}`);
+  }
   assert.ok(existsSync(new URL("../app/guias/[slug]/page.tsx", import.meta.url)));
 });

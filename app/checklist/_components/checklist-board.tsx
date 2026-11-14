@@ -112,7 +112,7 @@ export function ChecklistBoard({ sections }: ChecklistBoardProps) {
       <div className="rounded-[2rem] border border-dark-text/8 bg-butter/45 px-5 py-4 text-sm font-medium text-dark-text shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:px-6">
         Esta checklist es una guía general. Verifica siempre los requisitos
         oficiales según tu caso. Su avance se guarda por separado y no se comparte
-        con las tareas personalizadas de <Link href="/mi-ruta" className="font-semibold text-rosa-mexicano underline underline-offset-2">Mi Ruta</Link>.
+        con las tareas personalizadas de <Link href="/mi-ruta" className="font-semibold text-rosa-mexicano underline underline-offset-2">Mi bej</Link>.
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">

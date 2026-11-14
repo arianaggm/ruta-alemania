@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { BrandName } from "../../../_components/brand-name";
 import {
   applicationStatuses,
   levelLabels,
@@ -69,7 +70,7 @@ export function ApplicationCard({ application, onEdit, onDelete, onStatus, onAdd
       {application.intakeSemester && <span className="rounded-full bg-antique-white px-3 py-1">Inicio: {application.intakeSemester === "winter" ? "invierno" : "verano"} {application.intakeYear}</span>}
     </div>
     <p className="mt-5 text-sm font-medium text-dark-text">{application.deadline ? `Fecha límite anotada: ${displayDate(application.deadline)}` : "Sin fecha límite anotada"}</p>
-    {application.deadline && <p className="mt-1 text-xs text-dark-text/70">Fecha ingresada por ti; no está verificada por Ruta Alemania.</p>}
+    {application.deadline && <p className="mt-1 text-xs text-dark-text/70">Fecha ingresada por ti; <BrandName /> no la ha verificado.</p>}
     <div className="mt-5 flex flex-wrap gap-3 text-sm font-semibold">
       {application.officialProgramUrl && <a href={application.officialProgramUrl} target="_blank" rel="noopener noreferrer" className="text-rosa-mexicano hover:underline">Página del programa ↗</a>}
       {application.applicationPortalUrl && <a href={application.applicationPortalUrl} target="_blank" rel="noopener noreferrer" className="text-rosa-mexicano hover:underline">Portal de solicitud ↗</a>}

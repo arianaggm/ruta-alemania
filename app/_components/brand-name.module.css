@@ -1,0 +1,25 @@
+.brand {
+  font-family: var(--font-bej-display), Georgia, serif;
+  font-style: normal;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.body {
+  font-size: 1.12em;
+  line-height: 1;
+  vertical-align: -0.015em;
+}
+
+.heading {
+  font-size: 1em;
+  line-height: inherit;
+}
+
+.default {
+  color: var(--bej-blue, #005f9e);
+}
+
+.light {
+  color: var(--bej-ivory, #fff5e8);
+}

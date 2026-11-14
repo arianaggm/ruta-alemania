@@ -1,111 +1,86 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import Link from "next/link";
+import { useState } from "react";
+
 import { GuideCard } from "../../_components/guide-card";
 import type { GuideSummary } from "../../_content/guides/types";
+import { filterGuides } from "../_lib/filter-guides";
+import styles from "../guides.module.css";
 
-type GuidesBrowserProps = {
-  guides: GuideSummary[];
-};
+type GuidesBrowserProps = { guides: GuideSummary[] };
 
-const categories = [
-  "Todas",
-  "Aplicación",
-  "Documentos",
-  "Finanzas",
-  "Visa",
-  "Becas",
-  "Llegada",
-  "Sistema educativo",
-] as const;
+const featuredSlug = "como-buscar-maestrias-en-alemania";
 
 export function GuidesBrowser({ guides }: GuidesBrowserProps) {
-  const [category, setCategory] = useState<(typeof categories)[number]>("Todas");
-
-  const filteredGuides = useMemo(() => {
-    if (category === "Todas") {
-      return guides;
-    }
-
-    return guides.filter((guide) => guide.category === category);
-  }, [category, guides]);
+  const [category, setCategory] = useState("Todas");
+  const [query, setQuery] = useState("");
+  const categories = ["Todas", ...new Set(guides.map((guide) => guide.category))];
+  const filteredGuides = filterGuides(guides, category, query);
+  const defaultView = category === "Todas" && query.trim() === "";
+  const featuredGuide = defaultView ? guides.find((guide) => guide.slug === featuredSlug) : undefined;
+  const gridGuides = featuredGuide
+    ? filteredGuides.filter((guide) => guide.slug !== featuredSlug)
+    : filteredGuides;
 
   return (
-    <div className="mt-10 space-y-8">
-      <section className="rounded-[2rem] border border-rosa-mexicano/12 bg-white/82 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:p-8">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-              Filtros
-            </p>
-            <p className="mt-2 text-base leading-7 text-dark-text/74">
-              Explora las guías por tema y enfócate en la parte del proceso que
-              más necesitas resolver ahora.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => setCategory("Todas")}
-            className="inline-flex items-center justify-center rounded-full border border-rosa-mexicano/16 bg-peach-fuzz/55 px-4 py-2 text-sm font-semibold text-dark-text hover:border-rosa-mexicano hover:bg-peach-fuzz"
-          >
-            Limpiar filtro
-          </button>
+    <section className={styles.browser} aria-labelledby="browse-heading">
+      <div className={styles.browserHeading}>
+        <div>
+          <p className={styles.eyebrow}>LA BIBLIOTECA</p>
+          <h2 id="browse-heading">Encuentra tu próxima lectura.</h2>
         </div>
-
-        <div className="mt-6">
-          <label className="space-y-2">
-            <span className="text-sm font-semibold text-dark-text">Categoría</span>
-            <select
-              value={category}
-              onChange={(event) =>
-                setCategory(event.target.value as (typeof categories)[number])
-              }
-              className="w-full rounded-2xl border border-dark-text/10 bg-antique-white px-4 py-3 text-sm text-dark-text outline-none ring-0 transition focus:border-rosa-mexicano md:max-w-sm"
-            >
-              {categories.map((option) => (
-                <option key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </label>
-        </div>
-      </section>
-
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm font-medium text-dark-text/72">
-          {filteredGuides.length} guía
-          {filteredGuides.length === 1 ? "" : "s"} mostrada
-          {filteredGuides.length === 1 ? "" : "s"}.
-        </p>
-        <p className="rounded-full bg-butter/70 px-4 py-2 text-sm font-medium text-dark-text">
-          Usa estas guías como punto de partida y confirma detalles clave con
-          fuentes oficiales.
-        </p>
+        <p>Busca un tema o elige una categoría para encontrar la guía que necesitas ahora.</p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-        {filteredGuides.map((guide) => (
-          <GuideCard
-            key={guide.slug}
-            guide={guide}
-            href={`/guias/${guide.slug}`}
-            variant="full"
+      <div className={styles.filters}>
+        <label className={styles.searchField} htmlFor="guide-search">
+          <span>Buscar guías</span>
+          <input
+            id="guide-search"
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Por ejemplo: becas, visa, maestría..."
           />
-        ))}
+        </label>
+        <label className={styles.categoryField} htmlFor="guide-category">
+          <span>Categoría</span>
+          <select id="guide-category" value={category} onChange={(event) => setCategory(event.target.value)}>
+            {categories.map((option) => <option key={option} value={option}>{option}</option>)}
+          </select>
+        </label>
+        <button className={styles.clearButton} type="button" onClick={() => { setCategory("Todas"); setQuery(""); }}>
+          Limpiar filtros
+        </button>
       </div>
 
-      {filteredGuides.length === 0 ? (
-        <div className="rounded-[2rem] border border-dark-text/8 bg-white/82 p-8 text-center shadow-[0_18px_50px_rgba(43,30,36,0.08)]">
-          <h3 className="font-display text-2xl font-semibold text-dark-text">
-            No hay guías en esta categoría
-          </h3>
-          <p className="mt-3 text-dark-text/72">
-            Cambia el filtro o vuelve a &quot;Todas&quot; para explorar el resto del
-            contenido disponible.
-          </p>
+      <p className={styles.resultCount} aria-live="polite">
+        {filteredGuides.length} {filteredGuides.length === 1 ? "guía encontrada" : "guías encontradas"}
+      </p>
+
+      {featuredGuide ? (
+        <Link href={`/guias/${featuredGuide.slug}`} className={styles.featuredGuide}>
+          <span className={styles.featuredLabel}>LECTURA DESTACADA <span aria-hidden="true">✳</span></span>
+          <span className={styles.featuredCategory}>{featuredGuide.category} · {featuredGuide.readingTime} de lectura</span>
+          <strong>{featuredGuide.title}</strong>
+          <span className={styles.featuredSummary}>{featuredGuide.summary}</span>
+          <span className={styles.featuredAction}>Leer guía <span aria-hidden="true">↗</span></span>
+        </Link>
+      ) : null}
+
+      {gridGuides.length ? (
+        <div className={styles.cardGrid}>
+          {gridGuides.map((guide) => (
+            <GuideCard key={guide.slug} guide={guide} href={`/guias/${guide.slug}`} variant="full" />
+          ))}
+        </div>
+      ) : filteredGuides.length === 0 ? (
+        <div className={styles.emptyState}>
+          <h3>No encontramos guías con esos filtros.</h3>
+          <p>Prueba otra búsqueda o limpia los filtros para explorar toda la biblioteca.</p>
         </div>
       ) : null}
-    </div>
+    </section>
   );
 }

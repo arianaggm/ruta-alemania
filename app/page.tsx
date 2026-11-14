@@ -1,376 +1,156 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
-import { FeatureCard } from "./_components/feature-card";
-import { Footer } from "./_components/footer";
-import { GuideCard } from "./_components/guide-card";
-import { Hero } from "./_components/hero";
-import { Navbar } from "./_components/navbar";
-import { ScholarshipCard } from "./_components/scholarship-card";
-import { SectionHeading } from "./_components/section-heading";
+import { BejFooter } from "./_components/bej-footer";
+import { dmSans, fraunces } from "./_components/bej-fonts";
+import { BejHomeNav } from "./_components/bej-home-nav";
+import { BrandName } from "./_components/brand-name";
 import { guides } from "./_content/guides/catalog";
-import { scholarships } from "./_data/scholarships";
+import styles from "./home.module.css";
 
-const features = [
-  {
-    title: "Becas para mexicanos",
-    description:
-      "Explora opciones de financiamiento y confirma requisitos, cobertura y fechas en sus fuentes oficiales.",
-    href: "/becas",
-  },
-  {
-    title: "Guías paso a paso",
-    description:
-      "Sigue rutas prácticas para entender admisiones, documentos, costos y procesos desde México.",
-    href: "/guias",
-  },
-  {
-    title: "Checklist para planear",
-    description:
-      "Revisa las etapas generales del proceso y marca tus avances en una lista práctica.",
-    href: "/checklist",
-  },
-  {
-    title: "Recursos oficiales",
-    description:
-      "Consulta portales confiables para buscar programas, becas, aplicaciones y orientación oficial.",
-    href: "/buscadores",
-  },
-];
+export const metadata: Metadata = {
+  title: "bej | Tu camino para estudiar en el extranjero",
+  description:
+    "Guías gratuitas y herramientas para organizar tu camino hacia los estudios en el extranjero. Empezamos con Alemania.",
+};
 
-const miRutaSteps = [
+const steps = [
   {
-    title: "Define tus metas",
-    description: "Cuéntanos tu nivel de estudios, idioma, etapa y prioridad.",
+    number: "01",
+    title: "Explora",
+    description: "Conoce tus opciones con guías claras, becas y fuentes confiables.",
   },
   {
-    title: "Recibe una ruta personal",
-    description: "Consulta tareas y guías recomendadas según tus respuestas.",
+    number: "02",
+    title: "Organiza",
+    description: "Crea tu camino personal y reúne tus tareas y solicitudes en un lugar.",
   },
   {
-    title: "Organiza tu avance",
-    description: "Marca tareas y lleva el seguimiento de tus solicitudes a universidades.",
-  },
-] as const;
-
-const checklistItems = [
-  "Elegir programa",
-  "Revisar requisitos",
-  "Preparar documentos",
-  "Buscar becas",
-  "Aplicar a universidad",
-  "Preparar visa y mudanza",
-];
-
-const gettingStartedSteps = [
-  {
-    title: "Entiende tus opciones",
-    description:
-      "Aprende la diferencia entre Ausbildung, Duales Studium, Hochschule, Universität y TU antes de elegir una ruta.",
-    href: "/guias/ausbildung-duales-studium-hochschule-universitat-tu-diferencias",
-    cta: "Leer guía",
-  },
-  {
-    title: "Busca programas",
-    description:
-      "Usa buscadores confiables como DAAD, Hochschulkompass y portales oficiales para encontrar programas que se ajusten a tus metas.",
-    href: "/buscadores",
-    cta: "Ver buscadores",
-  },
-  {
-    title: "Revisa requisitos",
-    description:
-      "Compara idioma, documentos, fechas límite, costos, ciudad y tipo de aplicación.",
-    href: "/checklist",
-    cta: "Ver checklist",
-  },
-  {
-    title: "Explora becas",
-    description:
-      "Busca opciones de financiamiento y revisa si aplican para estudiantes mexicanos.",
-    href: "/becas",
-    cta: "Ver becas",
-  },
-  {
-    title: "Prepara documentos",
-    description:
-      "Organiza tu pasaporte, certificados, traducciones, CV, cartas y requisitos específicos del programa.",
-    href: "/guias",
-    cta: "Ver guías",
-  },
-  {
-    title: "Planea visa y llegada",
-    description:
-      "Revisa información oficial, financiamiento, seguro médico, alojamiento y primeros trámites en Alemania.",
-    href: "/checklist",
-    cta: "Ver checklist",
-  },
-] as const;
-
-const creatorLinks = [
-  {
-    label: "GitHub",
-    href: "https://github.com/arianaggm",
-  },
-  {
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/arianagutierrezmay/",
-  },
-  {
-    label: "Instagram",
-    href: "https://www.instagram.com/arianaggm_/",
+    number: "03",
+    title: "Avanza",
+    description: "Da seguimiento a tus próximos pasos a tu ritmo, sin perder de vista tus metas.",
   },
 ] as const;
 
 export default function Home() {
   return (
-    <div className="bg-background text-foreground">
-      <Navbar />
-      <main id="inicio" className="overflow-hidden">
-        <Hero />
+    <div className={`${dmSans.variable} ${fraunces.variable} ${styles.page}`}>
+      <BejHomeNav />
 
-        <section id="como-funciona" className="px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-          <div className="mx-auto max-w-6xl">
-            <SectionHeading
-              eyebrow="Cómo funciona Mi Ruta"
-              title="De tus metas a un plan que puedes seguir"
-              description="Empieza con unas preguntas sencillas y usa tu espacio personal para organizar lo que sigue. Las guías y recursos públicos siguen disponibles para explorar libremente."
-            />
-            <ol className="mt-8 grid gap-5 md:grid-cols-3">
-              {miRutaSteps.map((step, index) => (
-                <li
-                  key={step.title}
-                  className="rounded-[2rem] border border-dark-text/8 bg-white/85 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)]"
-                >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-full bg-rosa-mexicano font-semibold text-white">
-                    {index + 1}
-                  </span>
-                  <h3 className="mt-5 font-display text-xl font-semibold text-dark-text">
-                    {step.title}
-                  </h3>
-                  <p className="mt-3 leading-7 text-dark-text/75">{step.description}</p>
-                </li>
-              ))}
-            </ol>
-            <Link
-              href="/mi-ruta/empezar"
-              className="mt-7 inline-flex items-center font-semibold text-rosa-mexicano hover:text-[#8d2048]"
-            >
-              Crear Mi Ruta <span aria-hidden="true" className="ml-2">→</span>
-            </Link>
+      <main id="inicio">
+        <section className={styles.hero} aria-labelledby="hero-title">
+          <div className={styles.heroCopy}>
+            <p className={styles.eyebrow}><span aria-hidden="true" /> Un camino propio empieza aquí</p>
+            <h1 id="hero-title">Cada camino comienza <em>con un paso.</em></h1>
+            <p className={styles.heroIntro}>
+              Te ayudamos a estudiar en el extranjero con guías claras, gratuitas y cercanas,
+              para que des el siguiente paso con confianza. Empezamos con Alemania.
+            </p>
+            <div className={styles.heroActions}>
+              <Link className={styles.primaryButton} href="/mi-ruta/empezar">Crear mi bej <span aria-hidden="true">↗</span></Link>
+              <Link className={styles.secondaryButton} href="/guias">Explorar guías <span aria-hidden="true">→</span></Link>
+            </div>
+            <p className={styles.heroNote}>Explora gratis. Organiza a tu ritmo.</p>
+          </div>
+          <div className={styles.heroVisual}>
+            <div className={styles.heroVisualTop}><span>bej</span><span>01 / Alemania</span></div>
+            <div className={styles.illustrationSpace} aria-hidden="true" />
+            <p className={styles.illustrationCaption}>Espacio reservado para la ilustración oficial de <BrandName />.</p>
           </div>
         </section>
 
-        <section className="px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-          <div className="mx-auto max-w-6xl">
-            <div className="grid gap-6 rounded-[2rem] border border-rosa-mexicano/12 bg-peach-fuzz/70 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-                  Por qué existe Ruta Alemania
-                </p>
-                <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight text-dark-text sm:text-4xl">
-                  Encontrar información confiable no debería sentirse como un laberinto.
-                </h2>
-              </div>
-              <div className="space-y-4 text-lg leading-8 text-dark-text/78">
-                <p>
-                  Estudiar en Alemania desde México suele implicar revisar muchas fuentes,
-                  comparar requisitos y entender procesos que no siempre están explicados
-                  con claridad.
-                </p>
-                <p>
-                  Aquí puedes explorar guías y becas, crear una ruta de estudio
-                  personalizada, seguir tus solicitudes a universidades y guardar tu
-                  avance. Si quieres conservar una copia de tus datos, puedes
-                  descargar un respaldo desde Mi Ruta.
-                </p>
-              </div>
-            </div>
+        <section id="por-donde-empiezo" className={styles.stepsSection} aria-labelledby="steps-title">
+          <div className={styles.sectionHeading}>
+            <p className={styles.kicker}>Un paso a la vez</p>
+            <h2 id="steps-title">Tu camino en <em>3 pasos</em></h2>
+            <p>Empieza por donde estás. <BrandName /> te ayuda a convertir tus planes en pasos concretos.</p>
           </div>
-        </section>
-
-        <section className="px-4 py-18 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl">
-            <SectionHeading
-              eyebrow="Recursos principales"
-              title="Una base clara para empezar tu plan"
-              description="Cada sección está pensada para ayudarte a entender el proceso, priorizar tareas y encontrar oportunidades reales."
-            />
-            <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-              {features.map((feature) => (
-                <FeatureCard key={feature.title} {...feature} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="por-donde-empiezo" className="px-4 py-18 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl">
-            <SectionHeading
-              eyebrow="¿Por dónde empiezo?"
-              title="Un camino simple para pasar de la idea a la acción"
-              description="Si apenas estás comenzando, esta ruta te ayuda a ubicar qué revisar primero y qué recursos usar en cada etapa."
-            />
-
-            <div className="mt-10 grid gap-5 lg:grid-cols-2 xl:grid-cols-3">
-              {gettingStartedSteps.map((step, index) => (
-                <article
-                  key={step.title}
-                  className="relative rounded-[2rem] border border-dark-text/8 bg-white/82 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)]"
-                >
-                  <div className="flex items-start gap-4">
-                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-rosa-mexicano text-base font-semibold text-white shadow-[0_16px_30px_rgba(212,68,122,0.22)]">
-                      {index + 1}
-                    </span>
-                    <div className="min-w-0">
-                      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-rosa-mexicano">
-                        Paso {index + 1}
-                      </p>
-                      <h3 className="mt-3 font-display text-2xl font-semibold text-dark-text">
-                        {step.title}
-                      </h3>
-                      <p className="mt-3 leading-7 text-dark-text/74">
-                        {step.description}
-                      </p>
-                      <Link
-                        href={step.href}
-                        className="mt-5 inline-flex items-center rounded-full bg-peach-fuzz px-4 py-2 text-sm font-semibold text-dark-text transition hover:-translate-y-0.5 hover:bg-[#ffcfae]"
-                      >
-                        {step.cta}
-                      </Link>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="becas" className="px-4 py-18 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl">
-            <SectionHeading
-              eyebrow="Becas"
-              title="Primer vistazo a oportunidades de financiamiento"
-              description="Compara estas oportunidades como punto de partida y confirma requisitos, cobertura y fechas en sus fuentes oficiales."
-            />
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
-              {scholarships.slice(0, 3).map((scholarship) => (
-                <ScholarshipCard
-                  key={scholarship.title}
-                  scholarship={scholarship}
-                  variant="preview"
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="guias" className="px-4 py-18 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-6xl">
-            <SectionHeading
-              eyebrow="Guías"
-              title="Contenido que te acompaña paso a paso"
-              description="Las guías están pensadas para responder dudas frecuentes con lenguaje claro, contexto local y una estructura accionable."
-            />
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
-              {guides.slice(0, 3).map((guide) => (
-                <GuideCard
-                  key={guide.slug}
-                  guide={guide}
-                  href={`/guias/${guide.slug}`}
-                  variant="preview"
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="checklist" className="px-4 py-18 sm:px-6 lg:px-8">
-          <div className="mx-auto grid max-w-6xl gap-8 rounded-[2rem] border border-rosa-mexicano/12 bg-white/80 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10 lg:grid-cols-[0.95fr_1.05fr]">
-            <div>
-              <SectionHeading
-                eyebrow="Empieza aquí"
-                title="Una checklist corta para orientar tus primeros pasos"
-                description="Ideal para convertir una idea general en un proceso concreto y ordenado."
-              />
-              <Link
-                href="/checklist"
-                className="mt-6 inline-flex items-center font-semibold text-rosa-mexicano hover:text-[#8d2048]"
-              >
-                Abrir checklist <span aria-hidden="true" className="ml-2">→</span>
-              </Link>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2" id="guia-inicial">
-              {checklistItems.map((item, index) => (
-                <div
-                  key={item}
-                  className="flex items-center gap-3 rounded-3xl bg-peach-fuzz/70 p-4 text-sm font-medium text-dark-text shadow-[0_10px_30px_rgba(43,30,36,0.05)] sm:text-base"
-                >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-rosa-mexicano text-sm font-semibold text-white">
-                    {index + 1}
-                  </span>
-                  <span>{item}</span>
+          <ol className={styles.stepsGrid}>
+            {steps.map((step) => (
+              <li className={styles.step} key={step.number}>
+                <span className={styles.stepNumber}>{step.number}</span>
+                <div>
+                  <h3>{step.title}</h3>
+                  <p>{step.description}</p>
                 </div>
-              ))}
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <section id="que-es-bej" className={styles.aboutSection} aria-labelledby="about-title">
+          <div className={styles.aboutInner}>
+            <div>
+              <span id="sobre-mi" className={styles.anchorTarget} aria-hidden="true" />
+              <p className={styles.kicker}>Un nombre con raíz y rumbo</p>
+              <h2 id="about-title">¿Qué es <em><BrandName context="heading" tone="light" />?</em></h2>
+            </div>
+            <div className={styles.aboutCopy}>
+              <p>En maya yucateco, <BrandName tone="light" /> significa camino o sendero. Un nombre para recordar que no existe una sola forma de llegar a donde quieres estar.</p>
+              <p>Creé este espacio después de vivir mi propio proceso para estudiar en Alemania. Quiero compartir lo que aprendí y acercarte recursos para que puedas construir tu camino, paso a paso.</p>
+              <Link href="/que-es-bej" className={styles.lightTextLink}>Conoce más <span aria-hidden="true">↗</span></Link>
             </div>
           </div>
         </section>
 
-        <section id="sobre-mi" className="px-4 py-18 sm:px-6 lg:px-8">
-          <div className="mx-auto grid max-w-6xl gap-8 rounded-[2rem] border border-dark-text/8 bg-butter/45 p-8 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10 lg:grid-cols-[0.95fr_1.05fr]">
-            <div>
-              <SectionHeading
-                eyebrow="Quién está detrás de Ruta Alemania"
-                title="Un proyecto personal, educativo y hecho con intención"
-                description="Ruta Alemania combina experiencia directa con herramientas digitales para acompañar a más estudiantes mexicanos en un proceso que a veces se siente demasiado disperso."
-              />
-            </div>
-
-            <div className="space-y-6">
-              <div className="rounded-[1.75rem] border border-white/60 bg-white/78 p-6 shadow-[0_14px_40px_rgba(43,30,36,0.08)]">
-                <p className="text-base leading-8 text-dark-text/78">
-                  Hola, soy Ariana Gutierrez May. Soy ingeniera biomédica
-                  mexicana y actualmente estudio la maestría en Computational
-                  Modeling and Simulation en TU Dresden, Alemania.
-                </p>
-                <p className="mt-4 text-base leading-8 text-dark-text/78">
-                  Creé Ruta Alemania porque sé lo confuso que puede ser empezar
-                  este proceso desde México: buscar programas, entender
-                  requisitos, preparar documentos, encontrar becas y organizar
-                  la llegada. Mi objetivo es reunir recursos claros, guías
-                  prácticas y enlaces confiables para que más estudiantes
-                  mexicanos puedan orientarse paso a paso.
-                </p>
-                <p className="mt-4 text-base leading-8 text-dark-text/78">
-                  Este proyecto también forma parte de mi portafolio como
-                  desarrolladora, combinando mi experiencia en tecnología,
-                  educación, visualización de información y herramientas
-                  digitales.
-                </p>
-              </div>
-
-              <div className="rounded-[1.75rem] border border-rosa-mexicano/12 bg-peach-fuzz/60 p-6 shadow-[0_14px_40px_rgba(43,30,36,0.08)]">
-                <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-                  Encuéntrame también aquí
-                </p>
-                <div className="mt-5 flex flex-wrap gap-3">
-                  {creatorLinks.map((link) => (
-                    <a
-                      key={link.label}
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center rounded-full border border-rosa-mexicano/18 bg-white/82 px-4 py-2 text-sm font-semibold text-dark-text transition hover:-translate-y-0.5 hover:border-rosa-mexicano hover:text-rosa-mexicano"
-                    >
-                      {link.label}
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </div>
+        <section className={styles.resourcesSection} aria-labelledby="resources-title">
+          <div className={styles.sectionHeading}>
+            <p className={styles.kicker}>Explora a tu manera</p>
+            <h2 id="resources-title">Todo lo que necesitas <em>en un solo lugar</em></h2>
+            <p>Información para investigar y herramientas para llevar tus planes a la práctica.</p>
           </div>
+          <div className={styles.resourceGrid}>
+            <article id="guias" className={`${styles.resourceCard} ${styles.guideResource}`}>
+              <span className={styles.cardIndex}>01 / LEER</span>
+              <h3>Guías</h3>
+              <p>Respuestas cercanas a las preguntas que aparecen cuando empiezas a buscar dónde y cómo estudiar.</p>
+              <div className={styles.guideLinks}>
+                {guides.slice(0, 2).map((guide) => (
+                  <Link key={guide.slug} href={`/guias/${guide.slug}`}>{guide.title}<span aria-hidden="true">↗</span></Link>
+                ))}
+              </div>
+              <Link href="/guias" className={styles.cardLink}>Explorar todas las guías <span aria-hidden="true">→</span></Link>
+            </article>
+            <article id="becas" className={`${styles.resourceCard} ${styles.scholarshipResource}`}>
+              <span className={styles.cardIndex}>02 / DESCUBRIR</span>
+              <h3>Becas</h3>
+              <p>Encuentra oportunidades y consulta siempre los requisitos, la elegibilidad y las fechas en la fuente oficial.</p>
+              <div className={styles.cardSpacer} />
+              <Link href="/becas" className={styles.cardLink}>Explorar becas <span aria-hidden="true">→</span></Link>
+            </article>
+            <article id="checklist" className={`${styles.resourceCard} ${styles.toolsResource}`}>
+              <span className={styles.cardIndex}>03 / HACER</span>
+              <h3>Herramientas</h3>
+              <p>Planea tu ruta, sigue tus solicitudes y guarda una copia de tus avances en tu dispositivo.</p>
+              <div className={styles.toolLinks}>
+                <Link href="/mi-ruta">Mi bej <span aria-hidden="true">↗</span></Link>
+                <Link href="/mi-ruta/aplicaciones">Mis aplicaciones <span aria-hidden="true">↗</span></Link>
+                <Link href="/mi-ruta/mis-datos">Mis datos <span aria-hidden="true">↗</span></Link>
+                <Link href="/checklist">Checklist general <span aria-hidden="true">↗</span></Link>
+                <Link href="/buscadores">Buscadores oficiales <span aria-hidden="true">↗</span></Link>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section className={styles.maySection} aria-labelledby="may-title">
+          <div className={styles.mayMark} aria-hidden="true">May</div>
+          <div className={styles.mayCopy}>
+            <p className={styles.kicker}>Una compañera para lo que viene</p>
+            <h2 id="may-title">Conoce a <em>May</em></h2>
+            <p>May es una venadita yucateca de caricatura. Más adelante será tu guía dentro de <BrandName />; por ahora, estamos preparando su llegada.</p>
+            <span className={styles.comingSoon}>Próximamente</span>
+          </div>
+        </section>
+
+        <section className={styles.closingSection} aria-labelledby="closing-title">
+          <p className={styles.kicker}>Tu siguiente paso</p>
+          <h2 id="closing-title">No tienes que tener <em>todo resuelto</em> para comenzar.</h2>
+          <Link className={styles.primaryButton} href="/mi-ruta/empezar">Empezar mi bej <span aria-hidden="true">↗</span></Link>
         </section>
       </main>
-      <Footer />
+
+      <BejFooter />
     </div>
   );
 }

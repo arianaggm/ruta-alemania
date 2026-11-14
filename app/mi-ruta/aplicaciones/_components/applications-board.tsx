@@ -32,6 +32,7 @@ import {
   updateApplications,
   type ApplicationsLoadResult,
 } from "../_lib/storage";
+import styles from "../../mi-bej.module.css";
 
 function localToday(): string {
   const date = new Date();
@@ -126,11 +127,11 @@ export function ApplicationsBoard() {
     });
   }
 
-  if (!loaded) return <main className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8"><p role="status">Cargando Mis Aplicaciones…</p></main>;
+  if (!loaded) return <main className={styles.main}><p role="status">Cargando Mis aplicaciones…</p></main>;
 
   if (loaded.status !== "ready") {
-    return <main className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
-      <Link href="/mi-ruta" className="text-sm font-semibold text-rosa-mexicano hover:underline">← Volver a Mi Ruta</Link>
+    return <main className={styles.main}>
+      <Link href="/mi-ruta" className={styles.backLink}>← Volver a Mi bej</Link>
       <div className="mt-8 rounded-[2rem] border border-rosa-mexicano/12 bg-white/85 p-8 shadow-[0_18px_50px_rgba(43,30,36,0.07)]">
         <h1 className="font-display text-3xl font-semibold">No pudimos abrir tus aplicaciones</h1>
         <p className="mt-4 leading-7 text-dark-text/70">{loaded.status === "unavailable"
@@ -153,13 +154,14 @@ export function ApplicationsBoard() {
   const acceptedCount = applications.filter((application) => application.status === "accepted").length;
   const editingApplication = editor && editor !== "new" ? applications.find((application) => application.id === editor) ?? null : null;
 
-  return <main className="mx-auto max-w-6xl px-4 pb-20 pt-8 sm:px-6 lg:px-8">
-    <Link href="/mi-ruta" className="text-sm font-semibold text-rosa-mexicano hover:underline">← Volver a Mi Ruta</Link>
-    <header className="mt-8 rounded-[2rem] border border-rosa-mexicano/12 bg-peach-fuzz/65 p-7 shadow-[0_22px_70px_rgba(43,30,36,0.08)] sm:p-10">
-      <p className="text-sm font-semibold uppercase tracking-[0.2em] text-rosa-mexicano">Tu espacio de organización</p>
-      <h1 className="mt-3 font-display text-3xl font-semibold sm:text-4xl">Mis Aplicaciones</h1>
-      <p className="mt-4 max-w-2xl leading-7 text-dark-text/75">Guarda programas, sigue tus solicitudes y organiza documentos en un solo lugar. Los datos y fechas que anotas son personales; confirma siempre requisitos y plazos en los sitios oficiales.</p>
-      <button type="button" onClick={(event) => openEditor("new", event.currentTarget)} className="mt-6 rounded-full bg-rosa-mexicano px-6 py-3 font-semibold text-white hover:bg-rosa-mexicano/90">Agregar programa</button>
+  return <main className={styles.main}>
+    <Link href="/mi-ruta" className={styles.backLink}>← Volver a Mi bej</Link>
+    <header className={styles.toolHeader}>
+      <div className={styles.introRule} aria-hidden="true" />
+      <p className={styles.eyebrow}>MIS APLICACIONES</p>
+      <h1>Organiza tus programas.</h1>
+      <p>Guarda programas, sigue tus solicitudes y organiza documentos en un solo lugar. Los datos y fechas que anotas son personales; confirma siempre requisitos y plazos en los sitios oficiales.</p>
+      <button type="button" onClick={(event) => openEditor("new", event.currentTarget)} className={styles.primaryButton}>Agregar programa</button>
     </header>
 
     {error && <p role="alert" className="mt-6 rounded-2xl bg-butter/80 p-4 text-sm font-medium">{error}</p>}

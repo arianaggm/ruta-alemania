@@ -1,7 +1,7 @@
 export const miRutaNavigationLinks = [
-  { label: "Mi Ruta", href: "/mi-ruta" },
-  { label: "Mis Aplicaciones", href: "/mi-ruta/aplicaciones" },
-  { label: "Mis Datos", href: "/mi-ruta/mis-datos" },
+  { label: "Mi bej", href: "/mi-ruta" },
+  { label: "Mis aplicaciones", href: "/mi-ruta/aplicaciones" },
+  { label: "Mis datos", href: "/mi-ruta/mis-datos" },
 ] as const;
 
 export function activeMiRutaHref(pathname: string): (typeof miRutaNavigationLinks)[number]["href"] | null {

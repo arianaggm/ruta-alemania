@@ -3,39 +3,18 @@
 import { useState } from "react";
 import { ScholarshipCard } from "../../_components/scholarship-card";
 import type { Scholarship } from "../../_data/scholarships";
+import { filterScholarships, initialFilters } from "../_lib/filter-scholarships";
+import styles from "../scholarships.module.css";
 
 type ScholarshipsBrowserProps = {
   scholarships: Scholarship[];
 };
 
-type FilterState = {
-  degreeLevel: string;
-  fields: string;
-  language: string;
-  fundingType: string;
-};
-
-const initialFilters: FilterState = {
-  degreeLevel: "Todos",
-  fields: "Todas",
-  language: "Todos",
-  fundingType: "Todos",
-};
-
-function normalizeFilterValue(value: string) {
-  return value.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
-}
-
-function includesFilterValue(source: string, filter: string) {
-  if (filter === "Todos" || filter === "Todas") return true;
-
-  return normalizeFilterValue(source).includes(normalizeFilterValue(filter));
-}
-
 export function ScholarshipsBrowser({
   scholarships,
 }: ScholarshipsBrowserProps) {
   const [filters, setFilters] = useState(initialFilters);
+  const [query, setQuery] = useState("");
 
   const filterGroups = [
     {
@@ -60,97 +39,72 @@ export function ScholarshipsBrowser({
     },
   ] as const;
 
-  const filteredScholarships = scholarships.filter((scholarship) => {
-    return (
-      includesFilterValue(scholarship.degreeLevel, filters.degreeLevel) &&
-      includesFilterValue(scholarship.fields, filters.fields) &&
-      includesFilterValue(scholarship.language, filters.language) &&
-      includesFilterValue(scholarship.fundingType, filters.fundingType)
-    );
-  });
+  const filteredScholarships = filterScholarships(scholarships, filters, query);
 
   return (
-    <div className="mt-10 space-y-8">
-      <section className="rounded-[2rem] border border-rosa-mexicano/12 bg-white/82 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:p-8">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-              Filtros
-            </p>
-            <p className="mt-2 text-base leading-7 text-dark-text/74">
-              Ajusta la vista para explorar oportunidades según tu perfil.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={() => setFilters(initialFilters)}
-            className="inline-flex items-center justify-center rounded-full border border-rosa-mexicano/16 bg-peach-fuzz/55 px-4 py-2 text-sm font-semibold text-dark-text hover:border-rosa-mexicano hover:bg-peach-fuzz"
-          >
-            Limpiar filtros
-          </button>
+    <section className={styles.browser} aria-labelledby="browse-heading">
+      <div className={styles.browserHeading}>
+        <div>
+          <p className={styles.eyebrow}>EXPLORA LAS OPCIONES</p>
+          <h2 id="browse-heading">Encuentra apoyos para tu plan.</h2>
         </div>
+        <p>Busca por nombre o tema y ajusta los filtros para reducir la lista.</p>
+      </div>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {filterGroups.map((group) => (
-            <label key={group.id} className="space-y-2">
-              <span className="text-sm font-semibold text-dark-text">
-                {group.label}
-              </span>
-              <select
-                value={filters[group.id]}
-                onChange={(event) =>
-                  setFilters((current) => ({
-                    ...current,
-                    [group.id]: event.target.value,
-                  }))
-                }
-                className="w-full rounded-2xl border border-dark-text/10 bg-antique-white px-4 py-3 text-sm text-dark-text outline-none ring-0 transition focus:border-rosa-mexicano"
-              >
-                {group.options.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
-                  </option>
-                ))}
-              </select>
-            </label>
+      <div className={styles.filters} role="group" aria-label="Buscar y filtrar becas">
+        <label className={styles.filterField} htmlFor="scholarship-search">
+          <span>Buscar becas</span>
+          <input
+            id="scholarship-search"
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Por ejemplo: DAAD, ingeniería, maestría..."
+          />
+        </label>
+        {filterGroups.map((group) => (
+          <label key={group.id} className={styles.filterField} htmlFor={`scholarship-${group.id}`}>
+            <span>{group.label}</span>
+            <select
+              id={`scholarship-${group.id}`}
+              value={filters[group.id]}
+              onChange={(event) => setFilters((current) => ({ ...current, [group.id]: event.target.value }))}
+            >
+              {group.options.map((option) => (
+                <option key={option} value={option}>{option}</option>
+              ))}
+            </select>
+          </label>
+        ))}
+        <button
+          type="button"
+          className={styles.clearButton}
+          onClick={() => { setFilters(initialFilters); setQuery(""); }}
+          disabled={query === "" && Object.entries(initialFilters).every(([key, value]) => filters[key as keyof typeof filters] === value)}
+        >
+          Limpiar filtros
+        </button>
+      </div>
+
+      <p className={styles.resultCount} role="status" aria-live="polite">
+        {filteredScholarships.length} {filteredScholarships.length === 1 ? "beca encontrada" : "becas encontradas"}
+      </p>
+      <p className={styles.editorialNote}>
+        Una beca incluida aquí no necesariamente tiene una convocatoria abierta. Los requisitos, fechas y condiciones pueden variar según el programa o la universidad; compruébalos en la fuente oficial.
+      </p>
+
+      {filteredScholarships.length ? (
+        <div className={styles.cardGrid}>
+          {filteredScholarships.map((scholarship) => (
+            <ScholarshipCard key={scholarship.title} scholarship={scholarship} />
           ))}
         </div>
-      </section>
-
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-sm font-medium text-dark-text/72">
-          {filteredScholarships.length} beca
-          {filteredScholarships.length === 1 ? "" : "s"} mostrada
-          {filteredScholarships.length === 1 ? "" : "s"}.
-        </p>
-        <p className="rounded-full bg-butter/70 px-4 py-2 text-sm font-medium text-dark-text">
-          Estas fichas están pendientes de verificación. Confirma requisitos,
-          fechas y elegibilidad en la fuente oficial. Aparecer aquí no significa
-          que la convocatoria esté abierta.
-        </p>
-      </div>
-
-      <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-        {filteredScholarships.map((scholarship) => (
-          <ScholarshipCard
-            key={scholarship.title}
-            scholarship={scholarship}
-            variant="full"
-          />
-        ))}
-      </div>
-
-      {filteredScholarships.length === 0 ? (
-        <div className="rounded-[2rem] border border-dark-text/8 bg-white/82 p-8 text-center shadow-[0_18px_50px_rgba(43,30,36,0.08)]">
-          <h3 className="font-display text-2xl font-semibold text-dark-text">
-            No hay resultados con esos filtros
-          </h3>
-          <p className="mt-3 text-dark-text/72">
-            Prueba con una combinación más amplia o limpia los filtros para ver
-            todas las becas disponibles.
-          </p>
+      ) : (
+        <div className={styles.emptyState}>
+          <h3>No encontramos becas con esos filtros.</h3>
+          <p>Prueba otra búsqueda o limpia los filtros para explorar todas las opciones.</p>
         </div>
-      ) : null}
-    </div>
+      )}
+    </section>
   );
 }

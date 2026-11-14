@@ -1,37 +1,32 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Footer } from "../_components/footer";
-import { Navbar } from "../_components/navbar";
-import { SectionHeading } from "../_components/section-heading";
+
 import { scholarships } from "../_data/scholarships";
 import { ScholarshipsBrowser } from "./_components/scholarships-browser";
+import styles from "./scholarships.module.css";
+
+export const metadata: Metadata = {
+  title: "Becas para estudiar en Alemania | bej",
+  description:
+    "Explora becas y apoyos para estudiar en Alemania. Compara opciones y consulta sus requisitos en las fuentes oficiales.",
+};
 
 export default function ScholarshipsPage() {
   return (
-    <div className="bg-background text-foreground">
-      <Navbar />
-
-      <main className="px-4 pb-18 pt-6 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <Link
-            href="/"
-            className="inline-flex items-center rounded-full border border-rosa-mexicano/18 bg-white/78 px-4 py-2 text-sm font-semibold text-dark-text shadow-[0_12px_35px_rgba(43,30,36,0.06)] hover:-translate-y-0.5 hover:border-rosa-mexicano"
-          >
-            Volver al inicio
-          </Link>
-
-          <section className="mt-6 rounded-[2.25rem] border border-rosa-mexicano/12 bg-peach-fuzz/55 p-8 shadow-[0_28px_80px_rgba(43,30,36,0.08)] sm:p-10">
-            <SectionHeading
-              eyebrow="Base de becas"
-              title="Becas para estudiar en Alemania"
-              description="Explora opciones de financiamiento para estudiar en Alemania desde México. Filtra por nivel, área, idioma y tipo de apoyo; confirma tu elegibilidad en cada convocatoria."
-            />
-          </section>
-
-          <ScholarshipsBrowser scholarships={scholarships} />
-        </div>
-      </main>
-
-      <Footer />
-    </div>
+    <main className={styles.main}>
+      <div className={styles.contentWidth}>
+        <Link href="/" className={styles.backLink}>← Volver al inicio</Link>
+        <header className={styles.intro}>
+          <div className={styles.introRule} aria-hidden="true" />
+          <p className={styles.eyebrow}>OPORTUNIDADES PARA TU CAMINO</p>
+          <h1>Tu próximo paso puede <em>comenzar aquí.</em></h1>
+          <p className={styles.introDescription}>
+            Explora becas y apoyos para estudiar en Alemania. Encuentra opciones según tus intereses y revisa sus requisitos en las fuentes oficiales.
+          </p>
+          <p className={styles.introSideNote}>ALEMANIA / PRIMER DESTINO</p>
+        </header>
+        <ScholarshipsBrowser scholarships={scholarships} />
+      </div>
+    </main>
   );
 }

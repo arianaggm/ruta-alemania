@@ -107,7 +107,7 @@ const article = {
       title: "Errores frecuentes y cómo evitarlos",
       paragraphs: [
         "Los errores más fáciles de prevenir son elegir el portal equivocado, omitir páginas del historial, usar una escala de calificaciones no oficial, olvidar la documentación específica para México, encargar una traducción sin comprobar su aceptación o creer que la VPD es la solicitud final.",
-        "Guarda el enlace del programa y sus indicaciones, registra tus documentos por solicitud y revisa el estado en cada portal. Mi Ruta ayuda a ordenar pasos generales; Mis Aplicaciones permite llevar una lista editable para cada programa, sin convertirla en una lista oficial de requisitos.",
+        { parts: ["Guarda el enlace del programa y sus indicaciones, registra tus documentos por solicitud y revisa el estado en cada portal. Mi ", { brand: true }, " ayuda a ordenar pasos generales; Mis aplicaciones permite llevar una lista editable para cada programa, sin convertirla en una lista oficial de requisitos."] },
       ],
     },
   ],

@@ -16,14 +16,14 @@ export function Navbar() {
         <div className="flex items-center justify-between gap-4">
           <Link href="/" className="flex min-w-0 items-center gap-3">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-rosa-mexicano font-display text-lg font-semibold text-white">
-              RA
+              b
             </span>
             <div className="min-w-0">
               <p className="truncate font-display text-lg font-semibold text-dark-text">
-                Ruta Alemania
+                bej
               </p>
               <p className="truncate text-sm text-dark-text/70">
-                De México a la universidad alemana
+                Tu camino para estudiar fuera
               </p>
             </div>
           </Link>

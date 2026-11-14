@@ -1,5 +1,5 @@
 export type GuideText = string | { before: string; strong: string; after: string } | {
-  parts: (string | { strong: string } | { em: string })[];
+  parts: (string | { strong: string } | { em: string } | { brand: true })[];
 };
 
 export type GuideSection = {

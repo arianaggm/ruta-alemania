@@ -57,7 +57,7 @@ test("first visit resolves to onboarding and an empty applications list without 
   assert.deepEqual(writes, []);
   const dashboard = readFileSync(new URL("../app/mi-ruta/_components/route-dashboard.tsx", import.meta.url), "utf8");
   const applications = readFileSync(new URL("../app/mi-ruta/aplicaciones/_components/applications-board.tsx", import.meta.url), "utf8");
-  assert.match(dashboard, /loaded.status === "empty" \? "Crear Mi Ruta"/);
+  assert.match(dashboard, /loaded.status === "empty" \? "Crear mi bej"/);
   assert.match(dashboard, /href="\/mi-ruta\/empezar"/);
   assert.match(applications, /Tu primer programa empieza aquí/);
   assert.match(applications, /readInitialState<ApplicationsLoadResult>/);

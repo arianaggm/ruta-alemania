@@ -4,7 +4,7 @@ export const globalNavigationLinks = [
   { label: "Becas", href: "/becas" },
   { label: "Recursos", href: "/buscadores" },
   { label: "Checklist", href: "/checklist" },
-  { label: "Mi Ruta", href: "/mi-ruta" },
+  { label: "Mi bej", href: "/mi-ruta" },
 ] as const;
 
 export function activeGlobalHref(pathname: string): (typeof globalNavigationLinks)[number]["href"] | null {

@@ -1,5 +1,7 @@
 import Link from "next/link";
+
 import type { GuideSummary } from "../_content/guides/types";
+import styles from "../guias/guides.module.css";
 
 type GuideCardProps = {
   guide: GuideSummary;
@@ -7,49 +9,22 @@ type GuideCardProps = {
   variant?: "preview" | "full";
 };
 
-export function GuideCard({
-  guide,
-  href,
-  variant = "full",
-}: GuideCardProps) {
-  const previewTags = variant === "preview" ? guide.tags.slice(0, 2) : guide.tags;
-
+export function GuideCard({ guide, href, variant = "full" }: GuideCardProps) {
   return (
-    <article
-      id={variant === "full" ? guide.slug : undefined}
-      className="rounded-[2rem] border border-dark-text/8 bg-peach-fuzz/65 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)]"
-    >
-      <div className="flex flex-wrap items-center gap-3">
-        <span className="inline-flex rounded-full bg-white/75 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-rosa-mexicano">
-          {guide.category}
+    <article id={variant === "full" ? guide.slug : undefined} className={styles.guideCard}>
+      <Link href={href} className={styles.guideCardLink}>
+        <span className={styles.guideCardMeta}>
+          <span>{guide.category}</span>
+          <span>{guide.readingTime} de lectura</span>
         </span>
-        <span className="text-sm font-medium text-dark-text/70">
-          {guide.readingTime} de lectura
+        <h3>{guide.title}</h3>
+        <p>{guide.summary}</p>
+        <span className={styles.guideCardTags} aria-label="Temas">
+          {guide.tags.slice(0, variant === "preview" ? 2 : 3).map((tag) => (
+            <span key={tag}>{tag}</span>
+          ))}
         </span>
-      </div>
-
-      <h3 className="mt-5 font-display text-2xl font-semibold text-dark-text">
-        {guide.title}
-      </h3>
-
-      <p className="mt-4 leading-7 text-dark-text/74">{guide.summary}</p>
-
-      <div className="mt-5 flex flex-wrap gap-2">
-        {previewTags.map((tag) => (
-          <span
-            key={tag}
-            className="rounded-full bg-antique-white px-3 py-1 text-xs font-medium text-dark-text/76"
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      <Link
-        href={href}
-        className="mt-6 inline-flex items-center font-semibold text-rosa-mexicano hover:text-[#8d2048]"
-      >
-        Leer guía
+        <span className={styles.guideCardAction}>Leer guía <span aria-hidden="true">↗</span></span>
       </Link>
     </article>
   );

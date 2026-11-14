@@ -26,14 +26,12 @@
 }
 
 html {
+  background: #fff5e8;
   scroll-behavior: smooth;
 }
 
 body {
-  background:
-    radial-gradient(circle at top right, rgb(212 68 122 / 0.2), transparent 30%),
-    radial-gradient(circle at left 20%, rgb(251 233 160 / 0.4), transparent 24%),
-    var(--background);
+  background: #fff5e8;
   color: var(--foreground);
   font-family: var(--font-manrope), sans-serif;
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
+import { BrandName } from "../../../_components/brand-name";
 import {
   backupCount,
   createBackup,
@@ -14,7 +15,7 @@ import {
 } from "../_lib/backup";
 
 const domains: { key: DomainName; label: string; unit: string }[] = [
-  { key: "miRuta", label: "Mi Ruta", unit: "perfil" },
+  { key: "miRuta", label: "Mi bej", unit: "perfil" },
   { key: "aplicaciones", label: "Mis Aplicaciones", unit: "programas" },
   { key: "checklist", label: "Checklist", unit: "pasos marcados" },
 ];
@@ -31,7 +32,7 @@ export function DataBackup() {
   const [exported, setExported] = useState<Backup | null>(null);
   const [preview, setPreview] = useState<ImportPreview | null>(null);
   const [confirmed, setConfirmed] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<ReactNode>(null);
   const [error, setError] = useState("");
 
   function exportData() {
@@ -57,7 +58,7 @@ export function DataBackup() {
   async function selectFile(file: File | undefined) {
     setPreview(null);
     setConfirmed(false);
-    setMessage("");
+    setMessage(null);
     setError("");
     if (!file) return;
     const fileError = validateBackupFile(file.name, file.type, file.size);
@@ -87,7 +88,7 @@ export function DataBackup() {
       return;
     }
     setError("");
-    setMessage("Respaldo restaurado. Abre Mi Ruta, Mis Aplicaciones o la checklist para ver los datos recuperados.");
+    setMessage(<>Respaldo restaurado. Abre Mi <BrandName />, Mis aplicaciones o la checklist para ver los datos recuperados.</>);
     setPreview(null);
     setConfirmed(false);
   }
@@ -106,7 +107,7 @@ export function DataBackup() {
 
     <section className="rounded-[2rem] border border-dark-text/8 bg-white/85 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.07)] sm:p-8" aria-labelledby="import-heading">
       <h2 id="import-heading" className="font-display text-2xl font-semibold">Restaurar respaldo</h2>
-      <p className="mt-3 text-sm leading-6 text-dark-text/70">Selecciona un respaldo de Ruta Alemania de hasta 1 MB. Antes de reemplazar datos, verás una comparación y tendrás que confirmar. No se mezclan registros: cada sección incluida reemplaza por completo su sección local; las secciones faltantes o excluidas no se tocan. La escritura de varias secciones no es atómica: si falla, intentaremos recuperar los datos anteriores.</p>
+      <p className="mt-3 text-sm leading-6 text-dark-text/70">Selecciona un respaldo compatible de hasta 1 MB, incluido el formato anterior de Ruta Alemania. Antes de reemplazar datos, verás una comparación y tendrás que confirmar. No se mezclan registros: cada sección incluida reemplaza por completo su sección local; las secciones faltantes o excluidas no se tocan. La escritura de varias secciones no es atómica: si falla, intentaremos recuperar los datos anteriores.</p>
       <label className="mt-5 grid max-w-lg gap-2 text-sm font-semibold">Archivo JSON
         <input type="file" accept=".json,application/json" onChange={(event) => { void selectFile(event.target.files?.[0]); event.currentTarget.value = ""; }} className="min-w-0 w-full rounded-2xl border border-dark-text/15 bg-antique-white p-3 text-sm file:mr-3 file:rounded-full file:border-0 file:bg-peach-fuzz file:px-3 file:py-2 file:font-semibold" />
       </label>

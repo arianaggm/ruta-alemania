@@ -20,7 +20,7 @@ export function Hero() {
               href="/mi-ruta/empezar"
               className="inline-flex items-center justify-center rounded-full bg-rosa-mexicano px-6 py-3.5 text-base font-semibold text-white shadow-[0_18px_35px_rgba(212,68,122,0.28)] hover:-translate-y-0.5 hover:bg-[#8d2048]"
             >
-              Crear Mi Ruta
+              Crear mi bej
             </Link>
             <Link
               href="/guias"
@@ -38,7 +38,7 @@ export function Hero() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-                  Mi Ruta
+                  Mi bej
                 </p>
                 <h2 className="mt-3 font-display text-2xl font-semibold text-dark-text">
                   Un plan para avanzar a tu ritmo
