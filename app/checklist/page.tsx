@@ -1,37 +1,37 @@
+import type { Metadata } from "next";
 import Link from "next/link";
-import { Footer } from "../_components/footer";
-import { Navbar } from "../_components/navbar";
-import { SectionHeading } from "../_components/section-heading";
+
+import { BejEditorialShell } from "../_components/bej-editorial-shell";
 import { checklistSections } from "../_data/checklist";
 import { ChecklistBoard } from "./_components/checklist-board";
+import styles from "../practical.module.css";
+
+export const metadata: Metadata = {
+  title: "Checklist para estudiar en Alemania | bej",
+  description:
+    "Organiza tus pasos para elegir un programa, preparar documentos, buscar becas y planear tu llegada a Alemania.",
+};
 
 export default function ChecklistPage() {
   return (
-    <div className="bg-background text-foreground">
-      <Navbar />
+    <BejEditorialShell>
+      <main className={styles.main}>
+        <div className={styles.contentWidth}>
+          <Link href="/" className={styles.backLink}>← Volver al inicio</Link>
 
-      <main className="px-4 pb-18 pt-6 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <Link
-            href="/"
-            className="inline-flex items-center rounded-full border border-rosa-mexicano/18 bg-white/78 px-4 py-2 text-sm font-semibold text-dark-text shadow-[0_12px_35px_rgba(43,30,36,0.06)] hover:-translate-y-0.5 hover:border-rosa-mexicano"
-          >
-            Volver al inicio
-          </Link>
-
-          <section className="mt-6 rounded-[2.25rem] border border-rosa-mexicano/12 bg-peach-fuzz/55 p-8 shadow-[0_28px_80px_rgba(43,30,36,0.08)] sm:p-10">
-            <SectionHeading
-              eyebrow="Ruta organizada"
-              title="Checklist para estudiar en Alemania"
-              description="Una guía paso a paso para organizar tu aplicación, documentos, becas, visa y llegada desde México."
-            />
-          </section>
+          <header className={styles.intro}>
+            <div className={styles.introRule} aria-hidden="true" />
+            <p className={styles.eyebrow}>UN PASO A LA VEZ</p>
+            <h1>Checklist para estudiar <em>en Alemania.</em></h1>
+            <p className={styles.introDescription}>
+              Una guía paso a paso para organizar tu aplicación, documentos, becas,
+              visa y llegada desde México.
+            </p>
+          </header>
 
           <ChecklistBoard sections={checklistSections} />
         </div>
       </main>
-
-      <Footer />
-    </div>
+    </BejEditorialShell>
   );
 }

@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { BrandName } from "../../_components/brand-name";
 import type { ChecklistSection } from "../../_data/checklist";
 import { CHECKLIST_STORAGE_KEY, parseChecklist } from "../_lib/storage";
+import styles from "../../practical.module.css";
 
 type ChecklistBoardProps = {
   sections: ChecklistSection[];
@@ -57,6 +59,7 @@ export function ChecklistBoard({ sections }: ChecklistBoardProps) {
   }
 
   function clearChecklist() {
+    if (!hasLoadedStorage && !storageError) return;
     if (storageError && !window.confirm("No pudimos leer la checklist guardada. ¿Quieres borrar esos datos de forma permanente?")) return;
     try {
       window.localStorage.removeItem(CHECKLIST_STORAGE_KEY);
@@ -69,111 +72,83 @@ export function ChecklistBoard({ sections }: ChecklistBoardProps) {
   }
 
   return (
-    <div className="mt-10 space-y-8">
-      {storageError && <p role="alert" className="rounded-2xl bg-butter/70 p-4 text-sm font-medium">{storageError}</p>}
-      <section className="rounded-[2rem] border border-rosa-mexicano/12 bg-white/82 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:p-8">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-2xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-rosa-mexicano">
-              Progreso
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-semibold tracking-tight text-dark-text">
+    <div className={styles.checklistBody}>
+      {storageError && <p role="alert" className={styles.storageError}>{storageError}</p>}
+
+      <section className={styles.progressSection} aria-labelledby="checklist-progress-heading">
+        <div className={styles.progressHeading}>
+          <div>
+            <p className={styles.eyebrow}>TU AVANCE</p>
+            <h2 id="checklist-progress-heading" aria-live="polite">
               {checkedCount} de {totalItems} pasos completados
             </h2>
-            <p className="mt-3 text-base leading-7 text-dark-text/74">
-              Marca los avances que ya resolviste para tener una vista clara de
-              lo que sigue en tu proceso.
-            </p>
+            <p>Marca los avances que ya resolviste para ver con claridad lo que sigue.</p>
           </div>
-
           <button
             type="button"
             onClick={clearChecklist}
-            className="inline-flex items-center justify-center rounded-full border border-rosa-mexicano/16 bg-peach-fuzz/55 px-4 py-2 text-sm font-semibold text-dark-text hover:border-rosa-mexicano hover:bg-peach-fuzz"
+            disabled={!hasLoadedStorage && !storageError}
+            className={styles.clearButton}
           >
             Limpiar checklist
           </button>
         </div>
-
-        <div className="mt-6">
-          <div className="flex items-center justify-between text-sm font-medium text-dark-text/68">
-            <span>Avance general</span>
-            <span>{progress}%</span>
-          </div>
-          <div className="mt-3 h-3 overflow-hidden rounded-full bg-antique-white">
-            <div
-              className="h-full rounded-full bg-rosa-mexicano transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
+        <div className={styles.progressSummary}>
+          <span>Avance general</span>
+          <strong>{progress}%</strong>
+        </div>
+        <div
+          className={styles.progressTrack}
+          role="progressbar"
+          aria-label="Avance general de la checklist"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={progress}
+        >
+          <div className={styles.progressFill} style={{ width: `${progress}%` }} />
         </div>
       </section>
 
-      <div className="rounded-[2rem] border border-dark-text/8 bg-butter/45 px-5 py-4 text-sm font-medium text-dark-text shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:px-6">
-        Esta checklist es una guía general. Verifica siempre los requisitos
-        oficiales según tu caso. Su avance se guarda por separado y no se comparte
-        con las tareas personalizadas de <Link href="/mi-ruta" className="font-semibold text-rosa-mexicano underline underline-offset-2">Mi bej</Link>.
-      </div>
+      <p className={styles.checklistNote}>
+        Esta checklist es una guía general. Verifica siempre los requisitos oficiales
+        según tu caso. Su avance se guarda por separado y no se comparte con las
+        tareas personalizadas de <Link href="/mi-ruta">Mi <BrandName /></Link>.
+      </p>
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className={styles.phaseGrid}>
         {sections.map((section, sectionIndex) => {
           const sectionChecked = section.items.filter((item) =>
             checkedItems.includes(item.id)
           ).length;
 
           return (
-            <section
-              key={section.id}
-              className="rounded-[2rem] border border-dark-text/8 bg-white/82 p-6 shadow-[0_18px_50px_rgba(43,30,36,0.08)] sm:p-8"
-            >
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+            <section key={section.id} className={styles.phaseCard} aria-labelledby={`phase-${section.id}`}>
+              <div className={styles.phaseHeader}>
                 <div>
-                  <div className="inline-flex items-center gap-3 rounded-full bg-peach-fuzz/65 px-4 py-2 text-sm font-semibold text-dark-text">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-rosa-mexicano text-white">
-                      {sectionIndex + 1}
-                    </span>
-                    Fase
-                  </div>
-                  <h3 className="mt-4 font-display text-2xl font-semibold text-dark-text">
-                    {section.title}
-                  </h3>
+                  <p className={styles.phaseNumber}>FASE 0{sectionIndex + 1}</p>
+                  <h2 id={`phase-${section.id}`}>{section.title}</h2>
                 </div>
-                <p className="rounded-full bg-antique-white px-4 py-2 text-sm font-medium text-dark-text/72">
-                  {sectionChecked}/{section.items.length} completados
-                </p>
+                <p className={styles.phaseCount}>{sectionChecked}/{section.items.length} completados</p>
               </div>
-
-              <div className="mt-6 space-y-3">
+              <ul className={styles.taskList}>
                 {section.items.map((item) => {
                   const checked = checkedItems.includes(item.id);
-
                   return (
-                    <label
-                      key={item.id}
-                      className={`flex cursor-pointer items-start gap-3 rounded-3xl border px-4 py-4 transition ${
-                        checked
-                          ? "border-rosa-mexicano/20 bg-peach-fuzz/55"
-                          : "border-dark-text/8 bg-antique-white/80"
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        disabled={!hasLoadedStorage}
-                        onChange={() => toggleItem(item.id)}
-                        className="mt-1 h-5 w-5 rounded border-dark-text/20 accent-[#D4447A]"
-                      />
-                      <span
-                        className={`text-sm leading-7 sm:text-base ${
-                          checked ? "text-dark-text" : "text-dark-text/82"
-                        }`}
-                      >
-                        {item.label}
-                      </span>
-                    </label>
+                    <li key={item.id} className={styles.taskItem}>
+                      <label className={styles.taskLabel}>
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          disabled={!hasLoadedStorage}
+                          onChange={() => toggleItem(item.id)}
+                          className={styles.taskCheckbox}
+                        />
+                        <span className={checked ? styles.taskDone : styles.taskText}>{item.label}</span>
+                      </label>
+                    </li>
                   );
                 })}
-              </div>
+              </ul>
             </section>
           );
         })}

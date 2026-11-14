@@ -1,0 +1,188 @@
+.main { padding: 2.5rem 2rem 8rem; }
+.contentWidth { max-width: 1240px; margin-inline: auto; }
+
+.backLink {
+  display: inline-flex;
+  padding: 0.4rem 0;
+  color: var(--bej-blue-dark);
+  font-size: 0.86rem;
+  font-weight: 750;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.3rem;
+}
+.backLink:hover { text-decoration-color: currentColor; }
+
+.intro { max-width: 1030px; padding: 3.5rem 0 5rem; }
+.introRule { width: 4rem; height: 0.32rem; margin-bottom: 2.5rem; background: var(--bej-pink); }
+.eyebrow, .phaseNumber, .sectionNumber {
+  color: var(--bej-red);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.intro h1 {
+  margin-top: 0.9rem;
+  color: var(--bej-blue);
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  letter-spacing: -0.06em;
+  line-height: 1.04;
+}
+.intro h1 em { color: var(--bej-red); }
+.introDescription {
+  max-width: 760px;
+  margin-top: 2rem;
+  color: #354e5b;
+  font-size: clamp(1.08rem, 1.6vw, 1.25rem);
+  line-height: 1.75;
+}
+
+.checklistBody, .resourceNote { border-top: 1px solid var(--bej-line); }
+.checklistBody { padding-top: 3.2rem; }
+.storageError {
+  margin-bottom: 2rem;
+  padding: 1rem 1.2rem;
+  border-left: 4px solid var(--bej-orange);
+  background: #fffaf2;
+  color: var(--bej-ink);
+  line-height: 1.6;
+}
+.progressSection { max-width: 1050px; }
+.progressHeading { display: flex; align-items: end; justify-content: space-between; gap: 2rem; }
+.progressHeading h2 {
+  margin-top: 0.7rem;
+  color: var(--bej-blue);
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  letter-spacing: -0.05em;
+  line-height: 1.12;
+}
+.progressHeading p:last-child { max-width: 620px; margin-top: 0.9rem; line-height: 1.7; }
+.clearButton {
+  flex: 0 0 auto;
+  min-height: 3rem;
+  padding: 0.7rem 1.1rem;
+  border: 1px solid var(--bej-blue);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--bej-blue-dark);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 750;
+}
+.clearButton:hover:not(:disabled) { background: #e6eff1; }
+.clearButton:disabled { border-color: #aab4b6; color: #576873; cursor: not-allowed; }
+.clearButton:focus-visible, .taskCheckbox:focus-visible {
+  outline: 3px solid var(--bej-red);
+  outline-offset: 3px;
+}
+.progressSummary { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; color: var(--bej-blue-dark); font-size: 0.9rem; font-weight: 700; }
+.progressTrack { height: 0.8rem; margin-top: 0.6rem; overflow: hidden; border-radius: 100px; background: #d7e2e3; }
+.progressFill { height: 100%; border-radius: inherit; background: var(--bej-blue); transition: width 180ms ease; }
+.checklistNote {
+  max-width: 860px;
+  margin: 2.5rem 0 3.5rem;
+  padding-left: 1.2rem;
+  border-left: 3px solid var(--bej-orange);
+  color: #354e5b;
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+.checklistNote a { color: var(--bej-blue-dark); font-weight: 750; text-decoration: underline; text-underline-offset: 0.2rem; }
+.checklistNote a:hover { color: var(--bej-red); }
+
+.phaseGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.3rem; }
+.phaseCard {
+  min-width: 0;
+  padding: clamp(1.4rem, 2.5vw, 2.1rem);
+  border: 1px solid #dfd2c5;
+  border-radius: 1.25rem;
+  background: #fffaf2;
+  box-shadow: 0 12px 35px rgb(42 54 56 / 5%);
+}
+.phaseHeader { display: flex; align-items: start; justify-content: space-between; gap: 1rem; min-height: 5.5rem; }
+.phaseHeader h2 { margin-top: 0.5rem; color: var(--bej-blue); font-size: clamp(1.6rem, 2.3vw, 2.3rem); letter-spacing: -0.04em; line-height: 1.2; }
+.phaseCount { flex: 0 0 auto; color: #526773; font-size: 0.78rem; font-weight: 750; white-space: nowrap; }
+.taskList { margin-top: 1.4rem; border-top: 1px solid var(--bej-line); }
+.taskItem { border-bottom: 1px solid var(--bej-line); }
+.taskLabel { display: flex; align-items: center; gap: 0.9rem; min-height: 3.5rem; padding: 0.75rem 0.1rem; cursor: pointer; }
+.taskLabel:hover { color: var(--bej-blue-dark); }
+.taskCheckbox { flex: 0 0 auto; width: 1.25rem; height: 1.25rem; margin: 0; accent-color: var(--bej-blue); cursor: pointer; }
+.taskCheckbox:disabled { cursor: not-allowed; }
+.taskText, .taskDone { min-width: 0; font-size: 0.94rem; line-height: 1.5; }
+.taskDone { color: #526773; text-decoration: line-through; text-decoration-thickness: 1px; }
+
+.resourceNote {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.8rem 0 0;
+  color: #354e5b;
+  line-height: 1.7;
+}
+.resourceNote p:first-child { max-width: 740px; }
+.resourceNote p:last-child { flex: 0 0 auto; color: var(--bej-blue-dark); font-size: 0.87rem; font-weight: 750; }
+.resourceSection { margin-top: 4rem; }
+.resourceSectionHeading { display: flex; align-items: baseline; gap: 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--bej-line); }
+.resourceSectionHeading h2 { color: var(--bej-blue); font-size: clamp(2.2rem, 4vw, 3.9rem); letter-spacing: -0.05em; line-height: 1.12; }
+.resourceGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.3rem; margin-top: 1.5rem; }
+.resourceCard {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  padding: clamp(1.4rem, 2.5vw, 2.1rem);
+  border: 1px solid #dfd2c5;
+  border-radius: 1.25rem;
+  background: #fffaf2;
+  box-shadow: 0 12px 35px rgb(42 54 56 / 5%);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+.resourceCard:hover { transform: translateY(-3px); border-color: #91aabb; box-shadow: 0 17px 38px rgb(42 54 56 / 9%); }
+.resourceCard h3 { color: var(--bej-blue); font-size: clamp(1.6rem, 2.4vw, 2.3rem); letter-spacing: -0.035em; line-height: 1.22; overflow-wrap: anywhere; }
+.resourceDescription { margin-top: 1rem; color: #354e5b; line-height: 1.7; }
+.resourceWhen { margin-top: 1.5rem; padding-top: 1.2rem; border-top: 1px solid var(--bej-line); }
+.resourceWhen h4 { color: var(--bej-red); font-family: var(--font-bej-sans), sans-serif; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+.resourceWhen p { margin-top: 0.55rem; color: #354e5b; font-size: 0.92rem; line-height: 1.65; }
+.resourceLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: fit-content;
+  min-height: 3rem;
+  margin-top: auto;
+  padding-top: 1.6rem;
+  color: var(--bej-blue-dark);
+  font-size: 0.9rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25rem;
+}
+.resourceLink:hover { color: var(--bej-red); text-decoration-color: currentColor; }
+
+@media (max-width: 800px) {
+  .phaseGrid, .resourceGrid { grid-template-columns: 1fr; }
+  .progressHeading, .resourceNote { flex-direction: column; align-items: start; gap: 1.2rem; }
+  .resourceNote p:last-child { flex: auto; }
+}
+
+@media (max-width: 560px) {
+  .main { padding: 1.7rem 1.15rem 5rem; }
+  .intro { padding: 3rem 0 4rem; }
+  .intro h1 { font-size: clamp(3rem, 12vw, 4.3rem); }
+  .checklistBody { padding-top: 2.5rem; }
+  .progressHeading h2 { font-size: 2.35rem; }
+  .clearButton { width: 100%; justify-content: center; }
+  .phaseHeader { flex-direction: column; gap: 0.5rem; }
+  .phaseCount { white-space: normal; }
+  .resourceSection { margin-top: 3rem; }
+  .resourceSectionHeading { gap: 0.85rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progressFill, .resourceCard { transition: none; }
+  .resourceCard:hover { transform: none; }
+}
