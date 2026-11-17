@@ -37,6 +37,32 @@ test("scholarship selects retain substring matching for multi-level and bilingua
   assert.ok(english.every((item) => item.language.includes("Inglés")));
 });
 
+test("editorial corrections preserve cautious status and course-dependent filters", () => {
+  const byTitle = (title) => scholarships.find((item) => item.title === title);
+  const matchingTitles = (filter) => filterScholarships(scholarships, {
+    ...initialFilters,
+    ...filter,
+  }, "").map((item) => item.title);
+
+  assert.ok(scholarships.every((item) =>
+    item.verificationStatus === "pending" &&
+    item.lastChecked === null &&
+    item.eligibleForMexicans === null &&
+    item.officialUrl === item.sourceUrl,
+  ));
+
+  assert.match(byTitle("DAAD EPOS Scholarship").degreeLevel, /Doctorado excepcional/);
+  assert.ok(matchingTitles({ degreeLevel: "Doctorado" }).includes("DAAD EPOS Scholarship"));
+  assert.ok(matchingTitles({ language: "Alemán" }).includes("DAAD EPOS Scholarship"));
+  assert.ok(matchingTitles({ language: "Inglés" }).includes("DAAD EPOS Scholarship"));
+  assert.ok(matchingTitles({ degreeLevel: "Doctorado" }).includes("Erasmus+ Mobility"));
+  assert.ok(matchingTitles({ degreeLevel: "Maestría" })
+    .includes("Rosa-Luxemburg-Stiftung — Beca internacional de estudios"));
+  assert.ok(!matchingTitles({ language: "Inglés" }).includes("KAAD — Programas de becas"));
+  assert.match(byTitle("Erasmus+ Mobility").notes, /movilidad temporal/);
+  assert.match(byTitle("KAAD — Programas de becas").notes, /KHG\/KSG/);
+});
+
 test("scholarship browser exposes labelled controls, count, reset and qualified sources", () => {
   const browser = readFileSync(new URL("../app/becas/_components/scholarships-browser.tsx", import.meta.url), "utf8");
   const card = readFileSync(new URL("../app/_components/scholarship-card.tsx", import.meta.url), "utf8");

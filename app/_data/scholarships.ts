@@ -22,9 +22,9 @@ export const scholarships: Scholarship[] = [
   {
     title: "DAAD EPOS Scholarship",
     organization: "DAAD",
-    degreeLevel: "Maestría",
+    degreeLevel: "Maestría / Doctorado excepcional (según el curso)",
     fields: "Áreas relacionadas con desarrollo",
-    language: "Inglés",
+    language: "Inglés / Alemán (según el curso)",
     fundingType: "Apoyo económico (ver convocatoria)",
     eligibleForMexicans: null,
     germanUsuallyRequired: null,
@@ -36,7 +36,7 @@ export const scholarships: Scholarship[] = [
       "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/?detail=50076777",
     verificationStatus: "pending",
     notes:
-      "Conviene revisar cada maestría EPOS por separado porque requisitos, fechas y documentos cambian según el programa.",
+      "Cada curso define el nivel, idioma y plazo. Los cursos en alemán piden al menos B1 al solicitar la beca; EPOS también exige experiencia profesional relevante. Confirma el curso y la lista de países elegibles en DAAD.",
     lastChecked: null,
   },
   {
@@ -56,7 +56,7 @@ export const scholarships: Scholarship[] = [
       "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/?detail=50026200",
     verificationStatus: "pending",
     notes:
-      "La elegibilidad exacta depende de la convocatoria vigente y del tipo de programa al que quieras aplicar.",
+      "El portal de DAAD solo permite solicitar durante el periodo correspondiente. Consulta el plazo y los requisitos aplicables a tu país; la admisión a la universidad se tramita por separado.",
     lastChecked: null,
   },
   {
@@ -64,7 +64,7 @@ export const scholarships: Scholarship[] = [
     organization: "Heinrich Böll Stiftung",
     degreeLevel: "Maestría / Doctorado",
     fields: "Todas las áreas",
-    language: "Alemán",
+    language: "Alemán B2 o DSH 1 (maestría)",
     fundingType: "Apoyo de beca",
     eligibleForMexicans: null,
     germanUsuallyRequired: null,
@@ -74,12 +74,12 @@ export const scholarships: Scholarship[] = [
     sourceUrl: "https://www.boell.de/en/applying-scholarship",
     verificationStatus: "pending",
     notes:
-      "Revisa la convocatoria vigente: la fundación anuncia cambios en los requisitos para maestrías a partir de 2027.",
+      "Para la modalidad internacional de maestría se pide alemán B2 o DSH 1. La fundación anuncia un cambio desde marzo de 2027, pero sus páginas no aclaran de forma consistente qué maestrías afectará; confirma tu modalidad antes de postularte.",
     lastChecked: null,
   },
   {
     title: "Deutschlandstipendium",
-    organization: "Universidades alemanas",
+    organization: "Gobierno federal y donantes privados",
     degreeLevel: "Licenciatura / Maestría",
     fields: "Todas las áreas",
     language: "Depende del programa",
@@ -94,7 +94,7 @@ export const scholarships: Scholarship[] = [
       "https://www2.daad.de/deutschland/stipendium/datenbank/en/21148-scholarship-database/?detail=10000207",
     verificationStatus: "pending",
     notes:
-      "Normalmente se solicita cuando ya estás inscrita o inscrito, o en proceso de inscripción, en una universidad participante en Alemania.",
+      "Las universidades participantes gestionan la selección y fijan sus propias convocatorias. El apoyo se financia por mitad con fondos federales y por mitad con donaciones privadas; puedes solicitarlo si cumples los requisitos de admisión y ya estudias o estás por iniciar allí.",
     lastChecked: null,
   },
   {
@@ -105,20 +105,20 @@ export const scholarships: Scholarship[] = [
     language: "Alemán",
     fundingType: "Apoyo de beca",
     eligibleForMexicans: null,
-    germanUsuallyRequired: null,
+    germanUsuallyRequired: true,
     admissionRequired: null,
     deadline: "Varía",
     officialUrl: "https://www.fes.de/studienfoerderung/information-in-english",
     sourceUrl: "https://www.fes.de/studienfoerderung/information-in-english",
     verificationStatus: "pending",
     notes:
-      "Consulta las condiciones de residencia, inscripción y alemán antes de preparar la solicitud.",
+      "Para solicitantes extranjeros de esta modalidad, la fundación exige vivir y estudiar ya en Alemania, acreditar buen nivel de alemán y presentar la solicitud en alemán. Revisa los plazos de tu programa.",
     lastChecked: null,
   },
   {
     title: "Erasmus+ Mobility",
     organization: "Unión Europea",
-    degreeLevel: "Licenciatura / Maestría",
+    degreeLevel: "Ciclo corto / Licenciatura / Maestría / Doctorado",
     fields: "Depende del convenio universitario",
     language: "Depende del programa",
     fundingType: "Apoyo de movilidad",
@@ -132,7 +132,7 @@ export const scholarships: Scholarship[] = [
       "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/studying-abroad",
     verificationStatus: "pending",
     notes:
-      "Suele depender de estar ya inscrita o inscrito en una universidad con convenio Erasmus+ activo.",
+      "Financia movilidad temporal durante tus estudios, no una carrera completa. Debes estudiar en una institución participante; consulta convenios, selección y plazos con la oficina internacional de tu universidad.",
     lastChecked: null,
   },
   {
@@ -149,7 +149,7 @@ export const scholarships: Scholarship[] = [
     officialUrl: "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/erasmus-mundus-joint-masters",
     sourceUrl: "https://erasmus-plus.ec.europa.eu/opportunities/individuals/students/erasmus-mundus-joint-masters",
     verificationStatus: "pending",
-    notes: "Es distinto de Erasmus+ Mobility: solicitas la maestría directamente al consorcio que la imparte. Revisa allí si ofrece beca, sus requisitos y si la convocatoria está abierta.",
+    notes: "A diferencia de Erasmus+ Mobility, aquí solicitas una maestría conjunta al consorcio. No todos los programas incluyen Alemania ni ofrecen beca en cada edición; confirma sedes, apoyo y plazos con el consorcio.",
     lastChecked: null,
   },
   {
@@ -166,13 +166,13 @@ export const scholarships: Scholarship[] = [
     officialUrl: "https://www.kas.de/en/web/begabtenfoerderung-und-kultur/international-talent-development",
     sourceUrl: "https://www.kas.de/en/web/begabtenfoerderung-und-kultur/international-talent-development",
     verificationStatus: "pending",
-    notes: "Pide alemán B2 incluso si el programa se imparte en inglés. Para licenciatura exige haber cursado al menos dos semestres en una universidad alemana; para maestría, un programa de cuatro semestres. La solicitud desde el extranjero depende de las oficinas participantes; no se confirma una convocatoria abierta para México.",
+    notes: "Pide alemán B2 incluso para estudios en inglés. Desde Alemania se solicita por la selección nacional; desde el extranjero, solo mediante oficinas participantes. Para licenciatura pide dos semestres cursados en una universidad alemana y para maestría, un programa de cuatro semestres. No hay ruta para México confirmada.",
     lastChecked: null,
   },
   {
     title: "Friedrich-Naumann-Stiftung — Becas para estudiantes de países fuera de la UE",
     organization: "Friedrich-Naumann-Stiftung",
-    degreeLevel: "Maestría",
+    degreeLevel: "Maestría / etapa principal de examen estatal",
     fields: "Depende del programa",
     language: "Consulta los requisitos de idioma",
     fundingType: "Beca de estudios",
@@ -183,13 +183,13 @@ export const scholarships: Scholarship[] = [
     officialUrl: "https://www.freiheit.org/scholarships-foreign-students-non-eu-countries-1",
     sourceUrl: "https://www.freiheit.org/scholarships-foreign-students-non-eu-countries-1",
     verificationStatus: "pending",
-    notes: "Esta modalidad se dirige a estudios completos de maestría en una universidad alemana y exige que queden al menos dos semestres por cursar. No financia licenciaturas. La página general no confirma una convocatoria abierta ni requisitos específicos para México.",
+    notes: "Apoya estudios completos de maestría o la etapa principal de un examen estatal en Alemania, con al menos dos semestres por cursar. No financia licenciaturas. La página no confirma una convocatoria abierta ni los requisitos específicos para México.",
     lastChecked: null,
   },
   {
     title: "Rosa-Luxemburg-Stiftung — Beca internacional de estudios",
     organization: "Rosa-Luxemburg-Stiftung",
-    degreeLevel: "Estudios posteriores a licenciatura; confirmar modalidad",
+    degreeLevel: "Maestría (modalidad por confirmar)",
     fields: "Varias áreas",
     language: "Alemán B2",
     fundingType: "Beca de estudios",
@@ -200,7 +200,7 @@ export const scholarships: Scholarship[] = [
     officialUrl: "https://www.rosalux.de/en/foundation/studienwerk/scholarships/study-scholarship",
     sourceUrl: "https://www.rosalux.de/en/foundation/studienwerk/scholarships/study-scholarship",
     verificationStatus: "pending",
-    notes: "La modalidad internacional pide un título de licenciatura, alemán B2 y estar inscrita o inscrito, o contar con admisión, en una universidad alemana. Su página presenta condiciones por modalidad que requieren revisión editorial antes de afirmar qué maestrías admite; no confirma una convocatoria abierta.",
+    notes: "La modalidad internacional pide licenciatura terminada, alemán B2 y admisión o inscripción en una universidad alemana. Las páginas oficiales en alemán e inglés discrepan sobre una exclusión; no concluyas que todas las maestrías quedan fuera sin confirmar tu caso con la fundación.",
     lastChecked: null,
   },
   {
@@ -217,7 +217,7 @@ export const scholarships: Scholarship[] = [
     officialUrl: "https://www.hss.de/stipendium/bewerbung/",
     sourceUrl: "https://www.hss.de/stipendium/bewerbung/",
     verificationStatus: "pending",
-    notes: "Para la modalidad internacional de estudios se pide alemán B2 y cursar estudios de tiempo completo en una universidad alemana reconocida. Doctorado tiene requisitos distintos. Revisa la convocatoria concreta: la página reúne varias modalidades y fechas, no una única apertura general.",
+    notes: "Para estudios internacionales se pide alemán B2 y estudiar de tiempo completo en una universidad reconocida; doctorado tiene otras condiciones. La fundación publica ventanas por modalidad: comprueba en el portal si la tuya acepta solicitudes antes de aplicar.",
     lastChecked: null,
   },
   {
@@ -225,7 +225,7 @@ export const scholarships: Scholarship[] = [
     organization: "KAAD",
     degreeLevel: "Maestría / Doctorado",
     fields: "Depende del programa",
-    language: "Alemán según el programa",
+    language: "Alemán B1 o A2 (programa 1); conversacional (programa 2)",
     fundingType: "Beca de estudios o investigación",
     eligibleForMexicans: null,
     germanUsuallyRequired: true,
@@ -234,7 +234,7 @@ export const scholarships: Scholarship[] = [
     officialUrl: "https://www.kaad.de/en/stipendien/",
     sourceUrl: "https://www.kaad.de/en/stipendien/",
     verificationStatus: "pending",
-    notes: "Programa 1: para personas que residen fuera de Alemania, con título y experiencia profesional; pide alemán previo y trabaja con países socios. Programa 2: para quienes ya estudian en Alemania; se solicita mediante la comunidad universitaria católica, no directamente a KAAD. Ambos tienen condiciones de idioma y vinculación religiosa o diálogo interreligioso. La página general no confirma una convocatoria abierta para México.",
+    notes: "Programa 1: para quienes viven en su país, con título y experiencia; pide alemán B1, o A2 para estudios en inglés, y se tramita con socios regionales. Programa 2: para quienes ya estudian en Alemania; pide alemán conversacional y se solicita por la comunidad católica universitaria (KHG/KSG), no directamente a KAAD. Revisa las condiciones religiosas y si existe una ruta para México.",
     lastChecked: null,
   },
 ];
