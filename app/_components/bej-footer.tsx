@@ -35,6 +35,10 @@ export function BejFooter() {
       </div>
       <div className={styles.footerBottom}>
         <span>© {new Date().getFullYear()} bej</span>
+        <nav aria-label="Información legal en preparación" className="flex flex-wrap gap-x-5 gap-y-2">
+          <Link href="/privacidad" className="underline underline-offset-4">Privacidad (borrador)</Link>
+          <Link href="/impressum" className="underline underline-offset-4">Información legal (borrador)</Link>
+        </nav>
         <span>Con raíces en México.</span>
       </div>
     </footer>

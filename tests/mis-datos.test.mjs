@@ -21,6 +21,11 @@ const backup = await import(moduleUrl("../app/mi-ruta/mis-datos/_lib/backup.ts",
   "../../aplicaciones/_lib/storage": applicationStorageUrl,
   "../../_lib/storage": routeStorageUrl,
 }));
+const localDeletion = await import(moduleUrl("../app/mi-ruta/mis-datos/_lib/delete-local-data.ts", {
+  "../../../checklist/_lib/storage": checklistStorageUrl,
+  "../../aplicaciones/_lib/storage": applicationStorageUrl,
+  "../../_lib/storage": routeStorageUrl,
+}));
 const model = await import(applicationModelUrl);
 
 const keys = {
@@ -160,4 +165,85 @@ test("invalid current storage blocks replacement before any write", () => {
   const before = new Map(target.data);
   assert.throws(() => backup.previewRestore(target, incoming), /no podemos validar/);
   assert.deepEqual(target.data, before);
+});
+
+test("confirmed deletion removes only the three bej keys, including invalid stored data", () => {
+  const target = storage([...allEntries(), ["unrelated", "keep-me"]]);
+  target.setItem(keys.applications, "{broken");
+  assert.deepEqual(localDeletion.deleteLocalData(target), { status: "deleted", removedCount: 3 });
+  for (const key of Object.values(keys)) assert.equal(target.getItem(key), null);
+  assert.equal(target.getItem("unrelated"), "keep-me");
+  assert.ok(Object.values(backup.createBackup(target, now).domains).every((domain) => domain.state === "missing"));
+});
+
+test("cancellation and missing keys leave existing data alone", () => {
+  const target = storage([...allEntries(), ["unrelated", "keep-me"]]);
+  const before = new Map(target.data);
+  // Closing the confirmation panel must not call deleteLocalData.
+  assert.deepEqual(target.data, before);
+  assert.deepEqual(localDeletion.deleteLocalData(storage([["unrelated", "keep-me"]])), { status: "empty", removedCount: 0 });
+  const partial = storage([[keys.route, JSON.stringify(route)]]);
+  assert.deepEqual(localDeletion.deleteLocalData(partial), { status: "deleted", removedCount: 1 });
+  assert.deepEqual(target.data, before);
+});
+
+test("storage access and removal failures never report deletion success", () => {
+  const unavailable = storage(allEntries());
+  unavailable.getItem = () => { throw new Error("blocked"); };
+  assert.equal(localDeletion.deleteLocalData(unavailable).status, "error");
+  assert.equal(unavailable.data.size, 3);
+
+  const target = storage([...allEntries(), ["unrelated", "keep-me"]]);
+  const before = new Map(target.data);
+  const remove = target.removeItem;
+  target.removeItem = (key) => {
+    if (key === keys.applications) throw new Error("blocked");
+    remove(key);
+  };
+  const result = localDeletion.deleteLocalData(target);
+  assert.equal(result.status, "error");
+  assert.match(result.message, /recuperar/);
+  assert.deepEqual(target.data, before);
+
+  const ignoredRemoval = storage(allEntries());
+  ignoredRemoval.removeItem = () => {};
+  assert.equal(localDeletion.deleteLocalData(ignoredRemoval).status, "error");
+  assert.deepEqual(ignoredRemoval.data, new Map(allEntries()));
+});
+
+test("failed rollback reports partial deletion and preserves unrelated storage", () => {
+  const target = storage([...allEntries(), ["unrelated", "keep-me"]]);
+  const remove = target.removeItem;
+  target.removeItem = (key) => {
+    if (key === keys.applications) throw new Error("blocked");
+    remove(key);
+  };
+  target.setItem = () => { throw new Error("blocked"); };
+  const result = localDeletion.deleteLocalData(target);
+  assert.equal(result.status, "error");
+  assert.match(result.message, /ni se pudo recuperar/);
+  assert.equal(target.getItem("unrelated"), "keep-me");
+});
+
+test("deletion UI requires confirmation and clears stale previews after success", () => {
+  const source = readFileSync(new URL("../app/mi-ruta/mis-datos/_components/data-backup.tsx", import.meta.url), "utf8");
+  assert.match(source, /if \(!deleteConfirmed\) return/);
+  assert.match(source, /disabled=\{!deleteConfirmed\}/);
+  assert.match(source, /onClick=\{cancelDelete\}/);
+  assert.match(source, /if \(result\.status === "error"\)/);
+  assert.match(source, /setExported\(null\)/);
+  assert.match(source, /setPreview\(null\)/);
+  assert.match(source, /setMessage\(result\.status === "empty"/);
+  assert.match(source, /role="status"/);
+  assert.match(source, /role="alert"/);
+});
+
+test("legal drafts are discoverable but marked non-final and noindex", () => {
+  const footer = readFileSync(new URL("../app/_components/bej-footer.tsx", import.meta.url), "utf8");
+  for (const [route, file] of [["privacidad", "privacidad"], ["impressum", "impressum"]]) {
+    const page = readFileSync(new URL(`../app/${file}/page.tsx`, import.meta.url), "utf8");
+    assert.match(footer, new RegExp(`href="/${route}"`));
+    assert.match(page, /noIndexMetadata\(/);
+    assert.match(page, /BORRADOR NO FINAL/);
+  }
 });
