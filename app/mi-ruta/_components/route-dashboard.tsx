@@ -43,7 +43,7 @@ export function RouteDashboard() {
     setLoaded({ status: "ready", data: updated });
   }
 
-  if (!loaded) return <main className={styles.main}><p role="status">Cargando Mi bej…</p></main>;
+  if (!loaded) return <main className={`${styles.main} ${styles.loadingMain}`} aria-busy="true"><p role="status">Cargando Mi bej…</p></main>;
 
   if (loaded.status !== "ready") {
     return <main className={styles.main}>

@@ -20,6 +20,7 @@
 .subnavLinkActive { color: var(--bej-blue-dark); border-bottom-color: var(--bej-pink); }
 
 .main { max-width: 1240px; margin-inline: auto; padding: 2.25rem 2rem 7rem; }
+.loadingMain { min-height: 100vh; min-height: 100svh; }
 .backLink { display: inline-block; padding: 0.4rem 0; color: var(--bej-blue-dark); font-size: 0.86rem; font-weight: 750; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 0.3rem; }
 .backLink:hover { text-decoration-color: currentColor; }
 .eyebrow { color: var(--bej-red); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }

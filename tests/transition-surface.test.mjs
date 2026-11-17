@@ -28,9 +28,13 @@ test("smooth scrolling is declared for Next navigation and respects reduced moti
 test("Mi bej links remain client-side and the dashboard has an explicit loading state", () => {
   const nav = source("app/_components/bej-home-nav.tsx");
   const dashboard = source("app/mi-ruta/_components/route-dashboard.tsx");
+  const applications = source("app/mi-ruta/aplicaciones/_components/applications-board.tsx");
+  const miBejCss = source("app/mi-ruta/mi-bej.module.css");
   assert.match(nav, /import Link from "next\/link"/);
   assert.match(nav, /\{ label: "Mi bej", href: "\/mi-ruta" \}/);
   assert.match(nav, /<Link key=\{link\.href\} href=\{destination\(link\.href\)\}/);
-  assert.match(dashboard, /if \(!loaded\) return <main className=\{styles\.main\}><p role="status">Cargando Mi bej…<\/p><\/main>/);
+  assert.match(dashboard, /if \(!loaded\) return <main className=\{`\$\{styles\.main\} \$\{styles\.loadingMain\}`\} aria-busy="true">/);
+  assert.match(applications, /if \(!loaded\) return <main className=\{`\$\{styles\.main\} \$\{styles\.loadingMain\}`\} aria-busy="true">/);
+  assert.match(miBejCss, /\.loadingMain \{ min-height: 100vh; min-height: 100svh; \}/);
   assert.doesNotMatch(dashboard, /window\.location|router\.replace|router\.push/);
 });

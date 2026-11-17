@@ -127,7 +127,7 @@ export function ApplicationsBoard() {
     });
   }
 
-  if (!loaded) return <main className={styles.main}><p role="status">Cargando Mis aplicaciones…</p></main>;
+  if (!loaded) return <main className={`${styles.main} ${styles.loadingMain}`} aria-busy="true"><p role="status">Cargando Mis aplicaciones…</p></main>;
 
   if (loaded.status !== "ready") {
     return <main className={styles.main}>
