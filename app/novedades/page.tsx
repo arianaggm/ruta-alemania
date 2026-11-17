@@ -4,12 +4,14 @@ import Link from "next/link";
 import { BejEditorialShell } from "../_components/bej-editorial-shell";
 import { BrandName } from "../_components/brand-name";
 import { getPublishedUpdates, updates, type UpdateCategory } from "../_data/updates";
+import { publicPageMetadata } from "../_lib/seo";
 import styles from "../editorial.module.css";
 
-export const metadata: Metadata = {
-  title: "Novedades | bej",
-  description: "Cambios y contenido nuevo de bej, publicados cuando hay información confirmada para compartir.",
-};
+export const metadata: Metadata = publicPageMetadata(
+  "Novedades",
+  "Cambios y contenido nuevo de bej, publicados cuando hay información confirmada para compartir.",
+  "/novedades",
+);
 
 const categoryLabels: Record<UpdateCategory, string> = {
   feature: "Nueva función",

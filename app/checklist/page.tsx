@@ -3,14 +3,15 @@ import Link from "next/link";
 
 import { BejEditorialShell } from "../_components/bej-editorial-shell";
 import { checklistSections } from "../_data/checklist";
+import { publicPageMetadata } from "../_lib/seo";
 import { ChecklistBoard } from "./_components/checklist-board";
 import styles from "../practical.module.css";
 
-export const metadata: Metadata = {
-  title: "Checklist para estudiar en Alemania | bej",
-  description:
-    "Organiza tus pasos para elegir un programa, preparar documentos, buscar becas y planear tu llegada a Alemania.",
-};
+export const metadata: Metadata = publicPageMetadata(
+  "Checklist para estudiar en Alemania",
+  "Organiza tus pasos para elegir un programa, preparar documentos, buscar becas y planear tu llegada a Alemania.",
+  "/checklist",
+);
 
 export default function ChecklistPage() {
   return (

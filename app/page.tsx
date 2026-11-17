@@ -6,13 +6,10 @@ import { dmSans, fraunces } from "./_components/bej-fonts";
 import { BejHomeNav } from "./_components/bej-home-nav";
 import { BrandName } from "./_components/brand-name";
 import { guides } from "./_content/guides/catalog";
+import { homeDescription, homeTitle, publicPageMetadata } from "./_lib/seo";
 import styles from "./home.module.css";
 
-export const metadata: Metadata = {
-  title: "bej | Tu camino para estudiar en el extranjero",
-  description:
-    "Guías gratuitas y herramientas para organizar tu camino hacia los estudios en el extranjero. Empezamos con Alemania.",
-};
+export const metadata: Metadata = publicPageMetadata(homeTitle, homeDescription, "/");
 
 const steps = [
   {

@@ -3,13 +3,14 @@ import Link from "next/link";
 
 import { BejEditorialShell } from "../_components/bej-editorial-shell";
 import { resources, type Resource } from "../_data/resources";
+import { publicPageMetadata } from "../_lib/seo";
 import styles from "../practical.module.css";
 
-export const metadata: Metadata = {
-  title: "Buscadores para estudiar en Alemania | bej",
-  description:
-    "Recursos oficiales para buscar programas, becas, solicitudes e información consular sobre estudiar en Alemania.",
-};
+export const metadata: Metadata = publicPageMetadata(
+  "Recursos para estudiar en Alemania",
+  "Recursos oficiales para buscar programas, becas, solicitudes e información consular sobre estudiar en Alemania.",
+  "/buscadores",
+);
 
 const categories: Resource["category"][] = [
   "Programas",

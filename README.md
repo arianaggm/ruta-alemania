@@ -1,13 +1,13 @@
-# Ruta Alemania
+# bej
 
-Plataforma en español para organizar el proceso de estudiar en Alemania desde México. La aplicación reúne guías, una vista inicial de becas, buscadores oficiales y una checklist interactiva.
+Plataforma en español para explorar y organizar el camino hacia los estudios en el extranjero. Alemania es el primer destino. La aplicación reúne guías, becas, recursos oficiales y herramientas personales que guardan el avance en el navegador.
 
 ## Tecnologías y requisitos
 
 - Next.js 16 con App Router, React 19 y TypeScript.
-- Tailwind CSS 4; fuentes Manrope y Sora mediante `next/font/google`.
+- Tailwind CSS 4; identidad editorial Fraunces y DM Sans mediante `next/font/google` (algunas vistas heredadas conservan Manrope y Sora).
 - Node.js 20.9 o superior y npm.
-- Sin base de datos, autenticación ni variables de entorno obligatorias en la versión actual.
+- Sin base de datos ni autenticación. `SITE_URL` no es necesario para desarrollar, pero sí para publicar metadatos y permitir indexación en el dominio aprobado.
 
 ## Desarrollo local
 
@@ -40,6 +40,9 @@ Abre `http://localhost:3000`. En PowerShell, si la política de ejecución bloqu
 | `/mi-ruta/empezar` | Formulario para crear o editar las preferencias de Mi Ruta. |
 | `/mi-ruta/aplicaciones` | Seguimiento local de programas, solicitudes y documentos. |
 | `/mi-ruta/mis-datos` | Exportación y restauración de respaldos locales. |
+| `/que-es-bej` | Historia y dirección del proyecto. |
+| `/novedades` | Novedades publicadas. |
+| `/privacidad`, `/impressum` | Borradores legales no finales y no indexables. |
 
 ## Datos y estado
 
@@ -90,7 +93,9 @@ Para comprobar la persistencia después de incorporar estos cambios al repositor
 ## Despliegue
 
 1. Ejecuta `npm run lint`, `npx tsc --noEmit --incremental false` y `npm run build` antes de publicar.
-2. Importa el repositorio en Vercel como proyecto Next.js. Mantén el comando de compilación `npm run build` y la configuración de salida predeterminada del framework.
-3. Publica desde el panel de Vercel. No se necesitan variables de entorno ni servicios de base de datos para las rutas actuales.
+2. Configura el proyecto como aplicación Next.js en el proveedor de alojamiento elegido. Usa `npm run build` para compilar y la configuración de salida predeterminada del framework; si lo alojas por tu cuenta, sirve la compilación con `npm run start`.
+3. Antes de un lanzamiento público, configura `SITE_URL` **solo en producción** con el origen HTTPS del dominio definitivo aprobado, tanto durante la compilación como al servir la aplicación. No incluyas rutas, puertos, parámetros ni fragmentos. Una URL configurada pero inválida hace fallar la compilación; sin ella no se publican canonicals ni URLs absolutas de imágenes sociales, los metadatos son `noindex` y `robots.txt` bloquea el rastreo. No uses `localhost` ni copies `SITE_URL` a entornos de vista previa.
+4. Comprueba `/robots.txt` y `/sitemap.xml` desde el dominio aprobado. Ambos comparan el encabezado `Host` con `SITE_URL`: solo ese host ofrece el sitemap y permite rastreo. En otros hosts, una cabecera `X-Robots-Tag: noindex, nofollow` refuerza la protección. Las páginas personales y los borradores legales siguen siendo `noindex` aun en producción. `noindex` no es autenticación ni control de acceso: quien conozca la URL aún puede abrirla. El sitemap usa solo el catálogo de guías publicadas y no inventa fechas de actualización.
+5. Reemplaza el monograma temporal `b` y la imagen social tipográfica cuando estén disponibles los recursos oficiales aprobados. Los borradores de privacidad e información legal requieren datos de la persona responsable y revisión profesional antes de lanzar el sitio.
 
 El progreso de la checklist queda en el navegador de cada persona; no se transfiere a otros dispositivos. Antes de difundir la base de becas como información actualizada, completa la revisión de fuentes, requisitos y fechas de cada convocatoria.

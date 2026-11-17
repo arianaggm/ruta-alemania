@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope, Sora } from "next/font/google";
+import { homeDescription, homeTitle } from "./_lib/seo";
+import { getSiteUrl } from "./_lib/site-url";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -13,9 +15,10 @@ const sora = Sora({
 });
 
 export const metadata: Metadata = {
-  title: "bej | Tu camino para estudiar en el extranjero",
-  description:
-    "Guías gratuitas y herramientas para organizar tu camino hacia los estudios en el extranjero. Empezamos con Alemania.",
+  title: { default: homeTitle, template: "%s | bej" },
+  description: homeDescription,
+  metadataBase: getSiteUrl() ?? undefined,
+  robots: { index: false, follow: false },
 };
 
 export default function RootLayout({

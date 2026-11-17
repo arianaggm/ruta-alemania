@@ -3,13 +3,14 @@ import Link from "next/link";
 
 import { BejEditorialShell } from "../_components/bej-editorial-shell";
 import { BrandName } from "../_components/brand-name";
+import { publicPageMetadata } from "../_lib/seo";
 import styles from "../editorial.module.css";
 
-export const metadata: Metadata = {
-  title: "¿Qué es bej? | bej",
-  description:
-    "Conoce el nombre, la historia y el futuro de bej: un espacio para explorar y organizar tu camino hacia los estudios en el extranjero.",
-};
+export const metadata: Metadata = publicPageMetadata(
+  "¿Qué es bej?",
+  "Conoce el nombre, la historia y el futuro de bej: un espacio para explorar y organizar tu camino hacia los estudios en el extranjero.",
+  "/que-es-bej",
+);
 
 export default function AboutPage() {
   return <BejEditorialShell>

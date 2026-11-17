@@ -1,7 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { BrandName } from "../../_components/brand-name";
+import { noIndexMetadata } from "../../_lib/seo";
 import { DataBackup } from "./_components/data-backup";
 import styles from "../mi-bej.module.css";
+
+export const metadata: Metadata = noIndexMetadata(
+  "Mis datos",
+  "Descarga, restaura o elimina los datos de bej guardados en este navegador.",
+);
 
 export default function MisDatosPage() {
   return <main className={styles.main}>

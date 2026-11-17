@@ -6,6 +6,7 @@ import { BrandName } from "../../_components/brand-name";
 import { getGuideBySlug, guides } from "../../_content/guides/catalog";
 import { loadPublishedGuide } from "../../_content/guides/load-guide.server";
 import type { GuideText } from "../../_content/guides/types";
+import { noIndexMetadata, publicPageMetadata } from "../../_lib/seo";
 import styles from "../guides.module.css";
 
 function renderGuideText(text: GuideText) {
@@ -37,13 +38,10 @@ export async function generateMetadata(
   const guide = getGuideBySlug(slug);
 
   if (!guide) {
-    return { title: "Guía no encontrada | bej" };
+    return noIndexMetadata("Guía no encontrada", "Esta guía no está disponible.");
   }
 
-  return {
-    title: `${guide.title} | bej`,
-    description: guide.summary,
-  };
+  return publicPageMetadata(guide.title, guide.summary, `/guias/${guide.slug}`, true);
 }
 
 export default async function GuideDetailPage(

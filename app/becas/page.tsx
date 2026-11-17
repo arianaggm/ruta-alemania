@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { scholarships } from "../_data/scholarships";
+import { publicPageMetadata } from "../_lib/seo";
 import { ScholarshipsBrowser } from "./_components/scholarships-browser";
 import styles from "./scholarships.module.css";
 
-export const metadata: Metadata = {
-  title: "Becas para estudiar en Alemania | bej",
-  description:
-    "Explora becas y apoyos para estudiar en Alemania. Compara opciones y consulta sus requisitos en las fuentes oficiales.",
-};
+export const metadata: Metadata = publicPageMetadata(
+  "Becas para estudiar en Alemania",
+  "Explora becas y apoyos para estudiar en Alemania. Compara opciones y consulta sus requisitos en las fuentes oficiales.",
+  "/becas",
+);
 
 export default function ScholarshipsPage() {
   return (

@@ -2,14 +2,15 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { guides } from "../_content/guides/catalog";
+import { publicPageMetadata } from "../_lib/seo";
 import { GuidesBrowser } from "./_components/guides-browser";
 import styles from "./guides.module.css";
 
-export const metadata: Metadata = {
-  title: "Guías para estudiar en Alemania | bej",
-  description:
-    "Guías basadas en experiencias reales, recursos oficiales y todo lo que me hubiera gustado saber antes de estudiar en Alemania.",
-};
+export const metadata: Metadata = publicPageMetadata(
+  "Guías para estudiar en Alemania",
+  "Guías basadas en experiencias reales, recursos oficiales y todo lo que me hubiera gustado saber antes de estudiar en Alemania.",
+  "/guias",
+);
 
 const starterSlugs = new Set([
   "documentos-que-necesitas-desde-mexico",

@@ -226,7 +226,7 @@ test("the detail route generates only public paths and uses summary metadata and
   assert.match(page, /export const dynamicParams = false/);
   assert.match(page, /return guides\.map\(\(guide\) => \(\{\s*slug: guide\.slug/);
   assert.match(page, /const guide = getGuideBySlug\(slug\)/);
-  assert.match(page, /description: guide\.summary/);
+  assert.match(page, /publicPageMetadata\(guide\.title, guide\.summary, `\/guias\/\$\{guide\.slug\}`, true\)/);
   assert.match(page, /const guide = await loadPublishedGuide\(slug\)/);
   assert.match(page, /if \(!guide\) \{\s*notFound\(\)/);
   assert.ok(existsSync(new URL("../app/guias/[slug]/page.tsx", import.meta.url)));
